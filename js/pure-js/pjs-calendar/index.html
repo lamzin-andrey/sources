@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Пример использования календаря</title>
+		<link rel="stylesheet" type="text/css" href="./style.css" />
+		<script type="text/javascript" src="./lang.js" charset="UTF-8"></script>
+		<script type="text/javascript" src="./script.js" charset="UTF-8"></script> 
+		<!-- index.html style & js -->
+		<style type="text/css">
+			.top {vertical-align:top}
+			.err {color:#DB2B37; background-color:#FFD4C4; font-size:10pt; font-family:arial; margin:4px}
+		</style>
+		<script type="text/javascript">
+			function controlDate() {
+				var e = document.getElementById("err"), s = 'Дата заезда не может быть позже даты выезда';
+				if (PureJsCalendar._get("from").utc < PureJsCalendar._get("to").utc) {
+					s = '';
+				}
+				if (e.innerText) {
+					e.innerText = s;
+				} else {
+					e.innerHTML = s;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div style=" text-align:center; vertical-align:middle; width:100%; height:100%;">
+			<div style="width:80%; height:80%;margin: auto;background-color:#f0f0f0">
+				<label for="from" class="top">Дата заезда:</label> <input class="pjs-calendar" onchange="controlDate()" value="" id="from"/><br>
+				<label for="to" class="top">Дата выезда:</label> <input class="pjs-calendar" onchange="controlDate()" value="" id="to"/><br>
+				<div id="err" class="err"></div>
+			</div>
+		</div>
+	</body>
+</html>
