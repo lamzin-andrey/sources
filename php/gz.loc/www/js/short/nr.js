@@ -1,0 +1,1 @@
+window.noredir=1; 
