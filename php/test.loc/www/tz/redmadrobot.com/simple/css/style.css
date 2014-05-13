@@ -1,0 +1,14 @@
+body {padding:0px; margin:0px; font-family:Geneva,Verdana, arial}
+.main {background-color: #909090;}
+.center {background-color: white; margin:0 auto; padding:5px 8px; }
+.space {min-height:1000px}
+.w80 {width:80%}
+.w60 {width:60%}
+#url {width:90%}
+.submitRow td {text-align:right}
+.bg-rose {background-color: #FFB0B9}
+.bg-light-green {background-color: #B0FFC2}
+.output {width:60%; text-align:left;}
+.loaderplace { text-align:center}
+dt {float:left}
+dd {padding-right: 60px; text-align: right;}
