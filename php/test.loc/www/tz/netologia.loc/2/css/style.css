@@ -1,0 +1,28 @@
+body {padding:0px; margin:0px; font-family:Geneva,Verdana, arial}
+
+td {text-align:center; font-size:10pt; width:20%}
+td.wrapp { border:solid 1px green !important }
+
+.main {background-color: #909090;}
+.center {background-color: white; margin:0 auto; padding:5px 8px; }
+.space {min-height:1000px}
+.w80 {width:80%}
+.w60 {width:60%}
+
+
+.bg-rose {background-color: #FFB0B9}
+.bg-light-green {background-color: #B0FFC2}
+.output {width:60%; text-align:left;}
+
+.treeitem {padding: 6px 8px; font-size:10pt}
+.green {color:green}
+
+
+table{
+border:0px; /* border="0" */
+border-collapse:collapse; /* cellspacing="0" */
+}
+
+table td{
+padding:0px; /* cellpadding="0" */
+} 
