@@ -3,6 +3,6 @@
 (по полю login), отсортировать в любом порядке.
 */
 
-SELECT DISTINCT(login) ORDER BY uid;
+SELECT DISTINCT(login) FROM Users ORDER BY uid;
 
 
