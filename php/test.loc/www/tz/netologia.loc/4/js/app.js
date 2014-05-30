@@ -3,15 +3,16 @@
 		window.onload = onReady;
 		function $(i) {return document.getElementById(i);}
 		function $$(m, i) {return m.getElementsByTagName(i);}
-		
+		window.App = {}
 		
 		/**
-		 * @desc Устанавливаю обраьботчики и делаю кнопку submit 
+		 * @desc Устанавливаю обработчики и делаю кнопку submit 
 		 * доступной для отправки
 		 * **/
 		function onReady() {
 			$("msgform").onsubmit = validateInputs;
 			$("body").onkeydown = $("body").onkeyup = stripTags;
+			$("email").onkeyup =  uniqueEmailValidate;
 			$("sub").disabled = false;
 		}
 		/**
@@ -30,20 +31,68 @@
 		}
 		/**
 		 * @desc проверка на совпадение email
-		 *       (не отправляя на сервер только так, наверное, т. е. я так понял что и яакс запрос отправлять нельзя??)
 		 * @return bool true если валиден
 		 **/
 		function uniqueEmailValidate() {
-			var  email = trim($("email").value),
-				 list = $("emailList").innerHTML.split(','),
-				 i;
-			for (i = 0; i < list.length; i++) {
-				if (list[i] == email) {
-					alert("Пользователь с таким email уже есть в списке");
-					return false;
+			var arr = $("emailList").innerHTML.split(','), xhr, i;
+			for (i = 0; i < arr.length; i++) {
+				if (arr[i] == $("email").value) {
+					showDuplicateEmailError();
 				}
 			}
-			return true;
+			if (window.App.emailRequestSended) {
+				$("sub").disabled = false;
+				return;
+			}
+			xhr = new XMLHttpRequest();
+			$("sub").disabled = true;;
+			xhr.onreadystatechange = function () {
+				if (this.readyState == 4) {
+					if (this.status == 200) {
+						onUniqueEmailData(this.responseText);
+					} else {
+						onUniqueEmailRequestFail();
+					}
+				} else {
+					onUniqueEmailRequestFail();
+				}
+			}
+			window.App.emailRequestSended = true;
+			xhr.open("POST", window.location.href);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.send("email=" + encodeURIComponent($("email").value) + "&action=checkEmail");
+		}
+		/**
+		 * @desc Обработка удачного аякс запроса уникальности email
+		 **/
+		function onUniqueEmailData(data) {
+			window.App.emailRequestSended = false;
+			$("sub").disabled = false;
+			try {
+				data = JSON.parse(data);
+			} catch(e) {
+				return;
+			}
+			var email = data.email,
+			    isDuplicate = data.isDuplicate;
+			if (isDuplicate) {
+				showDuplicateEmailError();
+			} else {
+				var arr = $("emailList").innerHTML.split(',');
+				arr.push(email);
+				$("emailList").innerHTML = arr.join(',');
+			}
+		}
+		/***/
+		function showDuplicateEmailError() {
+			alert("Такой email уже существует");
+		}
+		/**
+		 * @desc Обработка неудачного аякс запроса уникальности email
+		 **/
+		function onUniqueEmailRequestFail() {
+			window.App.emailRequestSended = false;
+			$("sub").disabled = false;
 		}
 		/**
 		 * @desc Валидация email
@@ -51,16 +100,14 @@
 		 **/
 		function emailValidate() {
 			var pattern = /^[\w+\-.]+@[a-z\d\-.]+\.[a-z]{2,6}$/i,
-			     email = trim($("email").value);
-			     
+			    email = trim($("email").value);
 			if (!pattern.test(email)) {
-				alert("Некоректный email");
+				alert("Некорректный email");
 				return false;
 			} else {
 				return true;
 			}
 		}
-		
 		/**
 		 * @desc Валидация непустых полей
 		 * @return bool true если валидны

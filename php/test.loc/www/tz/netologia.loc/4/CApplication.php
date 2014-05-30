@@ -1,12 +1,11 @@
 <?php
 require_once APP_ROOT . "/CViewHelper.php";
 class CApplication {
-	public $emailList = array(); //данные о email пользователей
 	public $errorMsg = array(); //Сообщение об ошибке
 	
 	public function __construct() {
 		$this->setConnection();
-		$this->loadUsers();
+		$this->checkEmail();
 		$this->processPost();
 	}
 	/**
@@ -20,14 +19,19 @@ class CApplication {
 		mysql_query("SET NAMES UTF8");
 	}
 	/**
-	 * @desc  Получает данные и копирует их в массив $this->data
+	 * @desc  Проверка данных пользователя
 	 **/
-	private function loadUsers() {
-		$query = "SELECT email FROM users4";
-		$rows = $this->db_rows($query);
-		
-		foreach ($rows as $row) {
-			$this->emailList[] = $row["email"];
+	private function checkEmail() {
+		if (@$_POST["action"] == "checkEmail") {
+			$email = @$_POST["email"];
+			if ($this->emailValidate($email)) {
+				if ($this->getUidByEmail($email)) {
+					print json_encode( array("isDuplicate" => "1", "email" => $email) );
+					exit;
+				}
+				print json_encode( array("isDuplicate" => "0", "email" => $email) );
+				exit;
+			}
 		}
 	}
 	/**
@@ -51,14 +55,10 @@ class CApplication {
 	 *       (не отправляя на сервер только так, наверное, т. е. я так понял что и яакс запрос отправлять нельзя??)
 	 * @return bool true если валиден
 	 **/
-	function uniqueEmailValidate() {
+	private function uniqueEmailValidate() {
 		$email = trim(@$_POST["email"]);
-		$list = $this->emailList;
-		for ($i = 0; $i < count($list); $i++) {
-			if ($list[$i] == $email) {
-				$this->errorMsg[] = "Пользователь с таким email уже есть в списке";
-				return false;
-			}
+		if ( $this->getUidByEmail($email) ) {
+			return false;
 		}
 		return true;
 	}
@@ -66,7 +66,7 @@ class CApplication {
 	 * @desc Валидация email
 	 * @return bool true если валиден
 	 **/
-	function emailValidate() {
+	private function emailValidate() {
 		$pattern = "/^[\w+\-.]+@[a-z\d\-.]+\.[a-z]{2,6}$/i";
 		$email = trim(@$_POST["email"]);
 		if (!preg_match($pattern, $email)) {
@@ -80,7 +80,7 @@ class CApplication {
 	   * @desc Валидация непустых полей
 	   * @return bool true если валидны
 	**/
-	function noEmptyValidate() {
+	private function noEmptyValidate() {
 		$email = trim(@$_POST["email"]);
 		$body = trim(@$_POST["body"]);
 		if (trim($email) && trim($body)) {
@@ -89,6 +89,14 @@ class CApplication {
 			$this->errorMsg[] = "Поля не могут быть пустыми";
 			return false;
 		}
+	}
+	/**
+	 * @desc Получить идентификатор пользователя по email
+	 * @param string $email
+	 * */
+	private function getUidByEmail($email) {
+		return $this->db_query("SELECT id FROM users4 WHERE email = '$email'");
+		
 	}
 	/**
 	 * @desc Обертка. Если понадобится перейти к PDO достаточно исправить здесь
@@ -127,5 +135,12 @@ class CApplication {
 		}
 		return $rows;
 	}
-	
+	/**
+	 * @desc Возвращает набор строк. Если понадобится перейти к PDO достаточно исправить здесь
+	 * */
+	private function db_value($query) {
+		$res = mysql_query($query);
+		$v = @mysql_result($res, 0, 0);
+		return ($v ? $v : false);
+	}
 }
