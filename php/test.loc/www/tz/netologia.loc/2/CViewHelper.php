@@ -3,8 +3,10 @@ class CViewHelper {
 	static public function renderData($data) {
 		if (count($data) == 0) {
 			return;
-		}?><table><?
-		for ($i = 0, $j = 0; $i < count($data); $i++, $j++) {
+		}
+		$k = 0;
+		?><table><?
+		for ($i = 0, $j = 0; $i < count($data); $i++, $j++, $k++) {
 			if ($j == 0) {
 				print "<tr>";
 			}
@@ -13,8 +15,11 @@ class CViewHelper {
 				print "</tr>";
 				$j = 0;
 			}
-			
-		}?></table><?
+		}
+		if ($k % 3 == 0) {
+			print "</tr>";
+		}
+		?></table><?
 	}
 	
 	static public function renderRecord($rec) {?>
