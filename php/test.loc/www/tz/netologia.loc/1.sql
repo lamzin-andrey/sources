@@ -3,6 +3,7 @@
 (по полю login), отсортировать в любом порядке.
 */
 
-SELECT DISTINCT(login) FROM Users ORDER BY uid;
+SELECT DISTINCT(login) FROM users4 ORDER BY uid;
 
-
+-- Исправил так, чтобы показывались только те, которые повторяются более одного раза
+SELECT * FROM `users4` GROUP BY email HAVING count( email ) >1 LIMIT 0 , 30;
