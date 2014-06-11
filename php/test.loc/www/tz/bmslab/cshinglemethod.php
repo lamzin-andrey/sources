@@ -86,7 +86,7 @@ class CShingleMethod {
 		$text = mb_convert_encoding($text, "CP-1251", $this->_encoding); //однобайтная кодировка в ланном случае мне больше нравится, хотя возможно не оправданны временные затраты
 		$this->_firstNofullShingle = 0;
 		$this->_shingles = null;
-		$text = str_replace( array('.','!','"','-','?', "\n", "\t", "\r", "'", ',', ':'), array(' ',' ','',' ',' ', " ", " ", " ", " ", ' ', ' '),  $text);
+		$text = preg_replace("#[\.\"!'\-\?\n\t\r,:]#mi", ' ', $text);
 		$arr = preg_split("#\s#mi", $text);
 		for ($i = 0; $i < count($arr); $i++) {
 			$word = trim($arr[$i]);
