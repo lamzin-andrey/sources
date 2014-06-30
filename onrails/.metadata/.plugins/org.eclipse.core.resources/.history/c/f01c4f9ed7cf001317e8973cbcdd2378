@@ -1,0 +1,6 @@
+class CreateXamppVersion < ActiveRecord::Migration
+  def change
+    create_table :xampp_versions do |t|
+    end
+  end
+end

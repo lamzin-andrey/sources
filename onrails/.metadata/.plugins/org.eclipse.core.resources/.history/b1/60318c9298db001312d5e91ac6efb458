@@ -1,0 +1,18 @@
+(
+	function() {
+		$ = jQuery;
+		$(
+			function () {
+				initAjaxLinks();
+			}
+		);
+		function initAjaxLinks() {
+			$(".ajax_sub").each(
+				function (i, item) {
+					item.onclick = showLoader;
+				}
+			);
+		}
+	}
+)
+()

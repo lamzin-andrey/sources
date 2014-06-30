@@ -1,0 +1,45 @@
+<%= form_for(@admin_xampp_version, remote:true) do |f| %>
+  <% if @admin_xampp_version.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@admin_xampp_version.errors.count, "error") %> prohibited this admin_xampp_version from being saved:</h2>
+
+      <ul>
+      <% @admin_xampp_version.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label t(:xampp_version) %>
+    <%= f.text_field :xampp_version %>
+  </div>
+  <div class="field">
+    <%= f.label t(:apache_version) %>
+    <%= f.text_field :apache_version %>
+  </div>
+  <div class="field">
+    <%= f.label t(:php_version) %>
+    <%= f.text_field :php_version %>
+  </div>
+  <div class="field">
+    <%= f.label t(:mysql_client_version) %>
+    <%= f.text_field :mysql_client_version %>
+  </div>
+  <div class="field">
+    <%= f.label t(:mysql_server_version) %>
+    <%= f.text_field :mysql_server_version %>
+  </div>
+  
+  <% @cnt = 0 %>
+  <%=render :partial => 'version_link', :collection => @admin_xampp_version.archive_links %>
+
+  <% while @cnt < 2 %>
+    <%=render :partial => 'version_link', :object => 0 %>
+  <% end %>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

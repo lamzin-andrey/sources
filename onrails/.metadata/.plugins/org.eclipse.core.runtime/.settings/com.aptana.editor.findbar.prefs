@@ -1,0 +1,3 @@
+FIND_BAR_DECORATOR_FIND_ENTRIES=\#\n\#Tue Apr 29 13\:16\:50 MSK 2014\n9\=leftarrow\n8\=knopka_gorod.\n7\=url\n6\=termi\n5\=\\\#558855\n4\=confirm\n3\=confirmdiv\n2\=conf\n1\=backgr\n0\=asset_path\n
+FIND_BAR_DECORATOR_REPLACE_ENTRIES=\#\n\#Thu Apr 17 14\:48\:36 MSK 2014\n9\=Admin\\\:\\\:Country\n8\=@country\n7\=admin_country\n15\=@author\n6\=@countries\n14\=authorinfo\n5\=tour\n13\=authorinfoshow\n4\=/images/\n12\=list_item\n3\=countries_list\n11\=CountriesController\n2\=href\\\="\\\#" onclick\\\="return inw()" data-href\\\=\n10\=admin_countries\n1\=/assets/\n0\=asset_path\n
+eclipse.preferences.version=1

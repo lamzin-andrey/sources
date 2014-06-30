@@ -1,0 +1,16 @@
+class TestTours < ActiveRecord::Migration
+  def self.up
+    Country.create :country_name => 'Россия', :url_tail => 'all_tours.php', :country_code => 'ru', :page_title => 'Туры в России', :article => '' 
+    Country.create :country_name => 'Украина', :url_tail => 'tours.php', :country_code => 'ua', :page_title => 'Туры по Украине', :article => '' 
+    Country.create :country_name => 'Дания', :url_tail => 'excursion.php', :country_code => 'dk', :page_title => 'Туры по Дании', :article => ''
+    
+    add_column :tours, :tour_type, :integer
+    
+    Tour.create :tour_name => 'Тур в Данию: Копенгаген – Леголенд / 6 ночей', 
+    
+  end
+
+  def self.down
+    remove_column :tours
+  end
+end

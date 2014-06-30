@@ -1,0 +1,15 @@
+(
+	function() {
+		$ = jQuery;
+		$(
+			function () {
+				$(".ajax_sub").each(
+					function (i, item) {
+						item.onclick = showLoader;
+					}
+				);
+			}
+		);
+	}
+)
+()
