@@ -1,0 +1,444 @@
+body {
+	padding :0px;
+	margin :0px;
+	height:100%;
+	font-family:arial;
+}
+
+html {
+	height:100%;
+}
+a.decor-none {
+	text-decoration:none;
+}
+a.decor-none img{
+	border:none;
+}
+/* wrapper*/
+.main-center-out {
+	height:100%;
+	width:100%;
+}
+.main-center-inner {
+	max-width:1154px;
+	margin: 127px auto 0 auto;
+	height:100%;
+}
+/* /wrapper*/
+/* header */
+.header-main {
+	background-color:rgb(238, 238, 238);
+	height:88px;
+}
+
+.mainlogo {
+	margin:16px 0 0 95px;
+}
+.text-search-form-input {
+	border-color: #C0C0C0;
+    border-style: solid none solid solid;
+    border-width: 1px medium 1px 1px;
+    height: 24px;
+    margin: 30px 0 0 24px;
+    padding: 3px 0 0 8px;
+    width: 184px;
+    font-size:11pt;
+    font-family:arial;
+}
+.text-search-form-button {
+	margin-left: 0;
+    margin-top: 30px
+}
+.header-phone {
+	background: url("../images/phone-24-logo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: #7F7F7F;
+    height: 29px;
+    margin: 30px 0 0 67px;
+    padding: 6px 0 0 36px;
+}
+.header-cart {
+	cursor: pointer;
+    height: 29px;
+    margin: 30px 0 0 70px;
+}
+/* /header */
+/* navbar*/
+.main-nav-bar{
+	background-color: #27292C;
+    color: #FFFFFF;
+    font-size: 12pt;
+    height: 29px;
+}
+.main-nav-bar ul {
+	padding-left:82px;
+	margin:0;
+	
+}
+.main-nav-bar ul li {
+	padding :0;
+	margin  : 0px 0px 0px 30px;
+	display :inline-block;
+}
+.main-nav-bar ul li {margin-top:6px;}
+.main-nav-bar ul li a{color:white; text-decoration:none}
+.main-nav-bar ul li a:active, .main-nav-bar ul li a:h {text-decoration:none; color:#F89629}
+.main-nav-bar ul li.active a{color:#F89629}
+
+.main-nav-bar ul li.switch-lang {
+	background:url(../images/header-switch-lang-bg.png);
+	margin-top:0px;
+	height:30px;
+	width:48px;
+	cursor:pointer;
+}
+img.header-lang-flag {
+	margin:8px 0 0 8px;
+}
+.switch-lang-wraper {
+	position:absolute;
+}
+	/*select-lang*/
+.lang-dropdown {
+	background-color: #27292C;
+    left: 2px;
+    margin: 0 !important;
+    padding: 0 0 0 6px !important;
+    position: relative;
+    top: 4px;
+    width: 40px;
+}
+.lang-dropdown li {padding:0px !important;margin:0px !important; display:block !important;}
+.lang-dropdown li:hover {background-color:#685D60}
+	/* /select-lang*/
+/* /header */
+
+/*slogan*/
+.slogan-gray {
+	color: #746F75;
+	font-size: 15pt;
+    padding: 52px 0 0 10px;
+}
+.slogan-big {
+	 color: #302E2B;
+    font-size: 34pt;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 15px;
+    text-transform: uppercase;
+}
+/* /slogan*/
+/*sex-select*/
+.sex-select {
+	margin: auto;
+    padding-top: 9px;
+    width: 220px;
+}
+.sex-select div {
+	border: 1px solid #989898;
+    font-family: arial;
+    font-size: 11pt;
+    height: 23px;
+}
+.sex-select-no-active {
+	color: #616161;
+}
+.sex-select-active {
+	background-color: #333333;
+    color: #FFFFFF;
+}
+.for-man   {
+    border-radius: 0 13px 11px 0;
+    padding: 4px 13px 0 11px;
+}
+.for-woman {
+    background-color: #333333;
+    border-radius: 13px 0 0 11px;
+    color: #FFFFFF;
+    padding: 4px 11px 0 12px;
+}
+/* /sex-select*/
+
+/*promo-block*/
+@font-face {
+	font-family: RobotoMedium;
+	src: url(../fonts/RobotoMedium.ttf);
+	src: url(../fonts/RobotoMedium.eot);
+}
+@font-face {
+	font-family: RobotoLight;
+	src: url(../fonts/RobotoLight.eot);
+	src: url(../fonts/RobotoLight.ttf);
+}
+.promo {
+	margin:20px auto 0 auto;
+	width:970px;
+}
+.photo-place   {position:relative;}
+.promo-nohover {
+	position:absolute; top:0px; left:0px;z-index:2;
+	background:rgba(0,0,0, 0.5);
+}
+.promo-nohover:hover {
+	opacity:0.0;
+}
+.promo-title {
+	font-size:26pt;
+	color:white;
+	position:absolute;
+	z-index:3;
+}
+.promo-legend {
+	font-size:11pt;
+	color:white;
+	position:absolute;
+	z-index:3;
+}
+.promo-button {
+	border:solid 1px white;
+	position:absolute;
+	z-index:3;
+	color:white;
+	border-radius:14px;
+	padding:4px 21px 4px 13px;
+	/*background:rgba(0,0,0, 0.5) url(../images/arrow.png) no-repeat;*/
+	background:url(../images/arrow.png) no-repeat;
+}
+.promo-button a{color:white; }
+
+.promo-top {}
+	.novetly{
+		margin:8px 0 0 20px;
+	}
+	.novetly-fon {
+		width:385px;
+		height:622px;
+	}
+	.novetly-title {
+		top:  258px;
+		left: 122px;
+		font-family: RobotoMedium;
+	}
+	.novetly-legend {
+		top:  299px;
+		left: 92px;
+		font-family: RobotoLight;
+	}
+	.novetly-clothes {
+		top:  344px;
+		left: 145px;
+		background-position: 79px 10px;
+	}
+	.novetly-shoes {
+		background-position: 65px 10px;
+		left: 150px;
+		top: 385px;
+	}
+	.novetly-feat {
+		background-position: 108px 10px;
+		left: 127px;
+		top: 426px;
+	}
+	.basis{
+		margin:8px 0 0 10px;
+	}
+	.basis-fon {
+		width:227px;
+		height:385px;
+	}
+	.basis-title {
+		font-family: RobotoMedium;
+		left: 53px;
+		top: 113px;
+	}
+	.basis-legend {
+		font-family: RobotoLight;
+		left: 14px;
+		text-align: center;
+		top: 154px;
+	}
+	.basis-clothes {
+		top:  220px;
+		left: 65px;
+		background-position: 79px 10px;
+	}
+	.basis-shoes {
+		background-position: 65px 10px;
+		left: 70px;
+		top: 261px;
+	}
+	.basis-feat {
+		background-position: 108px 10px;
+		left: 52px;
+		top: 300px;
+	}
+	.dresses {
+		margin:8px 0 0 10px;
+	}
+	.dresses-fon {
+		width:306px;
+		height:385px;
+	}
+	.dresses-title {
+		font-family: RobotoMedium;
+		left: 93px;
+		top: 133px;
+	}
+	.dresses-legend {
+		font-family: RobotoLight;
+		left: 42px;
+		text-align: center;
+		top: 175px;
+	}
+	.dresses-look {
+		background-position: 91px 10px;
+		left: 98px;
+		top: 220px;
+	}
+	.sandals {
+		margin:7px 0 0 10px;
+	}
+	.sandals-fon {
+		width:543px;
+		height:227px;
+	}
+	.sandals-title {
+		font-family: RobotoMedium;
+		left: 191px;
+		top: 53px;
+	}
+	.sandals-legend {
+		font-family: RobotoLight;
+		left: 150px;
+		text-align: center;
+		top: 94px;
+	}
+	.sandals-look {
+		background-position: 91px 10px;
+		left: 217px;
+		top: 138px;
+	}
+.promo-middle {
+	
+}
+	.musthave {
+		margin:7px 0 0 20px;
+	}
+	.musthave-fon {
+		width:939px;
+		height:306px;
+	}
+	.musthave-title {
+		font-family: RobotoMedium;
+		left: 371px;
+		top: 91px;
+	}
+	.musthave-legend {
+		 font-family: RobotoLight;
+		left: 323px;
+		text-align: center;
+		top: 133px;
+	}
+	.musthave-clothes {
+		background-position: 79px 10px;
+		float: left;
+		left: 298px;
+		top: 176px;
+	}
+	.musthave-shoes {
+		background-position: 65px 10px;
+		left: 414px;
+		top: 176px;
+	}
+	.musthave-feat {
+		background-position: 108px 10px;
+		left: 518px;
+		top: 176px;
+	}
+.promo-bottom {
+	
+}
+	.sneakers {
+		margin:6px 0 0 20px;
+	}
+	.sneakers-fon {
+		width:  306px;
+		height: 227px;
+	}
+	.sneakers-title {
+		font-family: RobotoMedium;
+		left: 65px;
+		top: 52px;
+	}
+	.sneakers-legend {
+		font-family: RobotoLight;
+		left: 57px;
+		text-align: center;
+		top: 95px;
+	}
+	.sneakers-look {
+		background-position: 90px 10px;
+		left: 100px;
+		top: 139px;
+	}
+	.shoes {
+		margin:6px 0 0 10px;
+	}
+	.shoes-fon {
+		width:  306px;
+		height: 227px;
+	}
+	.shoes-title {
+		font-family: RobotoMedium;
+		left: 103px;
+		top: 52px;
+	}
+	.shoes-legend {
+		font-family: RobotoLight;
+		left: 57px;
+		text-align: center;
+		top: 95px;
+	}
+	.trend {
+		margin:6px 0 0 10px;
+	}
+	.trend-fon {
+		width:  307px;
+		height: 226px;
+	}
+	.trend-title {
+		font-family: RobotoMedium;
+		left: 103px;
+		top: 52px;
+	}
+	.trend-legend {
+		font-family: RobotoLight;
+		left: 95px;
+		text-align: center;
+		top: 95px;
+	}
+
+/* /promo*/
+
+/* shared */
+.no-border {border:none !important;}
+.fleft {float:left;}
+.fright {float:right;}
+.cboth {clear:both;}
+.tcenter {text-align:center;}
+.hide {display:none;}
+/* /shared*/
+
+/* debug*/
+.dbg-bg {
+	background-image: url(../private/test-1.png);
+	background-repeat: no-repeat;
+	height:2000px;
+}
+.dbg {
+	border: solid 1px blue;
+	opacity:1.0;
+}
+.bgreen { border-color:green !important; }
+.bred { border-color:red !important; }
+.byy { border-color:yellow!important; }
+
