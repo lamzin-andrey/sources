@@ -1,0 +1,34 @@
+<%= form_for(@admin_archive_link) do |f| %>
+  <% if @admin_archive_link.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@admin_archive_link.errors.count, "error") %> prohibited this admin_archive_link from being saved:</h2>
+
+      <ul>
+      <% @admin_archive_link.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label t(:xampp_version) %><br>
+    <%= f.select :xampp_version_id, Admin::XamppVersion.all.collect {|p| [p.xampp_version, p.id]} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :bits %><br>
+    <%= f.number_field :bits %>
+  </div>
+  <div class="field">
+    <%= f.label :link_full %><br>
+    <%= f.text_field :link_full %>
+  </div>
+  <div class="field">
+    <%= f.label :link_light %><br>
+    <%= f.text_field :link_light %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

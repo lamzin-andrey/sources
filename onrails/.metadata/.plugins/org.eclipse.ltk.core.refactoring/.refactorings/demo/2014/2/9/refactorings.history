@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;demo/public/index.html&apos; to &apos;__index.html&apos;" description="Rename resource &apos;index.html&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="public/index.html" name="__index.html" stamp="1393440908490" updateReferences="true"/>
-</session>

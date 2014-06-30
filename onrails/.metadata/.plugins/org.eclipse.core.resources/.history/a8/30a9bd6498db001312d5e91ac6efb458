@@ -1,9 +1,0 @@
-<%
-  html = render(:partial => 'form', :object => @admin_xampp_version)
-  html = escape_javascript(html)
-%>
-$('#edit_form_place').html('<%=html%>');
-appWindow("edit_form_place", '<%=t(:xampp_version)%>', null);
-//configureTinyMCE();
-hideLoader();
-initAjaxLinks();

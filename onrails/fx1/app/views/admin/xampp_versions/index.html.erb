@@ -1,0 +1,27 @@
+<h1>Listing admin_xampp_versions</h1>
+
+<table id="versionList">
+  <thead>
+    <tr>
+      <th><%=t(:xampp_version) %></th>
+      <th><%=t(:apache_version) %></th>
+      <th><%=t(:php_version) %></th>
+      <th><%=t(:mysql_server_version) %></th>
+      <th><%=t(:mysql_client_version) %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <%=render partial: 'list_item', :collection => @admin_xampp_versions %>
+  </tbody>
+</table>
+
+<br>
+
+<%= form_tag({:action => :new, :id => @admin_xampp_version }, remote:true, :method => :get) do%>
+<%=submit_tag(:new_xampp_version, :class=>'ajax_sub') %>
+<% end %>
+<div id="edit_form_place"></div>

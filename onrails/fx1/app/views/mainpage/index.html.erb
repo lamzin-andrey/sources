@@ -1,0 +1,46 @@
+<p class="tright">
+<a href="/download.php" class="dlink" >Скачать архив с утилитой FastXAMPP</a>
+</p>
+
+
+
+<p>FastXAMPP - это утилита для веб-разработчиков, работающих в Linux Ubuntu, делающая работу с XAMPP удобнее.</p>
+<p>Меню значка в системном трее или панели Unity позволяет добавить или удалить очередной сайт на localhost в три клика мышью.</p>
+<p>FastXAMPP протестирован в диструбутивах Linux Mint, Ubuntu, Kubuntu и Xubuntu, список версий каждого диструбутива и особенности работы FastXAMPP (если такие есть) в каждой из них вы можете прочесть пройдя по соответствующим ссылкам главного меню этой странички.</p>
+<p>FastXAMPP для XAMPP 1.8.3-3  дает наибольшее удобство использования в диструбутивах linux, основанных на Ubuntu 14.04 LTS</p>
+<p>FastXAMPP для XAMPP 1.7.4  дает наибольшее удобство использования в диструбутивах linux, основанных на Ubuntu 12.04.3 LTS</p>
+<p>Помимо GUI интерфейса добавления и удаления сайтов на localhost в диструбутив FastXAMPP добавлены PHP расширения xdebug и memcached, которых нет (или они отключены) в диструбутиве XAMPP.</p>
+
+<% @versions.each do |t| %>
+<p class="x-vers">XAMPP <%=t.xampp_version%>, это: 
+</p><ul class="lstnono">
+	<li><div><div class="left"><%=image_tag('apache_logo.png')%></div> <div class="left mtt">Apache <%=t.apache_version%>,</div><div class="endfloat"></div></div></li>
+	<li><div><div class="left"><%=image_tag('php_logo.png')%></div> <div class="left mphp">PHP <%=t.php_version%>,</div><div class="endfloat"></div></div></li>
+	<li><div><div class="left"><%=image_tag('mysql_logo.png')%></div> <div class="left mmysql">MySQL сервер <%=t.mysql_server_version%>,  клиент <%=t.mysql_client_version%></div><div class="endfloat"></div></div></li>
+</ul>
+<% end %>
+<p></p>
+<p class="fx-vers">FastXAMPP добавляет расширения для указанных версий php
+</p><ul class="lstnono">
+	<li><div><div class="left"><%=image_tag('xdebug_logo.png')%></div> <div class="left mtt">Xdebug,</div><div class="endfloat"></div></div></li>
+	<li>
+		<div>
+			<div class="left"><%=image_tag('memcached_logo.png')%></div>
+			<div class="left memci">Memcached</div><div class="endfloat"></div>
+		</div>
+	</li>
+</ul>	
+<p></p>
+<p class="fx-vers">FastXAMPP добавляет в ваш системный трей значок</p><p>
+<%=image_tag('context.png', class: 'fx-present-img')%>
+</p>
+<p>По клику на пункте "Настройки" появляется диалог добавления или удаления сайта на localhost <br>
+<%=image_tag('kde-sets.png', class: 'fx-present-img')%>
+</p>
+<p>В оболочке рабочего стола Unity из-за проблем с системым треем вместо значка в трее используется диалог с аналогичными пунктами: <br>
+<%=image_tag('unity_small.png', class: 'fx-present-img')%>
+</p>
+
+<p>
+<a href="/download.php" class="dlink" >Скачать архив с утилитой FastXAMPP</a>
+</p>

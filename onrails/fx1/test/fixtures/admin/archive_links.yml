@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bits: 1
+  link_full: MyString
+  link_light: MyString
+
+two:
+  bits: 1
+  link_full: MyString
+  link_light: MyString

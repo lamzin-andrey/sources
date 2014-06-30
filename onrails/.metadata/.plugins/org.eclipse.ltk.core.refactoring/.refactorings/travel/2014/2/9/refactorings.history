@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;travel/app/views/layouts/products.html.erb&apos; to &apos;mainpage.html.erb&apos;" description="Rename resource &apos;products.html.erb&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="app/views/layouts/products.html.erb" name="mainpage.html.erb" stamp="1393410157207" updateReferences="true"/>
-</session>

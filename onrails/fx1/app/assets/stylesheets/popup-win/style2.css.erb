@@ -1,0 +1,50 @@
+.hide {display:none;}
+/*=====================popup==========================*/
+.popupbg {
+	background: url(<%=asset_path "work/popup-bg.png"%>) repeat;
+	position:fixed;
+	width:100%;
+	left:0px;
+	top:0px;
+	z-index:1;
+}
+
+.adminpopup {
+	background: linear-gradient(to bottom, #A9B8CC, #FCEDFF); 
+	border-radius:14px 14px 0px 0px;
+	min-width:250px;
+	z-index:2;
+	position:fixed;
+	left:0px;
+	top:0px;
+	color:black;
+}
+#popuptitle{
+	float:left;
+	font-weight:bold;
+	margin:9px 0px 0px 8px;
+}
+.popup-close {
+	float:right;
+	margin:6px 14px 0px 8px;
+	cursor:pointer;
+}
+.popup-content {
+	background-color: white;
+	/*min-height:93%;*/
+	margin:0 6px 4px 6px;
+	overflow:hidden;
+}
+.scrolly {overflow-y:scroll !important;}
+.scrollx {overflow-x:scroll !important;}
+.tmce {width:100%;}
+.w700{min-width:700px;} 
+
+.z6 {
+	z-index:6 !important;
+}
+img.loader {
+	z-index:7;
+	position:fixed;
+}
+.both {clear:both;}

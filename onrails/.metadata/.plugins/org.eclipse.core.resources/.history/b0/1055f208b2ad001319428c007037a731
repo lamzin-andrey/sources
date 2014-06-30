@@ -1,8 +1,0 @@
-class TestTours < ActiveRecord::Migration
-  def self.up
-    Country.create :country_name => 'Россия', :url_tail => 'all_tour.php',  
-  end
-
-  def self.down
-  end
-end

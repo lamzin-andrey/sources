@@ -1,6 +1,0 @@
-class CreateXamppArchiveLinks < ActiveRecord::Migration
-  def change
-    create_table :xampp_archive_links do |t|
-    end
-  end
-end

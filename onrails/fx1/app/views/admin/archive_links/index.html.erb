@@ -1,0 +1,31 @@
+<h1>Listing admin_archive_links</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bits</th>
+      <th>Link full</th>
+      <th>Link light</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_archive_links.each do |admin_archive_link| %>
+      <tr>
+        <td><%= admin_archive_link.bits %></td>
+        <td><%= admin_archive_link.link_full %></td>
+        <td><%= admin_archive_link.link_light %></td>
+        <td><%= link_to 'Show', admin_archive_link %></td>
+        <td><%= link_to 'Edit', edit_admin_archive_link_path(admin_archive_link) %></td>
+        <td><%= link_to 'Destroy', admin_archive_link, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Archive link', new_admin_archive_link_path %>

@@ -1,0 +1,19 @@
+<%
+if @errors
+  s = prepareErrors(@errors)
+  %>
+    adminApp.alert('<%=escape_javascript(s)%>');
+    hideLoader();
+  <%
+else
+%>
+	<%
+	  tr = render(:partial => 'list_item', :object => @admin_xampp_version)
+	%>
+	var html = '<%=escape_javascript(tr)%>';
+	$("#xv-<%=@admin_xampp_version.id%>").replaceWith(html);
+	onReady();
+	appWindowClose();
+	hideLoader();
+	
+<% end %>

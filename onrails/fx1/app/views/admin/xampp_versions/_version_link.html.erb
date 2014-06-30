@@ -1,0 +1,22 @@
+<% 
+   bits = ''
+   link_full = ''
+   link_light = ''
+   if (version_link != 0)
+     bits = version_link.bits
+     link_full = version_link.link_full
+     link_light = version_link.link_light
+   end
+%>
+
+	<fieldset class="set">
+		<div class="field">
+			<label><%=t(:bits)%></label><br>
+			<%=text_field_tag "admin_archive_link_alink_#{@cnt}_bits", bits, {:name => "admin_archive_link[alink][#{@cnt}][bits]"} %><br>
+			<label><%=t(:link_full)%></label><br>
+			<%=text_field_tag "admin_archive_link_alink_#{@cnt}_link__full", link_full, {:name => "admin_archive_link[alink][#{@cnt}][link_full]"} %><br>
+			<label><%=t(:link_light)%></label><br>
+			<%=text_field_tag "admin_archive_link_alink_#{@cnt}_link__light", link_light, {:name => "admin_archive_link[alink][#{@cnt}][link_light]"} %><br>
+			<% @cnt = @cnt + 1 %>
+		</div>
+	</fieldset>

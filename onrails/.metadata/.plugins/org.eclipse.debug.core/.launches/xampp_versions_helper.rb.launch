@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<launchConfiguration type="com.aptana.ruby.debug.core.launchConfigurationType">
-<stringAttribute key="com.aptana.ruby.debug.ATTR_FILE_NAME" value="/home/andrey/programs/my/Ruby/onrails/fx1/app/helpers/admin/xampp_versions_helper.rb"/>
-<stringAttribute key="com.aptana.ruby.debug.ATTR_WORKING_DIR" value="/home/andrey/programs/my/Ruby/onrails/fx1/app/helpers/admin"/>
-<stringAttribute key="org.eclipse.debug.core.source_locator_id" value="com.aptana.ruby.debug.core.sourceLocator"/>
-</launchConfiguration>

@@ -1,0 +1,7 @@
+<%
+  form = render(:partial => 'form', :object => @admin_xampp_version)
+%>
+$('#edit_form_place').html('<%=escape_javascript(form)%>');
+appWindow("edit_form_place", '<%=t(:xampp_version)%>', null);
+onReady();
+hideLoader();

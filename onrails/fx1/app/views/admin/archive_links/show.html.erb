@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Bits:</strong>
+  <%= @admin_archive_link.bits %>
+</p>
+
+<p>
+  <strong>Link full:</strong>
+  <%= @admin_archive_link.link_full %>
+</p>
+
+<p>
+  <strong>Link light:</strong>
+  <%= @admin_archive_link.link_light %>
+</p>
+
+<%= link_to 'Edit', edit_admin_archive_link_path(@admin_archive_link) %> |
+<%= link_to 'Back', admin_archive_links_path %>

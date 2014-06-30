@@ -1,0 +1,97 @@
+body {font-family:verdana,helvetica; margin:0 0 0 0; padding: 0 0 0 0 }
+.couter {width:100%; background-color:#A0a0a0}
+.cinner{margin:0 auto; border:solid #000 1px; width:800px; background-color:white; min-height:1000px}
+.langs {text-align:right; font-size:10pt;}
+.langs a:hover{color:black; ;}
+.langs a{color:black; ;}
+.lang-margin{margin-top:6px; margin-right:6px;}
+.fasttext{margin-left:16px; color:green;font-weight:bold}
+.fastimg{margin-left:6px; font-size:18pt; font-weight:bold}
+.left{float:left}
+.w50p {width:33%}
+.mtop1{margin-top:18px;margin-left:12px;color:black}
+.endfloat{clear:both}
+.header-wr{background-color:#f0f0f0; margin:7px 0px;padding:4px 0px; width:100%}
+.logoname a {border:none;text-decoration:none}
+.logoname a img{border:none;text-decoration:none}
+.logoname {border:none;text-decoration:none;}
+.right {float:right}
+.row {display:table-row}
+.cell {display:table-cell}
+.w100p{width:100%}
+.hmenu td {width:100%; text-align:right;vertical-align:bottom} 
+
+.osmi {margin-top:20px; margin-left:10px}
+.osmimg img{margin-right:0px}
+.osmitext {text-align:center}
+.mint{color:#84C740; text-decoration:underline; margin-left:7px}
+
+.osu {margin-top:20px; margin-left:10px}
+.osuimg img{margin-right:6px}
+.osutext {}
+.ubuntu{color:orange; text-decoration:underline; margin-left:7px}
+
+.ksu {margin-top:20px; margin-left:10px}
+.oskuimg img{margin-right:10px}
+.oskutext {}
+.kubuntu{color:blue; text-decoration:underline; margin-left:7px}
+.h32 {height:32px}
+.h56 {height:56px}
+.m20 {margin-top:20px}
+
+.xu {margin-top:17px; margin-left:8px}
+.osxuimg img{margin-right:3px}
+.osxutext {}
+.xubuntu{color:black; text-decoration:underline; margin-left:7px}
+.m46 {margin-top:54px}
+
+.flogo-lspace {width:280px}
+.mr20 {margin-right:20px}
+
+.tright {text-align:right}
+.dlink {color:green}
+.content {padding:7px 18px; min-height:990px}
+.content p{text-indent:7px; line-height:21pt; font-size:14pt;}
+
+.lstnono {list-style-type:none}
+.lstnono li{padding-bottom:20px}
+
+.mtt {margin-top:21px;margin-left:35px}
+.mphp {margin-top:15px;margin-left:35px}
+.mmysql {margin-top:21px;margin-left:35px}
+.memci  {margin-top:35px;margin-left:35px}
+
+
+
+.fborder {background-color:#F57721; margin:0px 20px; height:3px}
+.fcnt {margin:10px 25px;padding-bottom:25px}
+
+.OS {color:#5080FF}
+.pt12 p{font-size:12pt}
+.osgr {border-bottom:dashed gray 1px; padding:15px 0px}
+.iso {margin-right:5px; width:262px}
+
+.allright {background-color: #CCFFCB} /* #A9FDA7*/
+.insttrouble {background-color:#FFF3B0 } /*#FFE1A3*/
+
+.trouble {background-color: #FFD7D9}
+
+.tou2 {width:100%; background-color: white; margin-bottom:75px}
+.tin2 {width:570px; border:green solid 1px;  min-height:50px; padding:10px}
+
+.more_products {
+	width:100%;
+	text-align:right;
+}
+.bash {background-color: white; border:black 1px solid; padding:2px}
+.attention {background-color:#FFC0CB; border:#FFC0CB 1px solid; padding:4px}
+.red {color:red}
+.gray {color:gray}
+.note {font-size:10pt}
+.b{font-weight:bold}
+
+.x-vers {background-color:orange; color:white;}
+.fx-vers {background-color:green; color:white;}
+.hbit {color:#F57721; }
+.fx-present-img {text-align: middle; margin: 5px 27px;}
+

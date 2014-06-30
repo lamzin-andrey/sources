@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;sap/app/views/layouts/products.html.erb&apos; to &apos;store.html.erb&apos;" description="Rename resource &apos;products.html.erb&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="app/views/layouts/products.html.erb" name="store.html.erb" stamp="1393502564684" updateReferences="true"/>
-</session>

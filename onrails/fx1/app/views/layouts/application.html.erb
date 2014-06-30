@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>TODO сделать динамический тайтл</title>
+		<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+		<%= csrf_meta_tags %>
+	</head>
+	<body>
+		<div class="couter">
+			<div class="cinner">
+				<div class="langs"><%=render partial: 'lang' %></div>
+				<div class="mainhead"><%=render partial: 'header' %></div>
+				<div class="content">
+					<div class="ctext">
+						<%=yield%>
+					</div>
+				</div>
+				<div class="footer"><%=render partial: 'footer' %></div>
+			</div>
+		</div>
+	</body>
+</html>

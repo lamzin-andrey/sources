@@ -1,0 +1,15 @@
+<tr id="xv-<%=list_item.id%>">
+        <td><%= list_item.xampp_version %></td>
+        <td><%= list_item.apache_version %></td>
+        <td><%= list_item.php_version %></td>
+        <td><%= list_item.mysql_server_version %></td>
+        <td><%= list_item.mysql_client_version %></td>
+        
+        <td><%= link_to 'Show', list_item %></td>
+        <td>
+			<%=form_tag({:action => :edit, :id => list_item}, remote: true, method: :get) do%>
+			<%=submit_tag t(:edit), :class=>'ajax_sub' %>
+			<% end %>
+        </td>
+        <td><%= link_to 'Destroy', list_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>

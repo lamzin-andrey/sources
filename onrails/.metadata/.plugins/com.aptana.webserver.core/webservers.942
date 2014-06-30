@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<servers>
-<server host="0.0.0.0" port="3000" type="org.radrails.rails.railsServer">
-<name>sap</name>
-</server>
-</servers>
