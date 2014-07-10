@@ -50,13 +50,13 @@
  		}
  		
  		$d = $_GET;
- 		$this->term = (int)$d["term"];
- 		$this->box = (int)$d["box"];
- 		$this->people = (int)$d["people"];
+ 		$this->term = (int)@$d["term"];
+ 		$this->box = (int)@$d["box"];
+ 		$this->people = (int)@$d["people"];
  		
- 		$this->near = (int)$d["near"];
- 		$this->far = (int)$d["far"];
- 		$this->piknik = (int)$d["piknik"];
+ 		$this->near = (int)@$d["near"];
+ 		$this->far = (int)@$d["far"];
+ 		$this->piknik = (int)@$d["piknik"];
  	}
  	
  	private function setFilter() {
@@ -66,7 +66,7 @@
  		echo "</pre>";
  		die (__FILE__ . ", " . __LINE__); /**/
  		$f = "WHERE 1 = 1 ";
- 		if ( (int)$d["region"] ) {
+ 		if ( (int)@$d["region"] ) {
  			$f = "WHERE m.region = " . (int)$d["region"];
  		}
  		if ( (int)@$d["city"] > 0) {

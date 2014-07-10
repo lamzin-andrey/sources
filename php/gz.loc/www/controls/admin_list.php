@@ -27,22 +27,22 @@
  	
  	private function readGet() {
  		$d = $_GET;
- 		$this->term = (int)$d["term"];
- 		$this->box = (int)$d["box"];
- 		$this->people = (int)$d["people"];
+ 		$this->term = (int)@$d["term"];
+ 		$this->box = (int)@$d["box"];
+ 		$this->people = (int)a($d, "people");
  		
- 		$this->near = (int)$d["near"];
- 		$this->far = (int)$d["far"];
- 		$this->piknik = (int)$d["piknik"];
+ 		$this->near = (int)@$d["near"];
+ 		$this->far = (int)a($d, "far");
+ 		$this->piknik = (int)a($d, "piknik");
  		
- 		$this->is_deleted = (int)$d["is_deleted"];
- 		$this->is_moderate = (int)$d["is_moderate"];
+ 		$this->is_deleted = (int)@$d["is_deleted"];
+ 		$this->is_moderate = (int)@$d["is_moderate"];
  	}
  	
  	private function setFilter() {
  		$d = $_GET;
  		$f = "WHERE 1 = 1 ";
- 		if ( (int)$d["region"] ) {
+ 		if ( (int)@$d["region"] ) {
  			$f = "WHERE m.region = " . (int)$d["region"];
  		}
  		if ( (int)@$d["city"] > 0) {

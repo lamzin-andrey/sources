@@ -16,6 +16,11 @@ class AjaxLocation {
 	
 	private function loadCity($region) {
 		$data = query("SELECT id, city_name FROM cities WHERE is_deleted != 1 AND is_moderate = 1 AND region = $region ORDER BY delta");
+		//key - regionId, val - cityId
+		$M = array();
+		if (array_key_exists($region, $M)) {
+			
+		}
 	 	json_ok('list', $data);
 	}
 	

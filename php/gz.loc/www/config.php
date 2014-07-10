@@ -5,6 +5,7 @@ mysql_select_db("gz") or die('error select db gz');
 mysql_query("SET NAMES UTF8");
 #================ constant==============================================
 define("DR", $_SERVER["DOCUMENT_ROOT"]);
+define("DOC_ROOT", $_SERVER["DOCUMENT_ROOT"]);
 define("TPLS", DR . '/tpl');
 define("MAX_WIDTH", 240);
 define("MAX_HEIGHT", 240);

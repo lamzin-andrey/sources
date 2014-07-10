@@ -106,9 +106,10 @@ class Shared {
 	
 	static private function modLastLetter(&$second, $sg) {
 		$secondSRep = 0;
-		$lastLetter = $second[ strlen($second) - 1];
-		$preLastLetter = $second[ strlen($second) - 2];
-		$msog = utils_cp1251( "нл" );
+		$lastLetter = a($second, strlen($second) - 1);
+		$preLastLetter = a($second, strlen($second) - 2);
+		$preLastLetter2 = a($second, strlen($second) - 3);
+		$msog = utils_cp1251( "н" );
 		if ( strpos($sg, $lastLetter) === false ) {
 			if ($lastLetter == utils_cp1251('е')) {
 				$secondSRep = 1;
@@ -137,7 +138,8 @@ class Shared {
 			}
 		} else { 
 			if ($lastLetter == utils_cp1251('ь')) {
-				if (strpos($msog, $preLastLetter) === false) {
+				//$lastLetter = utils_cp1251('и');
+				if (strpos($msog, $preLastLetter) !== false) {
 					$lastLetter = utils_cp1251('и');
 				} else {
 					$lastLetter = utils_cp1251('е');

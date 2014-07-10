@@ -382,3 +382,15 @@ function utils_javascript() {
 	return  $s;
 }
 
+function a($v, $k) {
+	if ( (is_array($v) || is_string($v) ) && isset($v[$k])) {
+		return $v[$k];
+	}
+	return null;
+}
+function o($v, $k) {
+	if (is_object($v) && isset($v->$k)) {
+		return $v->$k;
+	}
+	return null;
+}

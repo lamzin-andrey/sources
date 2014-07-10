@@ -7,7 +7,7 @@
 ?><div id="mainsfrormerror" class="vis"><?=@$_SESSION["ok_msg"] ?></div><?php
 	unset( $_SESSION["ok_msg"] );
 } ?>
-<? FV::$obj = $settingForm ?>
+<? FV::$obj = @$settingForm ?>
 <div id="mainsfrormadd" class="bgwhite">
 	<div id="add_legend">Авторизация</div>
 	<hr id="add_hr"/>

@@ -42,7 +42,7 @@ class CCabinetEdit extends CAdd {
 		$this->people   = $row["people"];
 		$this->term   = $row["term"];
 		$this->addtext   = $row["addtext"];
-		$this->safeEmail = $row["email"];
+		$this->safeEmail = a($row, "email");
 		$this->safeName  = $row["name"];
 		$this->image  = $row["image"];
 		$this->javascript = '	localStorage.setItem("region", "' . $row["region"] . '");

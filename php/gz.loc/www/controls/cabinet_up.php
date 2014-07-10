@@ -15,7 +15,7 @@ class CUpAction {
 				$_SESSION["ok_msg"] = "У вас нет прав на действие с этим объявлением";
 				utils_302("/cabinet?status=1"); 
 			}
-			if ($_POST["cp"] == @$_SESSION["ccode"]) {
+			if (a($_POST, "cp") == @$_SESSION["ccode"]) {
 				$cmd = "SELECT max(delta) + 2 FROM main";
 				$d = dbvalue($cmd);
 				query("UPDATE main SET delta = {$d} WHERE id = $id", $nR, $aR);

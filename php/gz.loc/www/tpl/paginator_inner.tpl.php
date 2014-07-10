@@ -11,8 +11,8 @@
 <div class="both"></div>
 <ul id="paglist">
 <?php foreach ($pageData as $p) {?>
-	<li <? if ($p->active) {?>class="active"<?}?> ><? if (!$p->active) {?><a href="<?=Shared::setUrlVar("page", $p->n); ?>"><?
-		print ($p->text ? $p->text : $p->n);
+	<li <? if (@$p->active) {?>class="active"<?}?> ><? if (!@$p->active) {?><a href="<?=Shared::setUrlVar("page", $p->n); ?>"><?
+		print (@$p->text ? $p->text : $p->n);
 	 ?></a><?} else { 
 	 	?><span><?=$p->n ?></span><?php
          }?></li>

@@ -8,7 +8,6 @@
 				$type = "password";
 			}
 			self::checkValue($value, $id);
-			$label = str_replace('*', '<span class="red">*</span>', $label);
 			return '<input type="'.$type.'" name="'.$id.'" id="'.$id.'" value="'.$value.'" />';
 		}
 		static public function  checkbox($id, $label, $space = ' ') {

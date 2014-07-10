@@ -1,0 +1,1 @@
+onSuccess({data:'Ya crevedko'});
