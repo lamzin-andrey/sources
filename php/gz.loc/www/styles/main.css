@@ -1,3 +1,37 @@
+.region-outer-list{
+	list-style:none;
+	padding:0;
+	margin:0 auto;
+	max-width:840px;
+}
+.region-outer-list li, .region-outer-list p{
+	display:inline-block;
+	border:none;
+	padding:0;
+	padding:0;
+}
+.region-inner-list{
+	display:inline-block;
+	vertical-align: top; 
+}
+.qbtn {
+	border:solid #C3D1D7 1px;
+	padding:4px 8px;
+	text-decoration:none;
+	border-radius: 4px;
+	background:linear-gradient(to right bottom, #ffffff, #ffffff,  #C3D1D7); 
+}
+.qbtn-dis {
+	border:solid #E4E9EB 1px;
+	padding:4px 8px;
+	text-decoration:none;
+	border-radius: 4px;
+	background:linear-gradient(to right bottom, #ffffff, #ffffff,  #E4E9EB);
+}
+a.regions_item{
+	display:block;
+	width:200px;
+}
 .dashed {
 	-moz-text-decoration-style: dashed;
 }	

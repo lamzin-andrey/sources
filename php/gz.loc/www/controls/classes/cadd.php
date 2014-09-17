@@ -28,6 +28,7 @@ class CAdd {
 	public $email;
 	
 	public function __construct() {
+		CRequestPatcher::pathPost();
 		$this->readPost();
 		$this->checkCaptcha();
 		$this->uploadHandler();

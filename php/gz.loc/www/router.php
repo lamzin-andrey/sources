@@ -20,8 +20,10 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/lib/shared.php";
 			&& ($firstWord != "cabinet")
 			&& ($firstWord != "location")
 			&& ($firstWord != "phones")
+			&& ($firstWord != "regions") //TODO проверить, а надо ли
 			//&& ($firstWord != "advert") скорее всего не надо
 		) {
+			CRequestPatcher::move302();
 			if ((int)@$_GET["region"] > 0) {
 				$regName = Shared::getRegNameById((int)@$_GET["region"]);
 				$loc = "/$regName";
@@ -83,6 +85,10 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/lib/shared.php";
 	if ($url == '/') {
 		$handler = "list.php";
 		$inner = TPLS . "/mainpage.tpl.php";
+	}
+	if (strpos($url, "regions") === 1) {
+		$handler = "regions.php";
+		$inner = TPLS . "/regions.tpl.php";
 	}
 	if (strpos($url, "podat_obyavlenie") === 1) {
 		$handler = "add.php";

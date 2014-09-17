@@ -76,7 +76,7 @@ class CMainList {
 			$this->prepareRecord($data[$i]);
 		}
 		$this->rows = $data;
-		$cmd = "SELECT count(id) FROM main AS m {$this->filter}";
+		$cmd = "SELECT count(m.id) FROM main AS m LEFT JOIN regions AS r ON r.id = m.region {$this->filter}";
 		//die("$cmd");
 		$this->total = dbvalue($cmd);
 		$this->preparePaging();

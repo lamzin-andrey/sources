@@ -11,6 +11,7 @@ $showCabBtn = $showAddAdvBtn = true;
 $showExitBtn = (bool)@$_SESSION["uid"] || (@$_SESSION["role"] == "root");
 $showSetBtn =(bool)@$_SESSION["uid"];
 
+include DR . "/lib/request_patcher.php";
 include DR . "/router.php";
 include DR . "/lib/view_helpers.php";
 

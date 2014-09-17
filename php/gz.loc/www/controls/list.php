@@ -67,7 +67,7 @@
  		die (__FILE__ . ", " . __LINE__); /**/
  		$f = "WHERE 1 = 1 ";
  		if ( (int)@$d["region"] ) {
- 			$f = "WHERE m.region = " . (int)$d["region"];
+ 			$f = "WHERE (m.region = " . (int)$d["region"] . ' OR r.parent_id = ' . (int)$d["region"] . ')';
  		}
  		if ( (int)@$d["city"] > 0) {
  			$f = "WHERE m.city = " . (int)$d["city"];

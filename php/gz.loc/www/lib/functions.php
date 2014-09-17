@@ -274,7 +274,7 @@ function utils_getExt($filename){
 	return $s;
 }
 function utils_getImageMime($path, &$w = null, &$h = null) {
-	$sz = getImageSize($path);
+	$sz = @getImageSize($path);
 	if (is_array($sz) && count($sz)) {
 		$w = $sz[0];
 		$h = $sz[1];
