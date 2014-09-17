@@ -14,6 +14,12 @@
 		</script>
 	</head>
 	<body><img src="/images/gazel.jpg" class="hide"/><img src="/images/gpasy.jpeg" class="hide"/><img src="/images/term.jpg" class="hide"/><img src="/images/up.png" class="upb hide" id="uppb" /><img src="/images/l-w.gif" class="hide" /><img src="/images/lw.gif" class="hide" />
+	<? if ( isset($regId) ) {?>
+	<input type="hidden" id="selectedregionid" value="<?=$regId ?>" />
+	<?}?>
+	<? if ( isset($cityId) ) {?>
+	<input type="hidden" id="selectedcityid" value="<?=$cityId ?>" />
+	<?} ?>
 		<header class="mainhead">
 			<div id="logoplace">
 				<div id="logo-out">

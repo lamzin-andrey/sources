@@ -390,7 +390,7 @@ function initAddForm() {
 	);
 }
 function onSwitchType() {
-	if ($("ipath").value == '') {
+	if ($("ipath") && $("ipath").value == '' && $("imgview")) {
 		if ($("box").checked) {
 			$("imgview").src = "/images/gazel.jpg";
 		} else if ($("term").checked) {
@@ -406,13 +406,6 @@ function initLocationInputs() {
 	if (/*!$("country") || */!$("region") || !$("city")) {
 		return;
 	}
-	/*$("country").onchange = function() {
-		var cid = to_i(this.options[this.options.selectedIndex].value);
-		if (cid) {
-			Tool.cachepost("/location", {action:"region", countryId:cid}, onRegionList);
-			localStorage.setItem("country", cid);
-		}
-	}*/
 	$("region").onchange = function() {
 		var cid = to_i(this.options[this.options.selectedIndex].value);
 		//if (cid) {
@@ -443,12 +436,23 @@ function fillLocSelect(id, data, name, getLast, lex) {
 	}
 	//get last
 	if (getLast) {
+		if (fromRegionsPage() && $('selected' + id + 'id')) {
+			localStorage.setItem(id, $('selected' + id + 'id').value);
+		}
 		if (to_i(localStorage.getItem(id))) {
 			selectByValue(id, localStorage.getItem(id));
 		}else {
 			$(id).onchange();
 		}
 	}
+}
+function fromRegionsPage() {
+	if (document.referrer) {
+		if (Tool.host() == Tool.host(document.referrer)) {
+			return true;
+		}
+	}
+	return false;
 }
 function onCountryList(data) {
 	//var id = "country";

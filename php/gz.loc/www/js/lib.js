@@ -92,6 +92,12 @@ var Tool = {
 		w = document.compatMode=='CSS1Compat' && !opera ? html.clientWidth : body.clientWidth,
 		h = document.compatMode=='CSS1Compat' && !opera ? html.clientHeight : body.clientHeight;
 		return {w:w, h:h};
+	},
+	host:function(s) {
+		if (!s) {
+			s = window.location.href;
+		}
+		return s.split('/').slice(0, 3).join('/');
 	}
 } 
 

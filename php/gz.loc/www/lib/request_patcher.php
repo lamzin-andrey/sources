@@ -17,7 +17,7 @@ class CRequestPatcher {
 				$data[] = "$k=$i";
 			}
 			$tail = join('&', $data);
-			echo("/?$tail<br>");
+			//echo("/?$tail<br>");
 			utils_302("/?$tail");
 			exit;
 		}
