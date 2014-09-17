@@ -15,7 +15,7 @@ class CRemindAction {
 			$_SESSION["ok_msg"] = "Не верно введен текст с изображения";
 			utils_302("/remind?status=1");
 		}
-		if ($phone) {
+		if (@$phone) {
 			$row = dbrow("SELECT id, email, sms, rawpass FROM users WHERE phone = '{$phone}'");
 			if ($row && trim($row["rawpass"])) {
 				if (checkMail($row["email"])) {

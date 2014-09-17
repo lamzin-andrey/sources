@@ -205,7 +205,7 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/lib/shared.php";
 		if (strpos($url, "private/login") === 1) { 
 			$handler = "loadmin.php";
 			$inner = TPLS . "/loadmin.tpl.php";
-		} else if ($_SESSION["role"] != "root") {
+		} else if (@$_SESSION["role"] != "root") {
 			utils_302();
 		}
 		//$handler = "setting.php";
