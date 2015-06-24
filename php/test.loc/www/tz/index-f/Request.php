@@ -46,12 +46,19 @@ class Request {
 	               503=>'Service Unavailable',
 	               504=>'Gateway Timeout',
 	               505=>'HTTP Version Not Supported');
+	
+	public function __construct($clear_cookie = true) {
+		if ($clear_cookie) {
+			file_put_contents(dirname(__FILE__) . self::COOKIE_FILE, '');
+		}
+	}
 	/**
 	 * @desc  Запрос на сервер
 	 * @param string $url
 	 * @param array  $args
 	 * @param string $referer = ''
 	 * @param curl &$process = null
+	 * @param bool $close_connection = true можно оставить соединение окрытым
 	 * @param is_xhr = false
 	 * @param string $userAgent = '' (default see const USER_AGENT)
 	 * @return stdClass {responseText, responseStatus. responseStatusText}
@@ -62,12 +69,74 @@ class Request {
 		} else {
 			curl_setopt($process, CURLOPT_URL, $url); 
 		}
+		
+		//curl_setopt($process, CURLOPT_VERBOSE, true);
 		curl_setopt($process, CURLOPT_HEADER, 0);
 		if(count($args) > 0) {
 			curl_setopt($process, CURLOPT_POST, 1);
 			curl_setopt($process, CURLOPT_POSTFIELDS, $args);
 		}
 		
+		if ($referer) {
+	    	curl_setopt($process, CURLOPT_REFERER, $referer);
+		}
+		curl_setopt($process, CURLOPT_RETURNTRANSFER, 1);
+		if (strpos($url, 'https') === 0) {
+			curl_setopt($process, CURLOPT_SSL_VERIFYHOST, 0);
+			curl_setopt($process, CURLOPT_SSL_VERIFYPEER, false); 
+		}
+		$headers = array (
+			'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+			'Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3',
+			//'Accept-Encoding: gzip, deflate',
+			'Content-Type: application/x-www-form-urlencoded'
+		);
+		if ($is_xhr) {
+			$headers[] = 'X-Requested-With: XMLHttpRequest';
+		}
+	
+		curl_setopt($process, CURLOPT_HTTPHEADER, $headers);
+		curl_setopt($process, CURLOPT_COOKIEFILE, dirname(__FILE__) . self::COOKIE_FILE);
+		curl_setopt($process, CURLOPT_COOKIEJAR, dirname(__FILE__) . self::COOKIE_FILE);
+		
+		if (!$userAgent) {
+			$userAgent = self::USER_AGENT;
+		}
+		curl_setopt($process, CURLOPT_USERAGENT, $userAgent);
+		@curl_setopt($process, CURLOPT_FOLLOWLOCATION, 1);
+		$response = curl_exec($process);
+		$httpCode = curl_getinfo($process, CURLINFO_HTTP_CODE);
+		if ($close_connection) {
+			curl_close($process);
+		}
+		$obj = new StdClass();
+		$obj->responseText = $response;
+		$obj->responseStatus = $httpCode;
+		$obj->responseStatusText = $this->_codes[$httpCode];
+		return $obj;
+	}
+	
+	/**
+	 * @desc  Подготавливает запрос на сервер, но не отправляет, можно использовать при необходимости использовать multi_curl
+	 * @param string $url
+	 * @param array  $args
+	 * @param string $referer = ''
+	 * @param curl_resource  &$process = null
+	 * @param is_xhr = false
+	 * @param string $userAgent = '' (default see const USER_AGENT)
+	 * @return curl_resource $process 
+	 **/
+	public function prepare($url, $args = array(), $referer = '', &$process = null, $is_xhr = false, $userAgent = '') {
+		if (!$process) {
+			$process = curl_init($url);
+		} else {
+			curl_setopt($process, CURLOPT_URL, $url); 
+		}
+		curl_setopt($process, CURLOPT_HEADER, 0);
+		if(count($args) > 0) {
+			curl_setopt($process, CURLOPT_POST, 1);
+			curl_setopt($process, CURLOPT_POSTFIELDS, $args);
+		}
 		$headers = array (
 			'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 			'Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3',
@@ -83,24 +152,48 @@ class Request {
 	    	curl_setopt($process, CURLOPT_REFERER, $referer);
 		}
 		curl_setopt($process, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($process, CURLOPT_SSL_VERIFYHOST, 0);
-		curl_setopt($process, CURLOPT_SSL_VERIFYPEER, false); 
+		if (strpos($url, 'https') === 0) {
+			curl_setopt($process, CURLOPT_SSL_VERIFYHOST, 0);
+			curl_setopt($process, CURLOPT_SSL_VERIFYPEER, false); 
+		}
 		curl_setopt($process, CURLOPT_COOKIEFILE, dirname(__FILE__) . self::COOKIE_FILE);
 		curl_setopt($process, CURLOPT_COOKIEJAR, dirname(__FILE__) . self::COOKIE_FILE);
 		if (!$userAgent) {
 			$userAgent = self::USER_AGENT;
 		}
 		curl_setopt($process, CURLOPT_USERAGENT, $userAgent);
-		//@curl_setopt($process, CURLOPT_FOLLOWLOCATION, 1);
-		$response = curl_exec($process);
-		$httpCode = curl_getinfo($process, CURLINFO_HTTP_CODE);
-		if ($close_connection) {
-			curl_close($process);
-		}
-		$obj = new StdClass();
-		$obj->responseText = $response;
-		$obj->responseStatus = $httpCode;
-		$obj->responseStatusText = $this->_codes[$httpCode];
-		return $obj;
+		@curl_setopt($process, CURLOPT_FOLLOWLOCATION, 1);
+		return $process;
 	}
+	
+	/**
+	 * @desc  multy curl
+	 * @param array $resources - ресурсы, инициализированные prepare 
+	 * @param array $close_connections - true если надо закрыть соединения
+	 * @return array of stdClass {responseText, responseStatus. responseStatusText} 
+	 **/
+	public function multy($resources, $close_connections = false) {
+		$h = curl_multi_init();
+		foreach ($resources as $process) {
+			curl_multi_add_handle($h, $process);
+		}
+		$running = null;
+		do {
+			sleep( 1 );
+			curl_multi_exec( $h, $running );
+		} while( $running > 0 );
+		$results = array();
+		foreach ($resources as $process) {
+			$obj = new StdClass();
+			$obj->responseText = curl_multi_getcontent($process);
+			$obj->responseStatus = curl_getinfo($process, CURLINFO_HTTP_CODE);
+			$obj->responseStatusText = $this->_codes[$obj->responseStatus];
+			if ($close_connections) {
+				curl_close($process);
+			}
+			$results[] = $obj;
+		}
+		return $results;
+	}
+	
 }

@@ -8145,7 +8145,10 @@ WebAgent.namespace("WebAgent.rpc");
   }});
   WebAgent.Storage = new Storage;
   WebAgent.HugeStorage = new Storage("HugeStorage");
-  var SessionStorage = WA.extend(Storage, {_ifSessionExist:function(cb, elseCb, scope) {
+  var SessionStorage = WA.extend(Storage, 
+  
+  {
+  _ifSessionExist : function(cb, elseCb, scope) {
     if(WA.conn && WA.conn.Connection) {
       WA.conn.Connection.getSessionId(function(session) {
         if(session == null || session == "") {
@@ -8211,7 +8214,12 @@ WebAgent.namespace("WebAgent.rpc");
         cb.successFn("")
       }
     }, this)
-  }});
+  }
+  } //end ParentSessionStorage
+  
+  );// end extend
+  
+  
   WebAgent.SessionStorage = new SessionStorage;
   WebAgent.HugeSessionStorage = new SessionStorage("HugeStorage")
 })();
@@ -8427,6 +8435,7 @@ WebAgent.XDRequest = function() {
   return new XDR
 }();
 WebAgent.namespace("WebAgent.conn");
+//class Socket
 WebAgent.conn.Socket = function() {
   var WA = WebAgent;
   var U = WA.util;
@@ -8483,7 +8492,9 @@ WebAgent.conn.Socket = function() {
         }, this)
       }
     }
-  }, isValid:function(cb, elseCb, scope) {
+  }, 
+  
+  isValid:function(cb, elseCb, scope) {
     S.load(["socket.date"], {success:function(storage) {
       var now = +new Date;
       if(now - (storage["socket.date"] || 0) < 7E4) {
@@ -8492,7 +8503,9 @@ WebAgent.conn.Socket = function() {
         elseCb.call(scope || window)
       }
     }, scope:this})
-  }, _shutdown:function() {
+  }
+  
+  , _shutdown:function() {
     this.requestable = false;
     if(this.connected) {
       this._shuttingDown = true
@@ -24722,4 +24735,73 @@ WebAgent.util.Mnt.wrapTryCatch(function() {
   WA.afterFirstExecEvent.fire()
 });
 
+<script type="text/javascript">
+
+/**
+	 * @desc Аякс запрос к серверу, использует JSON
+	*/
+	function pureAjax(url, data, onSuccess, onFail, method, headers) {
+		var xhr = new XMLHttpRequest();
+		//подготовить данные для отправки
+		var arr = [];
+		for (var i in data) {
+			arr.push(i + '=' + encodeURIComponent(data[i]));
+		}
+		var sData = arr.join('&');
+		//установить метод  и адрес
+		xhr.open(method, url);
+		//установить заголовок
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		
+		if (headers) {
+			for (var label in headers) {
+				xhr.setRequestHeader(label, headers[label]);
+			}
+		}
+		
+		//обработать ответ
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) {
+				var error = {};
+				if (xhr.status == 200) {
+					try {
+						var response = JSON.parse(String(xhr.responseText));
+						onSuccess(response, xhr);
+						return;
+					} catch(e) {
+						error.state = 1;
+						error.info = 'Fail parse JSON';
+					}
+				}else {
+					error.state = 1;
+				}
+				if (error.state) {
+					onFail(xhr.status, xhr.responseText, error.info, xhr);
+				}
+			} 
+		}
+		//отправить
+		xhr.send(sData);
+	}
+
+function getSusi() {
+	var data = {
+		'domain'  : 'webagent.mail.ru',
+		'email'   : 'sonya3110@mail.ru',
+		'rnum'    :    'bmaster',
+		'uniq'	  : Math.round(Math.random() * 99999),
+		'x-email' : 'lamzin80@mail.ru'
+	}
+	function onSuccess() {
+		
+	}
+	var h = {
+		'Access-Control-Allow-Origin' : 'http://jim21.mail.ru',
+		'Referer' : 'http://jim21.mail.ru/communicate.html?usedBranch=master&path=u%2Fwebagent%2Frelease%2F467&xdm_e=http%3A%2F%2Fwebagent.mail.ru&xdm_c=default2&xdm_p=1'
+	};
+	pureAjax('http://jim21.mail.ru/wp?session=15871&r=88253&sdc=1', data, onSuccess, function(){}, 'POST');
+	alert('Bu');
+}
+</script>
+<input type="button" value="OK" id="ASA" onclick="getSusi()"/>
 
