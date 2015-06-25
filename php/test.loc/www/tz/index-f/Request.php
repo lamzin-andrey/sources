@@ -165,7 +165,6 @@ class Request {
 		@curl_setopt($process, CURLOPT_FOLLOWLOCATION, 1);
 		return $process;
 	}
-	
 	/**
 	 * @desc  multy curl
 	 * @param array $resources - ресурсы, инициализированные prepare 
@@ -195,5 +194,38 @@ class Request {
 		}
 		return $results;
 	}
-	
+	/**
+	 * @desc  get cookie as  assoc array
+	 * @return assoc array [host_cookie_name => cookie_value, ...]
+	*/
+	public function getCookie() {
+		$file = dirname(__FILE__) . '/cache/cookie';
+		if (file_exists($file)) {
+			$ls = explode("\n", file_get_contents($file) );
+			$cookies = array();
+			foreach ($ls as $s) {
+				if (strpos($s, "\t") === false) {
+					continue;
+				}
+				$offset = -1;
+				$first_tab = 0;
+				for ($i = 0; $i < 5; $i++) {
+					$offset = strpos($s, "\t", $offset + 1);
+					if ($i == 0) {
+						$first_tab = $offset;
+					}
+				}
+				$end_name_offset = strpos($s, "\t", $offset + 1);
+				$cookie_name = trim(substr($s, $offset + 1, $end_name_offset - $offset));
+				$cookie_value = trim(substr($s, $end_name_offset + 1));
+				$host_name = substr($s, 0, $first_tab);
+				$host_name = str_replace('#HttpOnly_', '', $host_name);
+				$host_name = preg_replace("#^\.#", '', $host_name);
+				$cookies[ "{$host_name}_{$cookie_name}" ] = $cookie_value;
+			}
+			return $cookies;
+		} else {
+			throw new Exception("cookie file not found!");
+		}
+	}
 }
