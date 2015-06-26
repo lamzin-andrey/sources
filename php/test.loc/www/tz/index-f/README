@@ -1,3 +1,4 @@
-1 Создать в каталоге sources/php/test.loc/www/tz/index-f/  папки cache  и output  c правами на запись
-2 перейти в каталог index-f
-3 запуск php index.php
+0. Требует доступность exec при запуске php скрипта из консоли
+1. Создать в каталоге sources/php/test.loc/www/tz/index-f/  папки cache  и output  c правами на запись
+2. Перейти в каталог index-f
+3. Запуск php index.php
