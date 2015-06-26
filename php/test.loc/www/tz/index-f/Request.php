@@ -64,46 +64,7 @@ class Request {
 	 * @return stdClass {responseText, responseStatus. responseStatusText}
 	 **/
 	public function execute($url, $args = array(), $referer = '', &$process = null, $close_connection = true, $is_xhr = false, $userAgent = '') {
-		if (!$process) {
-			$process = curl_init($url);
-		} else {
-			curl_setopt($process, CURLOPT_URL, $url); 
-		}
-		
-		//curl_setopt($process, CURLOPT_VERBOSE, true);
-		curl_setopt($process, CURLOPT_HEADER, 0);
-		if(count($args) > 0) {
-			curl_setopt($process, CURLOPT_POST, 1);
-			curl_setopt($process, CURLOPT_POSTFIELDS, $args);
-		}
-		
-		if ($referer) {
-	    	curl_setopt($process, CURLOPT_REFERER, $referer);
-		}
-		curl_setopt($process, CURLOPT_RETURNTRANSFER, 1);
-		if (strpos($url, 'https') === 0) {
-			curl_setopt($process, CURLOPT_SSL_VERIFYHOST, 0);
-			curl_setopt($process, CURLOPT_SSL_VERIFYPEER, false); 
-		}
-		$headers = array (
-			'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-			'Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3',
-			//'Accept-Encoding: gzip, deflate',
-			'Content-Type: application/x-www-form-urlencoded'
-		);
-		if ($is_xhr) {
-			$headers[] = 'X-Requested-With: XMLHttpRequest';
-		}
-	
-		curl_setopt($process, CURLOPT_HTTPHEADER, $headers);
-		curl_setopt($process, CURLOPT_COOKIEFILE, dirname(__FILE__) . self::COOKIE_FILE);
-		curl_setopt($process, CURLOPT_COOKIEJAR, dirname(__FILE__) . self::COOKIE_FILE);
-		
-		if (!$userAgent) {
-			$userAgent = self::USER_AGENT;
-		}
-		curl_setopt($process, CURLOPT_USERAGENT, $userAgent);
-		@curl_setopt($process, CURLOPT_FOLLOWLOCATION, 1);
+		$this->prepare($url, $args, $referer, $process, $is_xhr, $userAgent);
 		$response = curl_exec($process);
 		$httpCode = curl_getinfo($process, CURLINFO_HTTP_CODE);
 		if ($close_connection) {

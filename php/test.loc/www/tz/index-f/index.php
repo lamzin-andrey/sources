@@ -1,6 +1,10 @@
 <?php
 require_once dirname(__FILE__) . '/Request.php';
 class CWebAgentEmulator {
+	/** @var _min_pause минимальная пауза между проверкой mail */
+	private $_min_pause = 1;
+	/** @var _max_pause максимальная пауза между проверкой mail */
+	private $_max_pause = 3;
 	/** @var _username Имя пользователя */
 	private $_username = 'tguest';
 	/** @var _domain Домен */
@@ -30,15 +34,15 @@ class CWebAgentEmulator {
 		$this->_default_jimN_referer = str_replace('{release}', $this->_release, $this->_default_jimN_referer);
 		file_put_contents(dirname(__FILE__) . '/output/no.txt', '');
 		file_put_contents(dirname(__FILE__) . '/output/yes.txt', '');
-		if ($this->_login($post_process, $get_process)) {
+		if ($this->_login($get_process)) {
 			$ls = $this->_getMailList();
 			foreach ($ls as $mail) {
 				$this->_log("will check mail '{$mail}'");
-				$flag = $this->_mailIsValid($mail, $post_process, $get_process);
+				$flag = $this->_mailIsValid($mail, $get_process);
 				var_dump($flag);
 				if ($flag === -1) { //session expired
-					$this->_login($post_process, $get_process);
-					$flag = $this->_mailIsValid($mail, $post_process, $get_process);
+					$this->_login($get_process);
+					$flag = $this->_mailIsValid($mail, $get_process);
 					if ($flag === -1) {
 						throw new Exception('Unable login as WebAgent user');
 					}
@@ -48,11 +52,10 @@ class CWebAgentEmulator {
 				} else {
 					$this->_appendInvalidMail($mail);
 				}
-				$pause = rand(2, 10);
+				$pause = rand($this->_min_pause, $this->_max_pause);
 				echo "sleep {$pause} seconds...\n";
 				sleep($pause);
 			}
-			$this->_closeConnection($post_process);
 			$this->_closeConnection($get_process);
 		} else {
 			throw new Exception('Unable login as WebAgent user');
@@ -65,8 +68,7 @@ class CWebAgentEmulator {
 	 * @param curl_resource &$another_get_process
 	 * @return bool true if login success
 	*/
-	private function _login(&$post_process, &$get_process) {
-		$this->_closeConnection($post_process);
+	private function _login(&$get_process) {
 		$this->_closeConnection($get_process);
 		$this->_segment = 0;
 		$tmp = $this->_createConnection($session, $n, $page_uniq, $error_code, $error_url);
@@ -74,9 +76,6 @@ class CWebAgentEmulator {
 		if ($error_code) {
 			throw new Exception("Unable login as WebAgent user! Requested url '{$error_url}'\n return status {$error_code} ");
 		}
-		$this->_log("\n\n==============FIRST===============\n\n");
-		$post_process = $this->_createConnection($session, $n, $page_uniq);
-		$this->_log("\n\n==============SECOND===============\n\n");
 		$get_process = $this->_createConnection($session, $n, $page_uniq);
 		$this->_session = $session;
 		$this->_server_n = $n;
@@ -103,7 +102,7 @@ class CWebAgentEmulator {
 	 * todo make check expired session
 	 * @return bool | -1 if web agent session expired
 	*/
-	private function _mailIsValid($mail, $post_proc, $get_proc) {
+	private function _mailIsValid($mail, $get_proc) {
 		$request = new Request(false);
 		echo("try check mail '{$mail}'...\n");
 		$r = rand(10000, 99999);
@@ -111,7 +110,6 @@ class CWebAgentEmulator {
 		
 		$page_uniq = $this->_page_uniq;
 		$session = $this->_session;
-		//$referer_2 = "http://jim{$n}.mail.ru/communicate.html?usedBranch=master&path=u%2Fwebagent%2Frelease%2F467&xdm_e=http%3A%2F%2Fwebagent.mail.ru&xdm_c=default2&xdm_p=1";
 		$referer_2 = str_replace('{$n}', $n, $this->_default_jimN_referer);
 		
 		if (!$this->_segment) {
@@ -123,34 +121,24 @@ class CWebAgentEmulator {
 			}
 			$this->_segment = 1;
 		}
-		$this->_log('prepare get connection');
-		$r = (round(rand(1, 9999) / 1000) * 0x1E5);
-		//$referer_2 = "http://jim{$n}.mail.ru/communicate.html?usedBranch=master&path=u%2Fwebagent%2Frelease%2F467&xdm_e=http%3A%2F%2Fwebagent.mail.ru&xdm_c=default2&xdm_p=1";
-		$url = "http://jim{$n}.mail.ru/connect?session={$session}&r={$r}&stream_segment_ack={$this->_segment}&page_uniq={$page_uniq}&realm=webagent.mail.ru&sdc=1&x-email={$this->_username}%40{$this->_domain}&rnum=bmaster";
-		$request->prepare($url,  array(), $referer_2, $get_proc, true);
 		
-		$this->_log('prepare post connection');
+		$this->_log('run script post connection');
 		//check one mail
-		$uniq = round( (rand(1, 9999) / 1000) * 999999);
-		//$referer = "http://jim{$n}.mail.ru/communicate.html?usedBranch=master&path=u%2Fwebagent%2Frelease%2F467&xdm_e=http%3A%2F%2Fwebagent.mail.ru&xdm_c=default3&xdm_p=1";
-		$data = array(
-			'domain' => 'webagent.mail.ru',
-			'email'   => $mail,
-			'rnum' =>    'bmaster',
-			'uniq'	=> $uniq,
-			'x-email'	=> $this->_username . '@' . $this->_domain
-		);
-		$get = '?r='. (round(rand(1, 9999) / 1000) * 0x1E5) .'&sdc=1&session=' . $session;
-		$proc = $request->prepare("http://jim{$n}.mail.ru/wp"  . $get, $data, $referer_2, $proc, true);
+		$xmail = $this->_username . '@' . $this->_domain;
+		$cmd = "php " . dirname(__FILE__) . "/post.php {$mail} {$session} {$n} '{$referer_2}' {$xmail} > " . dirname(__FILE__) . '/cache/post_out &';
+		exec($cmd);
 		
-		$results = $request->multy(array($get_proc, $proc));
+		$this->_log('execute get connection');
+		$r = (round(rand(1, 9999) / 1000) * 0x1E5);
+		$url = "http://jim{$n}.mail.ru/connect?session={$session}&r={$r}&stream_segment_ack={$this->_segment}&page_uniq={$page_uniq}&realm=webagent.mail.ru&sdc=1&x-email={$this->_username}%40{$this->_domain}&rnum=bmaster";
+		$response = $request->execute($url,  array(), $referer_2, $get_proc, false, true);
+		
 		$this->_segment++;
 		if ($this->_verbose) {
-			print_r($data);
-			print_r($results);
+			print_r($response);
 		}
-		if (isset($results[0]->responseText)) {
-			$data = json_decode( $results[0]->responseText, true );
+		if (isset($response->responseText)) {
+			$data = json_decode( $response->responseText, true );
 			if ($this->_verbose) {
 				print_r($data);
 			}
