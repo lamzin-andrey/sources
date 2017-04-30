@@ -1,0 +1,52 @@
+body {
+	padding: 0px;
+	
+	background-color:#F0F0F0;
+	font-family:ubuntu,geneva,arial;
+}
+
+form {
+	/*min-width: 600px;*/
+	margin:    0px auto;
+	text-align: center;
+	line-height:40px;
+	/*border:solid red 1px;*/
+	margin-bottom:15px;
+}
+
+input[type=search],input[type=submit] {
+	height:40px;
+	vertical-align:middle;
+}
+input[type=search] {
+	width:67%;
+	max-width:400px;
+	font-size:20px;
+}
+input[type=submit] {
+	height:38px;
+	background-color:#DACCB9;
+	border: 1px solid #DACCB9;
+	cursor:pointer;
+}
+.wordtext {
+	background-color:#FFF;
+	padding-bottom:0px;
+	padding:8px;
+}
+.main {
+	margin: 0px auto;
+	/*min-width:  1000px;*/
+}
+header {
+	text-align:center;
+}
+.src {
+	color: green;
+	font-style: italic;
+	font-size: 11px;
+	text-align: right;
+	margin-bottom:15px;
+	background-color: #FFF;
+	padding-bottom:10px;
+}

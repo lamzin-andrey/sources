@@ -1,0 +1,135 @@
+Простой транслятор php кода в javascript es5 код.
+
+
+2016 05 05 можно транслировать код одной php функции в код javascript функции.
+
+Собирает все переменные php  и выносит их в начало функции, предваряя ключевым словом var.
+
+Меняет в коде '->', '::' на '.';
+
+Меняет в коде '$this', 'self' на 'this'.
+
+Извлекает из строки переменные, например "Hello, $name {$user['surname']}!" меняется на "Hello " + $name + $user['surname'] + "!";
+
+Меняет в коде соединения строк с '.' на '+'.
+
+Меняет переносы в одной строковой переменной на соединение нескольких строковых переменных.
+
+Меняет в коде определения ассоциативного массива, такие как "['key' => 'value']" на "{'key':'value'}". Не поддерживает 'array()' construction. Все массивы должны быть определены с помощью конструкции '[]'. Вы можете использовать '$arr = [];//{}' если знаете, что $arr будет ассоциативным массивом.
+
+Меняет в коде код '$arr[] = $val;' на '$arr.push($val);'
+
+Меняет в коде 'foreach ($array as $key => $item) {' на 'for ($key in $array) { $item = $array[$key];'.
+
+Меняет в коде 'foreach ($array as $item) {' на 'for (i100500 in $array) { $item = $array[i100500];'.
+
+Файл php.js содержит несколько аналогов стандартных php функций и будет пополняться новыми.
+
+
+
+Simple php code to javascript es5 code translator
+
+
+2016 05 05 translate php function code to javascript function code.
+
+Collect all variables from body of the php function and define it with keyword var.
+
+Replace '->', '::' to '.';
+
+Replace '$this', 'self' to 'this'.
+
+Extract variables from string, for example "Hello, $name {$user['surname']}!" replace to "Hello " + $name + $user['surname'] + "!";
+
+Replace string concatenation from '.' to '+'.
+
+Replace new line symbols in the one string variable to concatenate several string variables.
+
+Replace define associative array like "['key' => 'value']" to "{'key':'value'}". Do not support 'array()' construction. All arrays must define with '[]' construction.
+
+Replace '$arr = [];//{}' to '$arr = {}'
+
+Replace lexem like '$arr[] = $val;' to '$arr.push($val);'
+
+Replace 'foreach ($array as $key => $item) {' to 'for ($key in $array) { $item = $array[$key];'.
+
+Replace 'foreach ($array as $item) {' to 'for (i100500 in $array) { $item = $array[i100500];'.
+
+File php.js containts some analogs of php functions and will appear new.
+
+
+Для наследования используйте функцию
+
+function extend(a,b){
+	var c=new Function();
+	c.prototype=a.prototype;
+	b.prototype=new c();
+	b.prototype.constructor=b;
+	b.superclass=a.prototype;
+	b.superclass.__construct = a;
+}
+определенную в php.js
+========================================================================
+
+Исправлен парсер выражений "k = {$mki}"; Доработан генератор кода, создающий копии переменных типа Object (аналог передачи в функцию массива в качестве аргумента в php)
+
+
+
+//=======BOF================
+переменные "простых типов" передаваемые как ссылки обрабатывать, это целое дело.
+Перед вызовом функции f($m, $k)
+если $m $k в описании функции принимаются как ссылки:
+objectLink$m = {v:$m};
+objectLink$k = {v:$k};
+
+в аргументах функции f
+все аргументы & менять на objectLink$varname
+
+внутри функции в начало добавлять 
+$varname = objectLink$varname.v;
+внутри функции в конец добавлять
+objectLink$varname.v = $varname;
+//=======EOF================
+
+
+
+Обработку 
+$variable = [];//{}
+передалать так, чтобы 
+получался 
+на выходе
+$variable = {push:php2js_push};
+
+php2js_push определить
+добавить не enumerable свойство php2js_counter
+ и использовать его при push
+
+
+
+
+
+
+ЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁЁ
+Эта информация понадобится, когда надо будет транслировать в С++ код
+
+Переменные по умолчанию обрабатывать как не как ссылки.
+
+1. Проверить, как себя ведет установка поля объекта класса А внутри метода класса Б напрямую и через метод setX
+ Дано:
+  1 Объекты и экземпляры классов ведут себя так как если бы они были переданы по ссылке.
+  2 Массивы не меняются, если они переданы не по ссылке.
+  3 Ассоциативные массивы при трансляции становятся объектами.
+  
+  
+  Решение:
+  Откуда у нас в транислированом в js коде вообще берутся объекты?
+  Сейчас только из массивов и new StdClass также меняется на {}
+  Если от замены StdClass отказаться, 
+	то obj.constructor.name будет равен Object только если у нас то, что в оригинальном коде было массивом.
+	
+  Но есть еще случай получения массивов и объектов с помощью json_encode
+   в реализацию этих функций на js надо просто добавить учет второго аргумента!
+  
+  Как ведет себя объект - член массива?
+  Он все равно передается как бы по ссылке. 
+
+	
