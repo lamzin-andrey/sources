@@ -18,7 +18,7 @@ function onTime() {
   var ls = document.getElementsByClassName('TitleSongAir');
   var current = trim(ls[0].innerText);
   var last = window.localStorage.getItem('lastSong');
-  if (current != '...' && current != 'Реклама' && current != 'Новости') {
+  if (current != '...' && current != 'Реклама' && current != 'Новости' && current != 'Народные Новости') {
       if (current != last) {
         var form = '<iframe id="injectconnect" name="connect"></iframe><form action="http://gazel.me/js/gate/auto.php" method="POST" id="injectform" target="connect"><input id="injectsong" name="song" value="' + current + '"></form>';
         console.log('current = ' + current);
