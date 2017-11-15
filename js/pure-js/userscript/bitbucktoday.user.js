@@ -49,8 +49,12 @@ function trim(s) {
 }
 
 function createReport() {
+  
 	var ls = d.getElementsByClassName(Cnf.container)[0];
-	if (!ls) return;
+	if (!ls) {
+    alert('Empty');
+    return;
+  }
 	var yesterdayFound = 0, report = [];
 	eee(Cnf.elem, ls, function(tr) {
 		if (yesterdayFound != 0) {
@@ -63,14 +67,16 @@ function createReport() {
 		var authorTd = tr.getElementsByClassName('user')[0];
 		
 		if (authorTd) {
+      
 			var s = trim(authorTd.innerText);
 			if (s == Cnf.name) {
-				if (date == 'yesterday') {
+				if (date == 'yesterday' || ~date.indexOf('days') ) {
 					yesterdayFound = 1;
 				} else {
 					if (tr.getAttribute('class').indexOf('merge') == -1) {
 						var linkTd = tr.getElementsByClassName('hash')[0];
 						if (linkTd) {
+              //alert('Llik');
 							var link = ee('a', linkTd)[0];
 							if (link && link.getAttribute) {
 								//console.log('ok 6');
@@ -90,9 +96,12 @@ function createReport() {
 	});
 	//console.log(report);
 	var s = report.join('\n');
-	//alert(s);
+	
+	var reportBody = e('reportBody');
 	reportBody.value = s;
+  
 	appWindow('reportwindow', 'Отчет', function(){});
+  
 	setTimeout(function(){
 		reportBody.select();
 	}, 500);
