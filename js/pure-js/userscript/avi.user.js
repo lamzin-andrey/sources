@@ -1,11 +1,11 @@
 // ==UserScript==
-// @name        xport
+// @name        AvitoAdvExport
 // @namespace   https://www.agava.com/*
 // @include     https://www.agava.com/*
 // @version     1
 // @grant       none
 // ==/UserScript==
-var GATE_PWD = '***';
+var GATE_PWD = '*****';
 function e(i) {return document.getElementById(i);}
 
 function ee(tag, parent) {
@@ -41,6 +41,7 @@ w.onload = function() {
   '<div><input type="file" id="iPhoto" name="iPhoto"></div>' +
   '<input type="hidden"  name="pwd" value="' + GATE_PWD + '">' +
   i('Телефон', 'iPhone') +
+  i('Имя', 'iName') +
   '<div><img id="imPhone" src="#" ></div>' +
   '<div style="float:left"><input type="submit" name="bCheck" value="Проверить телефон"></div>' +
     '<div style="float:left; padding-left:100px"><input type="submit" name="bSend" value="Сохранить"></div>' +
@@ -69,6 +70,7 @@ function createExportForm() {
   e('iBody').value = iBodyRaw.innerHTML;
   normalizeIBody();
   e('iPrice').value = d.getElementsByClassName('js-item-price')[0].innerText;
+  e('iName').value = d.getElementsByClassName('seller-info-name')[0].innerText.trim();
   var imageWrapper = d.getElementsByClassName('item-phone-button_with-img')[0];
   //console.log(imageWrapper);
   var image = imageWrapper.getElementsByTagName('img')[0];
@@ -103,7 +105,7 @@ function normalizeIBody() {
     if (!inTag)
   		q += ch;
   }
-  e('iBody').value = q;
+  e('iBody').value = q.trim();
 }
 function transportType() {
   return '<div class="right prmf">\
