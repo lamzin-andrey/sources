@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name        AvitoAdvExport
-// @namespace   https://www.agava.com/*
-// @include     https://www.agava.com/*
+// @namespace   https://www.qgqcq.com/*
+// @include     https://www.qgqcq.com/*
 // @version     1
 // @grant       none
 // ==/UserScript==
-var GATE_PWD = '*****';
+
+var GATE_PWD = '******';
 function e(i) {return document.getElementById(i);}
 
 function ee(tag, parent) {
@@ -69,7 +70,9 @@ function createExportForm() {
   iBodyRaw = iBodyRaw ? iBodyRaw : d.getElementsByClassName('item-description-html')[0];
   e('iBody').value = iBodyRaw.innerHTML;
   normalizeIBody();
-  e('iPrice').value = d.getElementsByClassName('js-item-price')[0].innerText;
+  alert('Was is does?');
+  var priceData = d.getElementsByClassName('js-item-price')[0];
+  e('iPrice').value = priceData && priceData.innerText ? priceData.innerText : '1';
   e('iName').value = d.getElementsByClassName('seller-info-name')[0].innerText.trim();
   var imageWrapper = d.getElementsByClassName('item-phone-button_with-img')[0];
   //console.log(imageWrapper);
