@@ -1,12 +1,12 @@
 // ==UserScript==
-// @name        AvitoAdvExport
-// @namespace   https://www.agava.com/*
-// @include     https://www.agava.com/*
+// @name        AgavaTool
+// @namespace   https://www.agavacom/*
+// @include     https://www.agava.ru/*
 // @version     1
 // @grant       none
 // ==/UserScript==
 
-var GATE_PWD = '*****';
+var GATE_PWD = '****';
 function e(i) {return document.getElementById(i);}
 
 function ee(tag, parent) {
@@ -54,13 +54,13 @@ w.onload = function() {
 }
 function aviOnKeyPress(evt) {
 	if(evt.code == 'KeyC' && evt.ctrlKey) {
-		console.log('ok 1');
 		createExportForm();
 	}
 }
 
 function createExportForm() {
 	//var ls = d.getElementsByClassName();
+  closeAborigen();
   appWindow('reportwindow', 'Hello', function(){});
   e('popup').style['z-index'] = 3*1000;
   e('iCity').value = getSelectedText(e('region'));
@@ -135,4 +135,19 @@ function getOptionByValue(select, n) {
 		}
 	}
 	return null;
+}
+
+function closeAborigen(){
+  var bd = document.getElementsByTagName('body')[0], ls, i, buf = [], sz;
+  ls = document.getElementsByClassName('b-popups');
+  sz = ls.length;
+  for (i = sz - 1; i > -1; i--) {
+    ls[i].parent.removeChild(ls[i]);
+  }
+  ls = document.getElementsByClassName('b-popup-overlay');
+  sz = ls.length;
+  for (i = sz - 1; i > -1; i--) {
+    ls[i].parent.removeChild(ls[i]);
+  }
+  bd.classList.remove('popup-locked-scroll');
 }
