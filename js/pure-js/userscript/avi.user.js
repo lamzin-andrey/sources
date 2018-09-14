@@ -1,12 +1,11 @@
 // ==UserScript==
 // @name        AgavaTool
-// @namespace   https://www.agavacom/*
-// @include     https://www.agava.ru/*
+// @namespace   https://www.agava.com/*
+// @include     https://www.agava.com/*
 // @version     1
 // @grant       none
 // ==/UserScript==
-
-var GATE_PWD = '********';
+var GATE_PWD = '******';
 function e(i) {return document.getElementById(i);}
 
 function ee(tag, parent) {
@@ -64,6 +63,7 @@ w.onload = function() {
   i('Имя', 'iName') +
   '<div><img id="imPhone" src="#" ></div>' +
   '<div style="float:left"><input type="submit" name="bCheck" value="Проверить телефон"></div>' +
+  '<div style="float:left"><input type="checkbox" name="nosh"  value="1"> Не перемещать</div>' +
     '<div style="float:left; padding-left:100px"><input type="submit" name="bSend" value="Сохранить"></div>' +
     '<div style="clearfix:both;"></div>' + 
   '</form></div>';
