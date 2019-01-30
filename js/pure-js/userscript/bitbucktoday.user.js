@@ -28,7 +28,7 @@ function eee(tag, parent, callback) {
      callback(ls[i]);
   }
 }
-var w = window, d = document, b = d.body, wlh = w.location.href;
+var w = window, d = document, b = d.getElementsByTagName('body')[0], wlh = w.location.href;
 
 w.onload = function() {
 	b.onkeypress = bbOnKeyPress;
@@ -57,7 +57,8 @@ window.awc = function(){
 		if(W.appCloseCallback instanceof Function){W.appCloseCallback()}
 };
 function bbOnKeyPress(evt) {
-	if(evt.code == 'KeyC' && evt.ctrlKey) {
+  console.log(evt);
+	if(evt.code == 'KeyC' /*&& evt.ctrlKey*/) {
 		console.log('ok 1');
 		createReport();
 	}
