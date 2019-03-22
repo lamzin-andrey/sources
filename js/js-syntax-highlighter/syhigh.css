@@ -1,0 +1,35 @@
+.textcontent pre b {
+    color: blue;
+    cursor: pointer;
+    line-height: 11pt;
+    font-size: 10pt;
+}
+.strcolor {
+    color: #8C5C0D;
+}
+.ce_pre {
+    padding-top: 1px;
+    max-width: 400px;
+}
+.left {
+    float: left;
+}
+
+.ce_l {
+    line-height: 15px;
+    font-size: 10pt;
+    background-color: #D6D2D0;
+    min-width: 36px;
+    padding-left: 4px;
+}
+.cmv_body {
+    margin: 0 14px 8px 0;
+}
+.textcontent pre {
+    tab-size: 4;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    margin: 0px;
+    line-height: 15px;
+    font-size: 10pt;
+}
