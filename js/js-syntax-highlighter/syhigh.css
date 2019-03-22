@@ -1,11 +1,22 @@
+.code_example {
+	font-family:geneva,arial,courier;
+}
 .textcontent pre b {
     color: blue;
-    cursor: pointer;
+    /*cursor: pointer;*/
+    line-height: 11pt;
+    font-size: 10pt;
+}
+.textcontent pre i {
+    color: #1a74da;
     line-height: 11pt;
     font-size: 10pt;
 }
 .strcolor {
     color: #8C5C0D;
+}
+.recolor {
+    color: #D74888;
 }
 .ce_pre {
     padding-top: 1px;
@@ -26,10 +37,13 @@
     margin: 0 14px 8px 0;
 }
 .textcontent pre {
-    tab-size: 4;
+    tab-size: 2;
     -moz-tab-size: 4;
     -o-tab-size: 4;
     margin: 0px;
     line-height: 15px;
     font-size: 10pt;
+}
+.clearfix {
+	clear:both;
 }
