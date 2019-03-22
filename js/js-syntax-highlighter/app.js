@@ -2,8 +2,8 @@ $(runExample);
 
 function runExample() {
 	
-	var sKeys = '|this|function|Object|Array|var|',
-	sKeysSF = '|join|getElementsByTagName|getElementById|alert|';
+	var sKeys = '|this|function|Object|Array|var|new|true|false|let|String|for|while|do|reurn|Promise|',
+	sKeysSF = '|join|getElementsByTagName|getElementById|alert|charAt|';
 	
 //Подсветка синтаксиса в примерах кода в 
 $('.textcontent  pre').each(
@@ -81,9 +81,9 @@ function _highlightJsCode(content, sKeys, sKeysSF, wrapAsExample) {
 	content = content.replace(/SLASHED_D_QUOTES/mig, '\\"');
 	content = content.replace(/\\\//mig, 'SLASHED_D_QUOTES');
 	copy = content;
-	content = content.replace(/(\/[^\/]+\/[mig]{1,3})/mig, '<span class="recolor"> $1 </span>');
+	content = content.replace(/(\/[^\/]+\/[mig]{1,3})/mig, '<span class="recolor"> $1</span>');
 	if (copy == content) {
-		content = content.replace(/(\/[^\/]+\/)[^\/]]*$/mig, '<span class="recolor"> $1 </span>');
+		content = content.replace(/(\/[^\/]+\/)[^\/]]*$/mig, '<span class="recolor"> $1</span>');
 	}
 	content = content.replace(/SLASHED_D_QUOTES/mig, '\\/');
 	content = content.replace(/\s?'([^']*)'/mig, '<span class="strcolor"> \'$1\'</span>');
