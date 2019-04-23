@@ -12,23 +12,240 @@
 <body>
 	<div class="textcontent">
 	<pre class="no_copy">
-//Просто тут вот так
+/** Listing 1 */
+const CACHE = "cache-update-and-refresh-v1";	
+
+// При установке воркера мы должны закешировать часть данных (статику).
+self.addEventListener( "install", (event) => {
+	console.log( "I install");
+    event.waitUntil(
+        caches
+            .open(CACHE)
+            .then(
+				(cache) => {
+					console.log( "add activate event listener");
+					//Вот это вот сильно с толку сбило - как минимум в Chrome 73.0.3683.86 
+					//обработчик этого события можно было назначить рядом с обработчиком install 
+					self.addEventListener( "activate", function(event) {
+						console.log( "activate event!");
+						var o = self.clients.claim().
+						then(() => {
+							console.log( "activate event success");
+						}).
+						catch( (e)  => {
+							console.log(e);
+						});
+						return o;
+					});/**/
+					console.log( "Start caching");
+					var o = cache.addAll([
+					 "/temp/s9/s/app.css"
+						
+					]).then(
+						(a, b, c) => {
+							console.log( "then!");
+						}
+					).catch(
+						(e) => {
+							console.log( "catch!");
+							console.log(e);
+						}
+					 );
+					return o;
+				}
+			) 
+    );/**/
+});
+
+// При запросе на сервер мы используем данные из кэша и только после идем на сервер.
+self.addEventListener( "fetch", (event) => {
+	console.log( "I fetch!");
+    // Как и в предыдущем примере, сначала `respondWith()` потом `waitUntil()`
+    event.respondWith(fromCache(event.request)).
+    catch((e) => {
+		console.log(e);
+	});
+    event.waitUntil(
+      update(event.request)
+      // В конце, после получения "свежих" данных от сервера уведомляем всех клиентов.
+      .then(refresh)
+    );
+}); /**/ 
+
+
+self.sync = function (data) {
+	console.log( "Call synmc");
+}
+self.syncdata = function() {
+	console.log( "Call syncData");
+}
+
+function fromCache(request) {
+    return caches.open(CACHE).then((cache) =>
+        cache.match(request).then((matching) =>
+            matching || Promise.reject( "no-match")
+        ));
+}
+
+function update(request) {
+    return caches.open(CACHE).then((cache) =>
+        fetch(request).then((response) =>
+            cache.put(request, response.clone()).then(() => response)
+        )
+    );
+}
+
+// Шлём сообщения об обновлении данных всем клиентам.
+function refresh(response) {
+    return self.clients.matchAll().then((clients) => {
+        clients.forEach((client) => {
+            // Подробнее про ETag можно прочитать тут
+            // https: //en.wikipedia.org/wiki/HTTP_ETag
+            const message = {
+                type:  "refresh",
+                url:  response.url,
+                eTag:  response.headers.get( "ETag")
+            };
+            // Уведомляем клиент об обновлении данных.
+            client.postMessage(JSON.stringify(message));
+        });
+    });
+}
+
+/** Listing 2 */
+// "Имя" нашего кэша
+const CACHE = "cache-update-and-refresh-v1";
+
+// При установке воркера мы должны закешировать часть данных (статику).
+//Добавляем обработчик события "Как только ServiceWorker установлен"
+self.addEventListener( "install", onInstall);
+
 /**
- * @description BoodIlnyk
- * @param {Number} a
+ * Обработчик события "Как только ServiceWorker установлен"
 */
-function app(a) {
-	var o = new Object();
-	this.caps = true;
-	alert('Message');
-	/* тут такое придумаем, что аж чертям тошно станет */
-	var k = 101;
-	var n = /\s+/mig;
-	let sgo = 'Ahamma';
-	for (var i = 0; i < sgo.length; i++) {
-		sgo += app.charAt(i);
+function onInstall(event) {
+	console.log( "I install");
+	//буквально "подожди пока откроется кэш с именем CACHE, а когда он откроется вызови onOpenCache"
+	//Кто такой caches мне ещё предстоит выяснить
+    event.waitUntil(caches.open(CACHE).then(onOpenCache) );
+}
+
+/**
+ * Обработчик события "Как только Кэш открыт"
+ * @param {Object} cache - пока знаю только что  него есть метод addAll
+*/
+function onOpenCache(cache) {
+	//Добавим слушателя событий активации
+	addActivateEventListener();
+	//Добавим ресурсы в кэш
+	//И вернем Promise через который мы при необходимости сможем узнать, как прошло добавление в кэш
+	return addResourcesToCache(cache);
+}
+
+/**
+ * Добавляю ресурсы в кэш
+ * @param {Object} cache - пока знаю только что у него есть метод addAll
+ * @return {Promise}
+*/
+function addResourcesToCache(cache) {
+	console.log( "Start caching");
+	var promise = cache.addAll([
+	 "/temp/s9/s/app.css",
+	 "/temp/s9/s/bootstrap4.2.1.min.css",
+	 "/temp/s9/index.html"
+	]).then(
+		//так можно узнать, что при добавлении ресурса в кэш не произошло ошибки
+		() => {//Да, здесь были a,b,c я просто хотел узнать, принимает ли обработчик события успешного сохранения в кэше 
+			   // какие-то аргументы (как оказалось, не принимает).
+			   //я использовал их, потомучто попытка использовать arguments привела  к ошибке.
+			console.log( "then!");
+		}
+	).catch(
+		(e) => {
+			//а если произошла, то посмотреть, какая
+			console.log( "catch!");
+			console.log(e);
+		}
+	 );
+	return promise;
+}
+/**
+ * Добавляю слушатель
+*/
+function addActivateEventListener() {
+	console.log( "add activate event listener");
+	//Осторожно, это наверное грабли, будет ли доступен self ?
+	//console.log(self);//Доступен! :)
+	self.addEventListener( "activate", onActivate);/**/
+}
+
+function onActivate(event) {
+	console.log( "activate event!");
+	var o = self.clients.claim(). //claim - Запрос, заявление. Объявили всем нашим клиентам, что мы активированы
+		then(() => {
+			//увидав эту строку вы можете быть уверены, что активация произошла успешно
+			console.log( "activate event success");
+		}).
+		catch( (e)  => {
+			//А так вы можете узнать, что помешало активации...
+			console.log(e);
+		});
+	return o;
+}
+
+// При запросе на сервер мы используем данные из кэша и только после идем на сервер.
+self.addEventListener( "fetch", (event) => {
+	console.log( "I fetch!");
+     // Как и в предыдущем примере, сначала `respondWith()` потом `waitUntil()`
+    var promise = event.respondWith(fromCache(event.request));
+    if (promise) {
+		promise.catch((e) => {
+			console.log(e);
+		});
 	}
-}</pre>
+    event.waitUntil(
+      update(event.request)
+      // В конце, после получения "свежих" данных от сервера уведомляем всех клиентов.
+      .then(refresh)
+    );
+});/**/
+
+
+function fromCache(request) {
+    return caches.open(CACHE).then((cache) =>
+        cache.match(request).then((matching) =>
+            matching || Promise.reject( "no-match")
+        ));
+}
+
+function update(request) {
+    return caches.open(CACHE).then((cache) =>
+        fetch(request).then( (response) => {
+				console.log( "response", response);
+				cache.put(request, response.clone()).then(() => response)
+			}
+        )
+    );
+}
+
+// Шлём сообщения об обновлении данных всем клиентам.
+function refresh(response) {
+    return self.clients.matchAll().then((clients) => {
+        clients.forEach((client) => {
+            // Подробнее про ETag можно прочитать тут
+            // https: //en.wikipedia.org/wiki/HTTP_ETag
+            const message = {
+                type:  "refresh",
+                url:  response.url,
+                eTag:  response.headers.get( "ETag")
+            };
+            // Уведомляем клиент об обновлении данных.
+            client.postMessage(JSON.stringify(message));
+        });
+    });
+}
+
+</pre>
 	</div>
 	<script  type="text/javascript" src="./jquery-1.11.0.min.js"></script>
 	<script  type="text/javascript" src="./app.js"></script>

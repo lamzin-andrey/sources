@@ -2,8 +2,8 @@ $(runExample);
 
 function runExample() {
 	
-	var sKeys = '|this|function|Object|Array|var|new|true|false|let|String|for|while|do|reurn|Promise|',
-	sKeysSF = '|join|getElementsByTagName|getElementById|alert|charAt|';
+	var sKeys = '|catch|const|this|function|Object|Array|var|new|true|false|let|String|for|while|do|return|Promise|',
+	sKeysSF = '|join|matchAll|fetch|clone|postMessage|respondWith|put|addAll|parse|stringify|addEventListener|claim|then|open|waitUntil|getElementsByTagName|getElementById|alert|charAt|console|forEach|log|';
 	
 //Подсветка синтаксиса в примерах кода в 
 $('.textcontent  pre').each(
