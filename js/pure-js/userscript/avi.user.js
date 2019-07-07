@@ -5,7 +5,7 @@
 // @version     1
 // @grant       none
 // ==/UserScript==
-var GATE_PWD = '******';
+var GATE_PWD = '****';
 function e(i) {return document.getElementById(i);}
 
 function ee(tag, parent) {
@@ -29,9 +29,9 @@ function trim(s) {
 var w = window, d = document, b = d.body, wlh = w.location.href;
 
 w.onload = function() {
-	w.onkeypress = b.onkeypress = aviOnKeyPress;
-  w.u1 = 'http://lium.com';
-  w.u2 = 'http://joy.toy';
+	w.onkeypress = b.onkeyup = aviOnKeyPress;
+  w.u1 = 'http://siteone/e';
+  w.u2 = 'http://sitetwo/g';
   w.uact = w.u1;
   setInterval(()=>{
     var bd = b, ls, i, buf = [], sz;
@@ -67,7 +67,7 @@ w.onload = function() {
   i('Имя', 'iName') +
   '<div><img id="imPhone" src="#" ></div>' +
   '<div style="float:left"><input type="submit" name="bCheck" value="Проверить телефон"></div>' +
-  '<div style="float:left"><input type="checkbox" name="nosh"  value="1"> Не перемещать</div>' +
+  '<div style="float:left"><input type="checkbox" name="nosh"  value="1" checked> Не перемещать</div>' +
   '<input type="hidden" id="orly" name="orly">' + 
     '<div style="float:left; padding-left:100px"><input type="submit" name="bSend" value="Сохранить"></div>' +
     '<div style="clearfix:both;"></div>' + 
@@ -77,15 +77,19 @@ w.onload = function() {
 	e('closeIn').onclick = appWindowClose;
 }
 function aviOnKeyPress(evt) {
+  console.log('call aviOnKeyPress');
 	if(evt.code == 'KeyC' && evt.ctrlKey) {
 		createExportForm();
 	}
 }
 function setact(evt) {
+  console.log('Call setact');
   if (evt.currentTarget.id == 'u1' || evt.target.id == 'u1') {
+    console.log('u1');
     w.uact = w.u1;
   }
   if (evt.currentTarget.id == 'u2' || evt.target.id == 'u2') {
+    console.log('u2');
     w.uact = w.u2;
   }
   e('execute_block').getElementsByTagName('form')[0].setAttribute('action', w.uact);
@@ -105,17 +109,23 @@ function createExportForm() {
   var priceData = d.getElementsByClassName('js-item-price')[0];
   e('iPrice').value = priceData && priceData.innerText ? priceData.innerText : '1';
   e('iName').value = d.getElementsByClassName('seller-info-name')[0].innerText.trim();
+  
+  console.log('bef n Price');
+  normalizeIPrice();
+  console.log('aft set Price');
+  //set url
+  e('orly').value = w.location.href;
+  console.log('aft set orly');
+  //set action
+  e('u1').onchange = setact;
+  e('u1').onclick = setact;
+  e('u2').onchange = setact;
+  e('u2').onclick = setact;
   var imageWrapper = d.getElementsByClassName('item-phone-button_with-img')[0];
   var image = imageWrapper.getElementsByTagName('img')[0];
   e('imPhone').setAttribute('src', image.getAttribute('src'));
-  normalizeIPrice();
-  //set url
-  e('orly').value = w.location.href;
-  //set action
-  //e('u1').onchange = setact;
-  e('u1').onclick = setact;
-  //e('u2').onchange = setact;
-  e('u2').onclick = setact;
+  
+  console.log('end create exp form');
 }
 function normalizeIPrice() {
   var s = e('iPrice').value, i, inTag, q = '', ch;
