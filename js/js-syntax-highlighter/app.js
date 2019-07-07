@@ -2,7 +2,7 @@ $(runExample);
 
 function runExample() {
 	
-	var sKeys = 'if|else|try||catch|const|this|function|Object|Array|var|new|true|false|let|String|for|while|do|return|Promise|',
+	var sKeys = 'null|delete|if|else|try|catch|const|this|function|Object|Array|var|new|true|false|let|String|for|while|do|return|Promise|',
 	sKeysSF = '|join|matchAll|fetch|clone|postMessage|respondWith|put|addAll|parse|stringify|addEventListener|claim|then|open|waitUntil|getElementsByTagName|getElementById|alert|charAt|console|forEach|log|';
 	
 //Подсветка синтаксиса в примерах кода в 

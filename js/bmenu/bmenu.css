@@ -1,0 +1,41 @@
+.bg-black, .bMenu {
+    background-color: black;
+}
+.bg-white {
+    background-color:#fff;
+}
+.bMenu {
+    width:40px;
+    height:40px;
+    position:fixed;
+    z-index:31;
+    cursor:pointer;
+}
+.bMenuStrip {
+    height:8px;
+    width:100%;
+}
+
+.menu {
+    position: fixed/*absolute*/;
+    z-index: 32;
+    bottom: 0px;
+    width: 100%;
+    left: 0px;
+    height: 99%;
+    display: none;
+    top: 0px;
+    background-color: #958484;
+    padding-top: 0.3em;
+    opacity:0.9;
+}
+.menuitem {
+	border: 5px solid #958484;
+    text-align: left;
+    vertical-align: middle;
+    height: 40px;
+    line-height: 40px;
+    background-color: #6b5a5a;
+    color: #fff;
+    text-indent: 19px;
+}
