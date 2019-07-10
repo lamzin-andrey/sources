@@ -3,15 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-	<title>без имени</title>
+	<title>Image Tool</title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta name="generator" content="Geany 1.23.1" />
+	
+	<script type="text/javascript">
+		window.onload = function() {
+			new SimpleEngine2D("mycan", 44);
+			new iParserTool();
+		}
+	</script>
+	<script src="js/se2d/se2d.js"></script>
+	<script src="js/se2d/dom.js"></script>
+	<script src="js/iparseertool.js"></script>
+	<script src="js/unittest.js"></script>
+	
 </head>
 
 <body>
-
-	<img width="319" src="data:image/png;base64,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" id="imPhone" style="border:red solid 1px">
+	<!--img width="319" src="./example.png" id="imPhone" style="border:red solid 1px"-->
+	<canvas  id="mycan" width="317" height="50"></canvas>
 	
+	<div style="border:black 1px solid">
+		<p>
+			Red Sq X
+			<input type="number" id="iRedSqX" value="5">
+		</p>
+		<p>
+			Red Sq w
+			<input type="number" id="iRedSqW" value="50">
+		</p>
+	</div>
+	
+	<div id="panel"></div>
 </body>
 
 </html>
