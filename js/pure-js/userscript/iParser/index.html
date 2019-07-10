@@ -22,7 +22,21 @@
 
 <body>
 	<!--img width="319" src="./example.png" id="imPhone" style="border:red solid 1px"-->
-	<canvas  id="mycan" width="317" height="50"></canvas>
+	<!-- На div из трех колонок 1 минута 25 секунд-->
+	<!-- На таблицу 55 секунд-->
+	
+	<table>
+		<tr>
+			<td>
+				<canvas  id="mycan" width="317" height="50"></canvas>
+			</td>
+			<td>
+				<img  src="./numplace.png" id="iOneNum" >
+			</td>
+		</tr>
+	</table>
+	<textarea id="iNumData"></textarea>
+	
 	
 	<div style="border:black 1px solid">
 		<p>
@@ -32,6 +46,9 @@
 		<p>
 			Red Sq w
 			<input type="number" id="iRedSqW" value="50">
+		</p>
+		<p>
+			<input type="button" id="bCopyRectToImg" value="Копировать область">
 		</p>
 	</div>
 	
