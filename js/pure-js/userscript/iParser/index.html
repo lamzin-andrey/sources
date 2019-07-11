@@ -16,6 +16,7 @@
 	<script src="js/se2d/se2d.js"></script>
 	<script src="js/se2d/dom.js"></script>
 	<script src="js/iparseertool.js"></script>
+	<script src="js/iparser.js"></script>
 	<script src="js/unittest.js"></script>
 	
 </head>
@@ -31,7 +32,8 @@
 				<canvas  id="mycan" width="317" height="50"></canvas>
 			</td>
 			<td>
-				<img  src="./numplace.png" id="iOneNum" >
+				<img  src="./numplace.png" id="iOneNum" >&nbsp;&nbsp;
+				<canvas  id="mycan2" width="22" height="50"></canvas>
 			</td>
 		</tr>
 	</table>
@@ -49,6 +51,15 @@
 		</p>
 		<p>
 			<input type="button" id="bCopyRectToImg" value="Копировать область">
+		</p>
+		<p>
+			<hr>
+		</p>
+		<p>
+			<input type="button" id="bParseImg" value="Распарсить изображение">
+		</p>
+		<p>
+			<input type="text" id="iResult" >
 		</p>
 	</div>
 	
