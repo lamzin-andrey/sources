@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name        AgavaTool
-// @namespace   https://agava.com/*
-// @include     https://agava.com/*
+// @namespace   https://www.agava.com/*
+// @include     https://www.agava.com/*
 // @version     1
 // @grant       none
 // ==/UserScript==
-var GATE_PWD = '*****';
+var GATE_PWD = '****';
 function e(i) {return document.getElementById(i);}
 
 function ee(tag, parent) {
@@ -202,8 +202,8 @@ iParser.prototype.getExampleImageData = function(m, canvasForNum) {
 
 w.onload = function() {
 	w.onkeypress = b.onkeyup = aviOnKeyPress;
-  w.u1 = 'source2';
-  w.u2 = 'source2';
+  w.u1 = 'site1';
+  w.u2 = 'site2';
   w.uact = w.u1;
   setInterval(()=>{
     var bd = b, ls, i, buf = [], sz;
@@ -255,13 +255,10 @@ function aviOnKeyPress(evt) {
 	}
 }
 function setact(evt) {
-  console.log('Call setact');
   if (evt.currentTarget.id == 'u1' || evt.target.id == 'u1') {
-    console.log('u1');
     w.uact = w.u1;
   }
   if (evt.currentTarget.id == 'u2' || evt.target.id == 'u2') {
-    console.log('u2');
     w.uact = w.u2;
   }
   e('execute_block').getElementsByTagName('form')[0].setAttribute('action', w.uact);
@@ -282,12 +279,9 @@ function createExportForm() {
   e('iPrice').value = priceData && priceData.innerText ? priceData.innerText : '1';
   e('iName').value = d.getElementsByClassName('seller-info-name')[0].innerText.trim();
   
-  console.log('bef n Price');
   normalizeIPrice();
-  console.log('aft set Price');
   //set url
   e('orly').value = w.location.href;
-  console.log('aft set orly');
   //set action
   e('u1').onchange = setact;
   e('u1').onclick = setact;
@@ -296,17 +290,28 @@ function createExportForm() {
   var imageWrapper = d.getElementsByClassName('item-phone-button_with-img')[0];
   var image = imageWrapper.getElementsByTagName('img')[0];
   
-  e('imPhone').setAttribute('src', image.getAttribute('src'));//старый вариант с рисунком
-  e('cPhone').getContext('2d').drawImage(e('imPhone'), 0, 0, e('imPhone').width, e('imPhone').height);
-  
-  try {
-  	var oParser = new iParser();
-  	//console.log(oParser);
-  	var pData = oParser.start(e('cPhone'), e('iOneNum'));
-  	e('iPhone').value = pData;
-  } catch(e) {
-    console.log('Error on parse phone' + e);
+  e('imPhone').onload = function(){
+    e('cPhone').getContext('2d').drawImage(e('imPhone'), 0, 0, e('imPhone').width, e('imPhone').height);
+		var drimIt = 0, drimInt = setInterval(function(){
+      try {
+        var oParser = new iParser();
+        //console.log(oParser);
+        var pData = oParser.start(e('cPhone'), e('iOneNum'));
+        e('iPhone').value = pData;
+      } catch(e) {
+        console.log('Error on parse phone' + e);
+      }
+      drimIt++;
+      if (drimIt > 5) {
+        clearInterval(drimInt);
+      }
+    }, 1000); 
+
+    
   }
+  
+  e('imPhone').setAttribute('src', image.getAttribute('src'));//старый вариант с рисунком
+  
   
   console.log('end create exp form');
 }
