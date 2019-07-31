@@ -1,0 +1,119 @@
+@import "fonts.scss"; //шрифты
+@import "variables.scss";
+@import "mixins.scss";
+@import "_helpers.scss";
+@import "_alerts.scss";//стили для сообщений на страницах
+
+@import "bootstrap/mixins/_border-radius.scss";
+@import "bootstrap/mixins/_visibility.scss";
+@import "bootstrap/bootstrap-reboot.scss"; //normalize bootstrap
+@import "bootstrap/bootstrap-grid.scss";//сетка bootstrap
+@import "bootstrap/_flex.scss"; //вспомогательные классы для сетки bootstrap
+@import "bootstrap/_text.scss";//позиционирование текста bootstrap
+@import "bootstrap/_images.scss";
+@import "bootstrap/_transitions.scss";
+@import "bootstrap/_modal.scss";
+@import "bootstrap/utilities/_visibility.scss";
+@import "slick/_slick.scss";
+
+@import "buttons/_buttons";
+@import "_header.scss"; /*стили хедера*/
+@import "_mobile-menu.scss"; /*мобильное меню*/
+@import "_geolocation-form.scss";/*форма гелокации в хедере*/
+@import "_geolocation-mobile.scss"; /*геолокация и все что с ней связано для мобильных устройств*/
+@import "_inputs.scss"; /*стили всех инпутов*/
+@import "_number-input.scss";
+@import "_geolocation-switcher.scss"; /*переключатель доставка/самовывоз*/
+@import "_sidebar-favorites";/*избранные компании в колонке слева*/
+@import "_news-slider"; /*стили карусели с новостями/акциями*/
+@import "_news-block.scss"; /*блок с новостями*/
+@import "_filters.scss"; /*стили фильтров*/
+@import "footer/footer"; /*стили футера*/
+@import "_company-block.scss"; /*стили блока компании в списке компаний*/
+@import "_modals.scss"; /*модальные окна*/
+
+@import "restaurant/_restaurant.scss"; /* Страница рестонара */
+@import "restaurant/_restaurant-sidebar.scss";
+@import "restaurant/_restaurant-block.scss";
+@import "restaurant/_restaurant-tabs.scss";
+@import "restaurant/_restaurant-popups.scss";
+@import "restaurant/_restaurant-media.scss";
+
+@import "goods-catalog/_goods-catalog.scss";
+@import "_smartbanner.scss";
+@import "_companyacw.scss";
+@import "_profile.scss";
+@import "_orders-history.scss";
+@import "_dev817.scss";
+@import "_timepicker.scss";
+@import "_articles.scss";
+
+body {
+  background-color: $body-background!important;
+}
+hr {
+  border:0;
+  display: block;
+  height: 1px;
+  background: #DBDBDB;
+}
+.companies-page {
+  padding: 0 56px;
+}
+
+h5,h4,h3,h2,h1 {
+  font-weight: normal;
+}
+
+@media (max-width: 575px) {
+
+  .content {
+    padding: 75px 0 30px 0;
+  }
+
+  .companies-page {
+    padding: 0 15px;
+    .content-aside {
+      display: block;
+    }
+  }
+  .modal-open {
+    overflow: hidden;
+    padding-right: 0!important;
+  }
+}
+@media (max-width: 1199px) {
+  .companies-page {
+    padding: 0 15px;
+  }
+  @media (max-width: 768px) {
+    .companies-page {
+      padding: 0 46px;
+    }
+  }
+  @media (max-width: 767px) {
+    .companies-page {
+      padding: 0 15px;
+    }
+  }
+}
+@media (max-width: 767px) {
+  .content-aside {
+    display: none;
+  }
+}
+
+.hide-before-load {
+  visibility: hidden;
+}
+a:focus {
+  color: inherit;
+  text-decoration: none;
+}
+a[href^="tel"]{
+  text-decoration:none;
+}
+
+.owl-item {
+  float: left;
+}

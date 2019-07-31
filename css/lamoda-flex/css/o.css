@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "roboto-light";
+  src: url(/fonts/RobotoLight.eot?76179ec5cc66e2ed143767d16d3a3a18);
+  src: url(/fonts/RobotoLight.ttf?d5c46b134c17b2138dcd1bb0efa67049) format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "roboto-medium";
+  src: url(/fonts/RobotoMedium.eot?71b9488dcbff1d3dbadd98f9cb2d5a02);
+  src: url(/fonts/RobotoMedium.ttf?9745415b8a2a8b9a2480a12f7e2d3ad3) format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+/* cyrillic-ext  Это просто для примера*/
+
+/*@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(/css/fonts/openSansCR1.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+*/
+
+body {
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+  font-family: 'roboto-light';
+  background-color: green;
+  color: white;
+}
+

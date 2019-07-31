@@ -1,0 +1,11 @@
+.promo-nohover {
+	position:absolute; top:0px; left:0px;z-index:2;
+	background:url(../images/ie-photo-hover.png);
+}
+.promo-nohover:hover {
+	background:none;
+}
+/*.promo {
+	display:table-cell;
+	text-align:center;
+}*/
