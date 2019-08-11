@@ -6,6 +6,8 @@
 // @grant       none
 // ==/UserScript==
 var GATE_PWD = '****';
+var SITEONE = '';
+var SITETWO = '';
 function e(i) {return document.getElementById(i);}
 
 function ee(tag, parent) {
