@@ -204,8 +204,8 @@ iParser.prototype.getExampleImageData = function(m, canvasForNum) {
 
 w.onload = function() {
 	w.onkeypress = b.onkeyup = aviOnKeyPress;
-  w.u1 = 'site1';
-  w.u2 = 'site2';
+  w.u1 = SITEONE;
+  w.u2 = SITETWO;
   w.uact = w.u1;
   setInterval(()=>{
     var bd = b, ls, i, buf = [], sz;
