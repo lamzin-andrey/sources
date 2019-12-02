@@ -5,9 +5,9 @@
 // @version     1
 // @grant       none
 // ==/UserScript==
-var GATE_PWD = '****';
-var SITEONE = '';
-var SITETWO = '';
+var GATE_PWD = '*****';
+var SITEONE = 'http://';
+var SITETWO = 'http://';
 function e(i) {return document.getElementById(i);}
 
 function ee(tag, parent) {
@@ -289,7 +289,10 @@ function createExportForm() {
   e('u1').onclick = setact;
   e('u2').onchange = setact;
   e('u2').onclick = setact;
-  var imageWrapper = d.getElementsByClassName('item-phone-button_with-img')[0];
+  var imageWrapper = d.getElementsByClassName('js-item-phone-react')[0];
+  if (!imageWrapper) {
+    imageWrapper = d.getElementsByClassName('item-phone-button_with-img')[0];
+  }
   var image = imageWrapper.getElementsByTagName('img')[0];
   
   e('imPhone').onload = function(){
