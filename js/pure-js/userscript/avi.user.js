@@ -6,8 +6,8 @@
 // @grant       none
 // ==/UserScript==
 var GATE_PWD = '*****';
-var SITEONE = 'http://';
-var SITETWO = 'http://';
+var SITEONE = 'http://***/gate';
+var SITETWO = 'http://***/gate';
 function e(i) {return document.getElementById(i);}
 
 function ee(tag, parent) {
@@ -295,6 +295,11 @@ function createExportForm() {
   }
   var image = imageWrapper.getElementsByTagName('img')[0];
   
+  if (!image) {
+	  console.log('no parse image');
+	  image = grabBigImage();
+  }
+  
   e('imPhone').onload = function(){
     e('cPhone').getContext('2d').drawImage(e('imPhone'), 0, 0, e('imPhone').width, e('imPhone').height);
 		var drimIt = 0, drimInt = setInterval(function(){
@@ -389,4 +394,17 @@ function closeAborigen(){
     ls[i].parentNode.removeChild(ls[i]);
   }
   bd.classList.remove('popup-locked-scroll');
+}
+
+
+function grabBigImage(){
+	var imgR = null;
+	eee('img', document, (img) => {
+		console.log(img);
+		console.log(img.getAttribute('class'));
+		if (!imgR && ~String(img.getAttribute('class')).indexOf('contacts-phone-')) {
+			imgR = img;
+		}
+	});
+	return imgR;
 }
