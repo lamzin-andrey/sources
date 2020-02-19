@@ -1,0 +1,14 @@
+.oneslide {
+    position: fixed/*absolute*/;
+    z-index: 31;
+    bottom: 0px;
+    width: 100%;
+    left: 0px;
+    height: 99%;
+    display: none;
+    top: 0px;
+    background-color: #61A2E6;
+    padding-top: 0.3em;
+    opacity:1.0;
+}
+
