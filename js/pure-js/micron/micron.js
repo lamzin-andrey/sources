@@ -3,15 +3,24 @@
  * Её удобно использовать, когда пишешь код со (и для) старого смартфона.
 */
 var D = document,
-W = window, S = String;
+W = window, S = String,
+d = document,
+w = window;
 function e(i) {
 	if (i && i.tagName || D == i) return i;
 	return D.getElementById(i);
 }
 W.micron$ = e;
-function ee(p, c) {
-	p = e(p);
-	return p.getElementsByTagName(c);
+function ee( p, t, f ){
+  var i, ls;
+  p = e( p );
+  ls = p.getElementsByTagName( t );
+  if ( f instanceof Function ){
+    for( i = 0; i< sz( ls ); i++){
+      f( ls[i] );
+    }
+  }
+  return ls;
 }
 W.micron$$ = ee;
 function cs(p, c) {
@@ -91,6 +100,9 @@ function attr(o, name, val) {
 		return o.getAttribute(name);
 	}
 	return null;
+}
+function atr(o, n, v) {
+    return attr(o, n, v);
 }
 function stl(o, s, v) {
 	o = e(o);
@@ -327,4 +339,21 @@ function ex(data, i, j) {
   var b = data[i];
   data[i] = data[j];
   data[j] = b;
+}
+
+function bod(){
+  return ee( d, 'body' )[0];
+}
+
+function ce( p, i , id, oAttr) {
+  var e  = d.createElement ( i ),
+         j;
+   if( oAttr ){
+     for( j in oAttr ){
+       atr( e, j, oAttr[j] );
+     }
+   }
+  atr(e, 'id', id);
+  p.appendChild ( e );
+  return e;
 }
