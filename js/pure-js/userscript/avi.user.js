@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name        AgavaTool
-// @namespace   https://www.agava.com/*
-// @include     https://www.agava.com/*
+// @namespace   http://www.agava.com/*
+// @include     http://www.agava.com/*
 // @version     1
 // @grant       none
 // ==/UserScript==
-var GATE_PWD = '*****';
-var SITEONE = 'http://***/gate';
-var SITETWO = 'http://***/gate';
+var GATE_PWD = '***';
+var SITEONE = 'res1/gta';
+var SITETWO = 'res2/gta';
 function e(i) {return document.getElementById(i);}
 
 function ee(tag, parent) {
@@ -203,6 +203,7 @@ iParser.prototype.getExampleImageData = function(m, canvasForNum) {
 
 
 w.onload = function() {
+	addBtnUp();
 	w.onkeypress = b.onkeyup = aviOnKeyPress;
   w.u1 = SITEONE;
   w.u2 = SITETWO;
@@ -248,7 +249,8 @@ w.onload = function() {
   '</form></div>';
   
   e('closeOut').onclick = appWindowClose;
-	e('closeIn').onclick = appWindowClose;
+  e('closeIn').onclick = appWindowClose;
+  e('nuUpBtn').onclick = onClickUpBtn;
 }
 function aviOnKeyPress(evt) {
   console.log('call aviOnKeyPress');
@@ -407,4 +409,17 @@ function grabBigImage(){
 		}
 	});
 	return imgR;
+}
+
+function addBtnUp() {
+	var div = document.createElement('div');
+	div.innerHTML = 'Наверх';
+	div.id = "nuUpBtn";
+	div.setAttribute('style', 'background-color:#587399; color:white;padding: 4px; cursor:pointer;position:fixed; right:10px; bottom:10px; border: 2px solid black;');
+	document.getElementsByTagName('body')[0].appendChild( div );
+}
+
+function onClickUpBtn() {
+	console.log('Ahha!');
+	window.scrollTo(0, 0);
 }
