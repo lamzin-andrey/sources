@@ -8,8 +8,8 @@
 
 window.onload = function() {
   // CONFIG
-  var lowLevelPrice = 197;
-  var topLevelPrice = 200;
+  var lowLevelPrice = 198;
+  var topLevelPrice = 220;
   var space = 1; //например если lowLevelPrice = 150 а space = 2 уведомления будут показыватсья в коридоре от 150 до 152
   var secondsBetweenAlerts = 30;
   var showRunNoticeButton = false;
@@ -68,13 +68,18 @@ window.onload = function() {
   
   //reload page for imitate activity
   
-  var nRelSec = rand(40, 200);
-  console.log(nRelSec);
+  var nRelSec = rand(40, 200);//200
+  
   
   setInterval(() => {
     window.location.reload();
   }, 
             nRelSec * 1000 );
+  
+  if (console && console.log && (console.log instanceof Function) ) {
+  	console.log(nRelSec);
+  }
+    
   
 }
 
