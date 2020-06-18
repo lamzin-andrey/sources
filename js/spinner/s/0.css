@@ -1,0 +1,26 @@
+.a2spinner {
+	text-align: center;
+}
+.a2sp-black-wr {
+	text-align: left;
+}
+.a2sp-black-wr {
+	display: inline-block;
+	min-width:100px;
+	background-color: rgba(255, 255, 255, 0);
+	height:32px;
+}
+
+.a2sp-black, .a2sp-green {
+	display: inline-block;
+	height:2px;
+	
+}
+.a2sp-green {
+	background-color: #67ce67;
+}
+.a2sp-black {
+	background-color: #000;
+	margin-top: 15px;
+	min-width:100px;
+}
