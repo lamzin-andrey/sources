@@ -32,13 +32,13 @@ A2Spinner.prototype.init = function(val, max, min, listener, context) {
 
 A2Spinner.prototype.onDownPlus = function(evt) {
 	this.clearInterval();
-	this.direct = 1;
+	this.direct = 2;
 	this.onDownKey();
 }
 
 A2Spinner.prototype.onDownMinus = function(evt) {
 	this.clearInterval();
-	this.direct = -1;
+	this.direct = -2;
 	this.onDownKey();
 }
 
