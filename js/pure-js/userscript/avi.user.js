@@ -31,13 +31,6 @@ function trim(s) {
 var w = window, d = document, b = d.body, wlh = w.location.href;
 /**
  * @class iParser
- * 
- * @var {Number} areaW - ширина "стакана"
- * @var {Array}  workGrid - массив i, j, представляющий собой сетку тетриса i - строки, j - столюбцы
- * @var {Object x, y}  workGridCellSz - размеры ячейки workGrid
- * @var {Number}  workGridNumRow      - количество строк в сетке
- * @var {Number}  workGridNumCell     - количество столбцов в сетке
- * @var {iParserToolFigure}  figure        - активная на данный момент фигура
 */
 function iParser() {
 	var o = this;

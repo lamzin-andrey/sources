@@ -32,8 +32,8 @@ window.addEventListener('load', onReady);
 window.containerCss = 'pageQuestions';
 window.itemCss = 'q--li';
 window.userLinkCss = 'q--li--stat';
-window.userLinkCssOnAnswerPage = "author a--author";
-window.authUserAvatarLinkCss = 'pm-toolbar__button__inner_avatar';
+window.userLinkCssOnAnswerPage = "q--li--stat";
+window.authUserAvatarLinkCss = 'q--li--ava';
 
 //Mobile css
 window.touchAuthUserAvatarLinkCss = 'nav-menu__profile';
@@ -53,6 +53,7 @@ window.desktopAuthUserImage64data = '';
 function onReady(){
 	console.log('Run');
 	if (!isDesktop()) {
+    console.log('It not desk...');
 		window.authUserAvatarLinkCss = window.touchAuthUserAvatarLinkCss;
 	}
 	/*if (location.host == 'touch.otvet.mail.ru') {
@@ -109,6 +110,7 @@ function killTrolls(){
 		e4(c, userLinkCss, (item) => {
 			var href = attr(item, 'href');
 			if (list[href]) {
+				console.log('try remove ' + href, item);
 				var quest = item.parentNode.parentNode;
 				quest.parentNode.removeChild(quest);
 			}
@@ -116,7 +118,7 @@ function killTrolls(){
 	} catch(e){;}
   
 	//Delete on answers page
-	try {
+	/*try {
 		e4(ee(D, 'body')[0], userLinkCssOnAnswerPage, (item) => {
 			var href = attr(item, 'href');
 			if (list[href]) {
@@ -124,6 +126,26 @@ function killTrolls(){
 			}
 				quest.parentNode.removeChild(quest);
 		});
+	} catch(e){;}*/
+	
+	//content__head_*...
+	try {
+		var ls = ee(D, 'a'), i, Sz = sz(ls), item, href;
+		for (i = 0; i < Sz; i++) {
+			item = ls[i];
+			href = attr(item, 'href');
+			if (item.tagName == 'A' 
+								&& attr(item, 'class').indexOf('content__head_') == 0 
+								&& href.indexOf('/profile/id') == 0
+				) {
+				if (list[href]) {
+					var quest = item.parentNode.parentNode.parentNode.parentNode.parentNode;
+					quest.parentNode.removeChild(quest);
+				}
+				
+			}
+		}
+			
 	} catch(e){;}
 
 	//Delete comments on answer page
@@ -179,18 +201,16 @@ function setLinkListener() {
   try {
     var c = getContainer();
     e4(c, userLinkCss, (item) => {
-      var setted = attr(item, 'data-ktktsetted');
-      if (!setted && attr(item, 'href').indexOf('/profile/id') == 0) {
-        attr(item, 'data-ktktsetted', '1')
-		item.onclick = onClickUserlink;
-		item.style.color = '#00AA00';
-      }
-
+		var setted = attr(item, 'data-ktktsetted');
+		if (!setted && item.tagName == 'A' && attr(item, 'href').indexOf('/profile/id') == 0) {
+			attr(item, 'data-ktktsetted', '1')
+			item.onclick = onClickUserlink;
+			item.style.color = '#00AA00';
+		}
     });
   } catch(e){;}
-  
 	//on answer page
-	try {
+	/*try {
 		e4(ee(D, 'body')[0], userLinkCssOnAnswerPage, (item) => {
 			var setted = attr(item, 'data-ktktsetted');
 			if (!setted) {
@@ -200,7 +220,25 @@ function setLinkListener() {
 			}
 
 		});
+	} catch(e){;}*/
+	
+	//content__head_*...
+	try {
+		var ls = ee(D, 'a'), i, Sz = sz(ls), item;
+		for (i = 0; i < Sz; i++) {
+			item = ls[i];
+			if (item.tagName == 'A' && attr(item, 'class').indexOf('content__head_') == 0 && attr(item, 'href').indexOf('/profile/id') == 0) {
+				var setted = attr(item, 'data-ktktsetted');
+				if (!setted) {
+					attr(item, 'data-ktktsetted', '1')
+					item.onclick = onClickUserlink;
+					item.style.color = '#00AA00';
+				}
+			}
+		}
+			
 	} catch(e){;}
+	
 	//on comment page
 	try {
 		e4(ee(D, 'body')[0], 'h5', (item) => {
@@ -299,13 +337,12 @@ function ktModal(name, link, imgLink) {
 			};
 			storage(KEY, list);
 		}
-
 		//Добавляю тролля в общий лист и НЕ сохраняю его на сервере
 		saveInSharedList(link, name, e('ktKtRreason').value, e('ktKtTrollAvatar').value);
 		killTrolls();
-
 		document.getElementById('sndGo').play();
 		setTimeout(() =>{
+			console.log('Bef try close');
 			window.onClickCloseKtDlg();
 			if (!isDesktop()) {
 				window.location.href = 'http://' + location.host;
@@ -1540,7 +1577,7 @@ function In(a) {
 }
 /**
  * Внимание, функция пропатчена
- * TODO пропатчить, чтобы отправляла данные на сервер если пользователь авторизован
+ * пропатчено, чтобы отправляла данные на сервер если пользователь авторизован
  * @description Индексирует массив по указанному полю
  * @param {Array} data
  * @param {String} id = 'id'
