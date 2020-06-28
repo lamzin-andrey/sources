@@ -1,26 +1,27 @@
 .a2spinner {
 	text-align: center;
-}
-.a2sp-black-wr {
-	text-align: left;
+	line-height:32px;
+	vertical-align:middle;
 }
 .a2sp-black-wr {
 	display: inline-block;
 	min-width:100px;
-	background-color: rgba(255, 255, 255, 0);
+	background-color: rgba(255, 255, 255, 0);/**/
 	height:32px;
-}
-
-.a2sp-black, .a2sp-green {
-	display: inline-block;
-	height:2px;
-	
+	line-height:23px;
+    margin-top: 0px;
+    padding-top: 0px;
+    text-align: left;
 }
 .a2sp-green {
+	display: block;
 	background-color: #67ce67;
+	height:2px;
 }
 .a2sp-black {
+	display: block;
 	background-color: #000;
 	margin-top: 15px;
 	min-width:100px;
+	height:2px;
 }
