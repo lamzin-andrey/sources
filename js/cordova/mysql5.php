@@ -1,23 +1,7 @@
 <?php
-global $SQLCACHE;
-$SQLCACHE = [];
-/**
- * @require php 7.0.4 +
-*/
-function query($cmd, &$numRows = 0, &$affectedRows = 0, $skipSqlCache = false) {
-	global $SQLCACHE;
-	$lCmd = trim(strtolower($cmd));
-	$isSelect = false;
-	if (strpos($lCmd, 'select') === 0) {
-		$isSelect = true;
-		if (!$skipSqlCache && isset($SQLCACHE[$cmd])) {
-			$numRows = $SQLCACHE[$cmd]['n'];
-			return $SQLCACHE[$cmd]['data'];
-		}
-	}
-
+function query($cmd, &$numRows = 0, &$affectedRows = 0) {
 	$link = setConnection();
-	
+	$lCmd = strtolower($cmd);
 	$insert = 0;
 	if (strpos($lCmd, 'insert') === 0) {
 		$insert = 1;
@@ -25,9 +9,9 @@ function query($cmd, &$numRows = 0, &$affectedRows = 0, $skipSqlCache = false) {
 	global $dberror; 
 	global $dbaffectedrows; 
 	global $dbnumrows;
-	$res = mysqli_query($link, $cmd);
+	$res = mysql_query($cmd);
 	$data = array();
-	$dberror = mysqli_error($link);
+	$dberror = mysql_error();
 	if ($dberror) {
 		if (defined('DEV_MODE')) {
                         echo '<div class="bg-rose">';
@@ -35,45 +19,31 @@ function query($cmd, &$numRows = 0, &$affectedRows = 0, $skipSqlCache = false) {
 			echo "\n<hr>\n$cmd<hr>\n";
                         echo '</div>';
 		}
-		mysqli_close($link);
+		mysql_close($link);
 		return $data;
 	}
 	
-	$numRows = $dbnumrows = @mysqli_num_rows($res);
+	$numRows = $dbnumrows = @mysql_num_rows($res);
 	
 	if ($dbnumrows ) {
-		while ($row = mysqli_fetch_array($res)) {
+		while ($row = mysql_fetch_array($res)) {
 			$rec =array();
 			foreach ($row as $k=>$i) {				
 				if (strval((int) $k) != strval($k)) {
-					//$rec[$k] = html_entity_decode($i, ENT_QUOTES);
-					//$rec[$k] = html_entity_decode($rec[$k], ENT_QUOTES);
-					
-					//$rec[$k] = str_replace('`', '\'', $rec[$k]);
-					//$rec[$k] = str_replace('_QUICK_ENGIN__APOSTROF__', '`', $rec[$k]);
-					$rec[$k] = db_unsafeString($i);
-					
-					//Если это xhr и существует константа DB_ENC_IS_1251
-					if ( defined('DB_ENC_IS_1251') && utils_isXhr() ) {
-						$rec[$k] = utils_utf8($rec[$k]);
-					}
+					$rec[$k] = html_entity_decode($i, ENT_QUOTES);
+					$rec[$k] = html_entity_decode($rec[$k], ENT_QUOTES);
 				}
 			}
 			$data[] = $rec;
 		}
 	}
-	if ($isSelect) {
-		$SQLCACHE[$cmd] = [];
-		$SQLCACHE[$cmd]['n'] = $numRows;
-		$SQLCACHE[$cmd]['data'] = $data;
-	}
-	$affectedRows = $dbaffectedrows = mysqli_affected_rows($link);
+	$affectedRows = $dbaffectedrows = mysql_affected_rows();
 	if ($insert) {
-		$id = mysqli_insert_id($link);
-		mysqli_close($link);
+		$id = mysql_insert_id();
+		mysql_close($link);
 		return $id; 
 	}
-	mysqli_close($link);
+	mysql_close($link);
 	return $data;
 }
 function dbrow($cmd, &$numRows = null) {
@@ -86,24 +56,25 @@ function dbrow($cmd, &$numRows = null) {
 	return array();
 }
 function dbvalue($cmd) {
-	$row = dbrow($cmd);
-	$v = current($row);
-	if (isset($v)) {
-		return $v;
-	}
-	return false;
+	$link = setConnection();
+    $res = mysql_query($cmd);
+    if (@mysql_num_rows($res) != 0) {
+		$val = mysql_result($res, 0, 0);
+		mysql_close($link);
+    	return db_unsafeString($val);
+    }
+    mysql_close($link);
+    return false;
 }
 function setConnection() {
-	$link = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT) or die('Error connect to mysql');
-	mysqli_select_db($link, DB_NAME) or die('Error select db ' . DB_NAME);
-	//mysqli_query($link, 'SET NAMES UTF8');
-	mysqli_query($link, 'SET NAMES CP1251');
+	$link = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or die('Error connect to mysql');
+	mysql_select_db(DB_NAME) or die('Error select db ' . DB_NAME);
+	mysql_query('SET NAMES UTF8');
+	//mysql_query('SET NAMES CP1251');
 	return $link;
 }
 function db_escape(&$s) {
-	$s = str_replace('`', '_QUICK_ENGIN__APOSTROF__', $s);
-	$s = str_replace('\'', '`', $s);
-	$s = str_replace('\\', '_QUICK_ENGIN__DSLASH__', $s);
+	$s = mysql_escape_string($s);
 	return $s;
 }
 function db_set_delta($id, $table, $delta_field = 'delta', $id_field = 'id') {
@@ -138,8 +109,7 @@ function db_mapGet($table) {
 * @return string $s
 **/
 function db_safeString(&$s) {
-    //$s = htmlspecialchars($s, ENT_QUOTES);
-    db_escape($s);
+    $s = htmlspecialchars($s, ENT_QUOTES);
     return $s;
 }
 /**
@@ -148,10 +118,6 @@ function db_safeString(&$s) {
 **/
 function db_unsafeString(&$s) {
     $s = htmlspecialchars_decode($s, ENT_QUOTES);
-    $s = str_replace('`', '\'', $s);
-	$s = str_replace('_QUICK_ENGIN__APOSTROF__', '`', $s);
-	$s = str_replace('_QUICK_ENGIN__DSLASH__', '\\', $s);
-	//$s = str_replace('\\', '_QUICK_ENGIN__DSLASH__', $s);
     return $s;
 }
 /**
@@ -178,16 +144,9 @@ function db_createInsertQuery($data, $tableName, $config = array(), &$options = 
             } else {
                 $fields[] = '`'. $config[$key] .'`';
             }
-            if (!is_null($item)) {
-				db_safeString($item);
-				$values[] = "'{$item}'";
-			} else {
-				$values[] = 'NULL';
-			}
-            
+            $values[] = "'{$item}'";
             $count++;
         } else {
-			db_safeString($item);
             $options[$key] = $item;
         }
     }
@@ -223,11 +182,9 @@ function db_createInsertQueryExt(&$data, $tableName, $config = array(), &$option
             } else {
                 $fields[] = '`'. $config[$key] .'`';
             }
-            db_safeString($item);
             $values[] = "'{$item}'";
             $count++;
         } else {
-			db_safeString($item);
             $options[$key] = $item;
         }
     }
@@ -260,11 +217,9 @@ function db_createUpdateQuery($data, $tableName, $condition, $config = array(), 
             } else {
                 $key = '`'. $config[$key] .'`';
             }
-            db_safeString($item);
             $pairs[] = "{$key} = '{$item}'";
             $count++;
         } else {
-			db_safeString($item);
             $options[$key] = $item;
         }
     }
@@ -297,11 +252,9 @@ function db_createUpdateQueryExt($data, $tableName, $condition, $config = array(
             } else {
                 $key = '`'. $config[$key] .'`';
             }
-            db_safeString($item);
             $pairs[] = "{$key} = '{$item}'";
             $count++;
         } else {
-			db_safeString($item);
             $options[$key] = $item;
         }
     }
@@ -377,7 +330,7 @@ function _db_map_request($table, $data = null) {
     }
     return $res;
 }
-function _db_load_struct_for_table(string $table) {
+function _db_load_struct_for_table($table) {
     $file = APP_CACHE_FOLDER . '/' . $table . '.cache';
     if (file_exists( $file ) && DEV_MODE != true) {
         $s = file_get_contents($file);
@@ -385,8 +338,8 @@ function _db_load_struct_for_table(string $table) {
         return $data;
     }
     $link = setConnection();
-    $res = mysqli_query($link, "SELECT * FROM {$table} LIMIT 1");
-    if ( mysqli_error($link) ) {
+    $res = mysql_query("SELECT * FROM {$table} LIMIT 1");
+    if ( mysql_error() ) {
         echo "Data Source <br>
 	    $table
 	    <br>
@@ -394,36 +347,19 @@ function _db_load_struct_for_table(string $table) {
 	    <br>
 	    Mysql Error:<br>
 	    <hr>
-	    " . mysqli_error($link)."<hr>";
+	    " . mysql_error()."<hr>";
 	    die;
     }
     $data  = array();
-    for ($i = 0; $i < mysqli_num_fields($res); $i++) {
-		$fieldData = mysqli_fetch_field($res);
-		$key = $fieldData->name;
-		$type = $fieldData->type;
-		//echo '<pre>'; var_dump($fieldData);
-		$type = _get_mysql_type_by_int($type);
-		$len = $fieldData->length;
-		$row    = array("type"=>$type, "length"=>$len);
-		$data[$key]    = $row;
+    for ($i = 0; $i < mysql_num_fields($res); $i++) {
+        $key    = mysql_field_name($res, $i);
+        $type   = mysql_field_type($res, $i);
+	$len    = mysql_field_len($res, $i);
+	$row    = array("type"=>$type, "length"=>$len);
+	$data[$key]    = $row;
     }
-    //die(__file__ .  __line__);
-    mysqli_close($link);
+    mysql_close($link);
     $s = json_encode($data);
     file_put_contents($file, $s);
     return $data;
-}
-function _get_mysql_type_by_int(int $type) {
-	switch ($type) {
-		case 3:
-			return 'int';
-		case 12:
-			return 'datetime';
-		case 253:
-			return 'string';
-		case 252:
-			return 'blob';
-	}
-	return 'string';
 }

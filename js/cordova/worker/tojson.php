@@ -90,6 +90,7 @@ function connect($s, &$host, &$user, &$password, &$db, &$table) {
 	define('DB_USER', $user);
 	define('DB_PASSWORD', $password);
 	define('DB_NAME', $db);
+	define('DB_PORT', 3306);
 	$v = dbvalue("SELECT id FROM {$table} LIMIT 1");
 	global $dberror;
 	if ($dberror){

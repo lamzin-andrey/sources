@@ -25,7 +25,11 @@ function onData(app) {
 		for (i in app.rows) {
 			row = app.rows[i];
 			html += '<div class="wordtext">' + row['description'] + '</div>';
-			html += '<div class="src">' + (row['source'] == 'sts' ? 'Современный толковый словарь' : 'Толковый словарь Даля') + '</div>';
+			var humanSource = (row['source'] == 'sts' ? 'Современный толковый словарь' : 'Толковый словарь Даля');
+			if (row['source'] == 'ozh') {
+				humanSource = 'Толковый словарь Ожегова';
+			}
+			html += '<div class="src">' + humanSource + '</div>';
 		}
 		hResults.innerHTML = html;
 	}
