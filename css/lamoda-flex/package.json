@@ -12,6 +12,6 @@
 	"devDependencies": {
 		"cross-env": "^5.2.0",
 		"laravel-mix": "^2.1.11",
-		"gulp": "^3.9.1"
+		"gulp": "^4.0.2"
 	}
 }
