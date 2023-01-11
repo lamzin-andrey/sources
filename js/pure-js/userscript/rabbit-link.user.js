@@ -11,7 +11,7 @@ window.onload = start;
 function start() {
   setInterval(() => {
 	  onTick();
-  }, 5 * 1000);
+  }, 1 * 1000);
 }
 
 function e(i) {
