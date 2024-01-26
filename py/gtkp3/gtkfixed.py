@@ -21,9 +21,13 @@ class MyWindow(Gtk.Window):
         super().__init__(title="Hello World")
         self.set_default_size(800, 600)
         self.set_resizable(False)
+        self.move(100, 10);
         self.set_icon_from_file("48.png")
         self.get_style_context().add_class('red')
         self.vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+        
+        #SEE: Change background without css
+        #self.vbox.modify_bg(0, Gdk.color_parse("#EFE9D6"))
         
         self.add(self.vbox)
         self.buttons = Gtk.Box(spacing=6,margin_top=16)

@@ -1,5 +1,3 @@
-# python 2.6 (ubuntu 9.10 i386)
-# python helloGtk2.py
 # -*- coding: utf-8 -*-
 import gtk, gobject
 #import colors
@@ -8,6 +6,7 @@ import random
 #from simple_debug import simple_debug
 #import sudoku
 #import number_box
+
 
 class MyApp:
 	def __init__(self):
@@ -23,6 +22,11 @@ class MyApp:
 		window.set_icon_from_file("48.png")
 		#self.vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
 		self.vbox = gtk.VBox()
+		
+		#SEE: Change background
+		#self.vbox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#EFE9D6"))
+		window.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("#EFE9D6"))
+		
 		window.add(self.vbox)
 		#self.buttons = Gtk.Box(spacing=6,margin_top=16)
 		self.buttons = Gtk.HBox()
