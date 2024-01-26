@@ -1,4 +1,6 @@
 # python3 
+from IQdjs import *
+
 import gi
 
 gi.require_version("Gtk", "3.0")
@@ -21,7 +23,8 @@ class MyWindow(Gtk.Window):
         super().__init__(title="Hello World")
         self.set_default_size(800, 600)
         self.set_resizable(False)
-        self.move(100, 10);
+                
+        #self.move(100, 10);
         self.set_icon_from_file("48.png")
         self.get_style_context().add_class('red')
         self.vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
@@ -98,9 +101,23 @@ class MyWindow(Gtk.Window):
         #self.label.set_angle(self.label.get_angle() + 25)
         widget = Gtk.Image
         print(dir(widget.props))
+    
+    def setText(self, s):
+        self.textbuffer.set_text(s)
 
 
 win = MyWindow()
 win.connect("destroy", Gtk.main_quit)
+MW.setWindow(win);
+MW.moveTo(100, 10);
+MW.resizeTo(100, 100);
+MW.setTitle("Пррви!");
+
+#MW.maximize();
+
+
+
+
+win.setText(App.dir());
 win.show_all()
 Gtk.main()
