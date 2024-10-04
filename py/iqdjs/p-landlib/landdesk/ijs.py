@@ -1,3 +1,4 @@
+import threading
 class Array:
     def __init__(self):
         self.ls = []
@@ -43,6 +44,17 @@ class Array:
     def trace(self):
         print(self.ls) 
         
+
+
+
+
+def setInterval(func, sec):
+  def func_wrapper():
+    setInterval(func, sec)
+    func()
+  t = threading.Timer(sec, func_wrapper)
+  t.start()
+  return t
         
 arr = Array()
 arr.push("z8")

@@ -1,3 +1,5 @@
+from cap import App
+
 class CMw:
         
     def moveTo(self, x, y):
@@ -14,8 +16,9 @@ class CMw:
         self.wnd.set_resizable(True)
         self.wnd.maximize()
 
-    def setWindow(self, w):
+    def setWindow(self, w, defaultPath):
         self.wnd = w
+        App.defaultPath = defaultPath
         
 MW = CMw()
              

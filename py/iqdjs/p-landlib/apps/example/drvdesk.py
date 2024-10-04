@@ -1,4 +1,7 @@
 # python3 
+
+import sys
+sys.path.append("/opt/p-landlib/landdesk")
 from IQdjs import *
 
 import gi
@@ -101,6 +104,7 @@ class MyWindow(Gtk.Window):
         #self.label.set_angle(self.label.get_angle() + 25)
         widget = Gtk.Image
         print(dir(widget.props))
+        print(App.getArgs())
     
     def setText(self, s):
         self.textbuffer.set_text(s)
@@ -108,10 +112,10 @@ class MyWindow(Gtk.Window):
 
 win = MyWindow()
 win.connect("destroy", Gtk.main_quit)
-MW.setWindow(win);
+MW.setWindow(win, __file__);
 MW.moveTo(100, 10);
 MW.resizeTo(100, 100);
-MW.setTitle("Пррви!");
+MW.setTitle("Hello!");
 
 #MW.maximize();
 

@@ -1,0 +1,62 @@
+.xpfbg {
+	background-color: #EFE9D6;
+}
+
+.xpdarkred {
+	color:rgb(47,30,19);
+}
+
+.xpform {
+}
+
+.xpform fieldset legend{
+	color:#13139b;
+}
+.xpform fieldset {
+	border-color:#13139b;
+	border-style:solid;
+	border-width:0.5px;
+	color:#13139b;
+}
+.xpbody {
+	background-color: #EFE9D6;
+	border-top: 3px solid blue;
+	border-left: 3px solid blue;
+	border-right: 3px solid blue;
+}
+.xpfooter {
+	border-bottom: 3px solid blue;
+	border-left: 3px solid blue;
+	border-right: 3px solid blue;
+	background-color: #EFE9D6;
+	text-align:right;
+	padding-right:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+.xpfooter input[type=button] {
+	border-color: #b0cdf2;
+	border-radius: 7px;
+	cursor:pointer;
+	background: linear-gradient(to bottom, #FFF, #FFF,  #7AF,  #FFF);
+}
+
+.xpcaption {
+	background-color: blue;
+	background: linear-gradient(to bottom, #0775FF, #0055EA, #026AFE);
+	color: white;
+	padding-left:10px;
+	line-height:22px;
+	min-height:22px;
+	font-size: 14px;
+	vertical-align:top;
+	font-weight: bold;
+	font-family: Arial;
+	border-radius: 4px 4px 0px 0px;
+}
+
+.xpform label {
+	display: inline-block;
+	min-width: 100px;
+}
