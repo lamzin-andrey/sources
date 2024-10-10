@@ -1,7 +1,10 @@
 class CFS:
     def readfile(self, path):
       f = open(path, 'r')
-      c = f.read()
+      try:
+        c = f.read()
+      except:
+        c = ""
       f.close()
       return c
 

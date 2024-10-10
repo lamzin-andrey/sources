@@ -72,6 +72,7 @@ class MyWindow(Gtk.Window):
         scrolledwindow.set_hexpand(True)
         scrolledwindow.set_vexpand(True)
         self.textview = Gtk.TextView()
+        
         self.textbuffer = self.textview.get_buffer()
         scrolledwindow.add(self.textview)
         fillSpace=True
@@ -81,13 +82,23 @@ class MyWindow(Gtk.Window):
         
         # SEE text label align left - output for SDiff
         self.outputLabel = Gtk.Box(spacing=0)
-        self.outputLabelObj = Gtk.Label(label="Output:", margin_top=10, margin_bottom=10)
-        self.outputLabel.pack_start(self.outputLabelObj, False, False, 0)        
+        self.outputLabelObj = Gtk.Label(label="Output:", margin_top=10, margin_bottom=10, height_request=100)
+        self.outputLabel.pack_start(self.outputLabelObj, False, False, 0)
         
-        #  - output for SDiff
+        #  - output for SDiff with scrollbar
         self.textPlace2 = Gtk.Box(spacing=0)
-        self.outputLabelMstr = Gtk.Label(label="", margin_top=10, margin_bottom=10)
-        self.textPlace2.pack_start(self.outputLabelMstr, False, False, 0)
+        self.outputLabelMstr = Gtk.Label(label="", margin_top=10, margin_bottom=10, height_request=50)
+        self.outputLabelMstr.set_xalign(0.0)
+        #self.textPlace2.pack_start(self.outputLabelMstr, False, False, 0)
+        
+        scrolledwindow2 = Gtk.ScrolledWindow(height_request=70)
+        scrolledwindow2.set_hexpand(True)
+        scrolledwindow2.set_vexpand(True)
+        scrolledwindow2.add(self.outputLabelMstr)
+        
+        fillSpace=True
+        doExpand=True
+        self.textPlace2.pack_start(scrolledwindow2, doExpand, fillSpace, 0)
         # 
         
         
@@ -115,7 +126,6 @@ class MyWindow(Gtk.Window):
         
 
     def onClickGenerate(self, widget):
-        #print("Hello World")
         #self.label.set_label("OK!")
         #self.label.set_angle(self.label.get_angle() + 25)
         
@@ -123,68 +133,51 @@ class MyWindow(Gtk.Window):
         #print(dir(widget.props))
         #self.n = 0;
         
-        
-        
-        start = self.textbuffer.get_iter_at_offset(0);
-        end = self.textbuffer.get_char_count();
-        print(end)
-        endo = self.textbuffer.get_iter_at_offset(end);
-        prompt = self.textbuffer.get_text(start, endo, True);
+        prompt = v(self.textview)
         self.setText(prompt);
         
         self.tickStop = 0;
         self.ival = setInterval(self.onTick, 3);
         
         
-        command2 = "time python3 " + App.dir() + "/stable-diffusion/tryZavr.py " + prompt + " > " + App.dir() + "/stable-diffusion/log.log 2>&1 &";
+        command2 = "time python3 " + App.dir() + "/stable-diffusion/tryZavr.py \"" + prompt + "\" > " + App.dir() + "/stable-diffusion/log.log 2>&1 &";
         Env.dexec(command2);
         
         
     
     def setText(self, s):
-        self.outputLabelMstr.set_label(s)
+        v(self.outputLabelMstr, s)
     
     def onTick(self):
         if self.tickStop == 1:
             return;
         c = FS.readfile(App.dir() + "/stable-diffusion/log.log");
-        try:
-            if c.index("Done!") != -1:
-                self.tickStop = 1
-                self.ival.cancel()
-                Env.dexec("xdg-open " + App.dir() + "/0T2.jpg")
-        except:
-            k = 11
+        if strpos(c, "Done!") != -1:
+            self.tickStop = 1
+            SI.timer.cancel()
+            Env.dexec("xdg-open " + App.dir() + "/0T2.jpg")
         
-        
-        #if strpos(c, "Done!") != -1:
-        #    self.tickStop = 1
-        #    self.ival.cancel()
-        #    Env.dexec("xdg-open " + App.dir() + "/0T2.jpg")
-        
-        a  = c.split("\n", 1000000);
-        #a = explode("\n", c)
-        sz = len(a);
-        #sz = count(a)
+        a = explode("\n", c)
+        sz = count(a);
         s = ""
         i = sz - 4
         if i <  0:
             i = 0
 
         countPct = 0
+        percentStr = ""
         while i < sz:
             s += a[i] + "\n";
-            try:
-                if a[i].index("%|") != -1:
-                    countPct += 1;
-            except:
-                k = 10
-            
-            #if strpos(a[i], "%|", 0) != -1:
-            #    countPct += 1;
+            if strpos(a[i], "%|", 0) != -1 or a[i].strip() == "":
+                countPct += 1;
+            if strpos(a[i], "%|", 0) != -1:
+                percentStr = a[i]
             i += 1
         if countPct == 4:
             s = a[sz - 1]
+        if percentStr != "":
+            s = percentStr
+            percentStr = ""
         
         try:
             win.setText(s)
@@ -205,6 +198,6 @@ MW.setTitle("Stable Diffusion UI");
 
 
 
-win.setText(App.dir());
+#win.setText(App.dir());
 win.show_all()
 Gtk.main()

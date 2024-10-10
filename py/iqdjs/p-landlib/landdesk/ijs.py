@@ -45,7 +45,10 @@ class Array:
         print(self.ls) 
         
 
-
+class SetInterval:
+  def __init__(self):
+    self.timer = 0
+SI = SetInterval()
 
 
 def setInterval(func, sec):
@@ -54,20 +57,21 @@ def setInterval(func, sec):
     func()
   t = threading.Timer(sec, func_wrapper)
   t.start()
+  SI.timer = t
   return t
         
-arr = Array()
-arr.push("z8")
-print(arr.length)
-arr.push("Hertz")
-print(arr.length)
-arr[5] = "Erd"
-print(arr.length)
-arr.trace()
-print(arr[5])
-print(arr.pop())
-arr.trace()
-print(arr.length)
-print(arr.join("Ahha"))
-arr.sort()
-arr.trace()
+# arr = Array()
+# arr.push("z8")
+# print(arr.length)
+# arr.push("Hertz")
+# print(arr.length)
+# arr[5] = "Erd"
+# print(arr.length)
+# arr.trace()
+# print(arr[5])
+# print(arr.pop())
+# arr.trace()
+# print(arr.length)
+# print(arr.join("Ahha"))
+# arr.sort()
+# arr.trace()
