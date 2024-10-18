@@ -191,7 +191,7 @@ win.connect("destroy", Gtk.main_quit)
 MW.setWindow(win, __file__);
 MW.moveTo(100, 10);
 MW.resizeTo(600, 100);
-MW.setTitle("Stable Diffusion UI");
+MW.setTitle("Stable Diffusion UI - WC Group");
 
 #MW.maximize();
 

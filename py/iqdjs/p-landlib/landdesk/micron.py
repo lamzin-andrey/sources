@@ -20,3 +20,32 @@ def v(_input, val=""):
 	except:
 		r = ""
 	return r
+	
+def attr(_input, name, val=""):
+	r = ""
+	dis = "disabled"
+	try:
+		if strpos(_input.__class__, "<class 'gi.overrides.Gtk.Button'>") == 0 or strpos(_input.__class__, "<class 'gi.repository.Gtk.TextView'>") == 0:
+			if name == dis and val == dis:
+				_input.set_sensitive(False)
+				r = dis
+			if name == dis and val != dis:
+				_input.set_sensitive(True)
+				r = ""
+			if name == dis and val == "":
+				v = _input.is_sensitive()
+				if v == True:
+					r = ""
+				else:
+					r = dis
+	except:
+		r = ""
+	return r
+	
+def iDisable(_input):
+	d = "disabled"
+	attr(_input, d, d)
+
+def iEnable(_input):
+	d = "disabled"
+	attr(_input, d, " ")
