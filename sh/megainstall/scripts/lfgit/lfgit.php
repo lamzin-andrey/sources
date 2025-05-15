@@ -1,6 +1,11 @@
 #!/usr/bin/env php
 <?php
 
+/**
+ * Здесь есть косячина: при первом запуске надо следить, что возвращает сервер в качестве рабочей директории.
+ * Хорошо, если сделаешь ненужный коммит первым и всё настроишь.
+ * */
+
 include_once __DIR__ . '/FtpService.php';
 
 class LfGit
@@ -91,6 +96,7 @@ class LfGit
             echo "No changes to commit.\n";
             return;
         }
+        exec('mv $HOME/.ssh $HOME/.ssh--');
         
         // Process changed files
         $lines = $statusOutput;
@@ -118,6 +124,8 @@ class LfGit
         } else {
             echo "Commit skipped.\n";
         }
+        
+        exec('mv $HOME/.ssh-- $HOME/.ssh');
     }
 
     private function uploadFile(string $file): void
