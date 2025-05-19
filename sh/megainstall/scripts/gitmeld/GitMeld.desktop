@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=GitMeld
+Exec=/home/andrey/hdata/soft/bash/gitmeld/gitmeldnocommfromconsole.sh
+Icon=/home/andrey/hdata/soft/bash/gitmeld/k3b.png
+Terminal=false
+StartupNotify=false
+Name[ru_RU]=GitMeld
+Path=/home/andrey/hdata/soft/bash/gitmeld/gitmeldnocommfromconsole.sh
+Name[ru]=GitMeld
+Categories=Development;

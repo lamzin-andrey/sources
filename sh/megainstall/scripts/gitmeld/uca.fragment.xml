@@ -1,0 +1,40 @@
+<action>
+	<icon>meld</icon>
+	<name>Сравнить незакомиченный файл</name>
+	<unique-id>1421224136373777-1</unique-id>
+	<command>/home/andrey/hdata/soft/bash/gitmeld/gitmeldnocomm.sh %f</command>
+	<description>Сравнить незакомиченные изменения</description>
+	<patterns>*</patterns>
+	<text-files/>
+	<other-files/>
+</action>
+<action>
+	<icon>meld</icon>
+	<name>Смотреть историю и сравнить ревизии</name>
+	<unique-id>1421224136373777-2</unique-id>
+	<command>/home/andrey/hdata/soft/bash/gitmeld/gitmeldcomm.sh %f</command>
+	<description>Смотреть историю и сравнить ревизии</description>
+	<patterns>*</patterns>
+	<text-files/>
+	<other-files/>
+</action>
+<action>
+	<icon>applications-education-science</icon>
+	<name>Минимизировать</name>
+	<unique-id>1421224136373777-3</unique-id>
+	<command>php /home/andrey/hdata/soft/bash/yuic/yuic.php %f</command>
+	<description>Минимизировать javascript файл</description>
+	<patterns>*.js</patterns>
+	<text-files/>
+	<other-files/>
+</action>
+<action>
+	<icon>application-x-javascript</icon>
+	<name>Создать karma тест</name>
+	<unique-id>1421224136373777-4</unique-id>
+	<command>php /home/andrey/hdata/soft/bash/angular-test/index.php %f</command>
+	<description>Создать файлы для karma теста</description>
+	<patterns>*.php;*.html;*.js</patterns>
+	<text-files/>
+	<other-files/>
+</action>

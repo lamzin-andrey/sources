@@ -104,6 +104,25 @@ sudo cp -f $workdir/scripts/dcint.php /usr/local/bin/pcint
 sudo cp -f $workdir/scripts/dspub.py /usr/local/bin/dspub
 sudo cp -f $workdir/scripts/lfgit/lfgit.php /usr/local/bin/lfgit
 sudo cp -f $workdir/scripts/lfgit/FtpService.php /usr/local/bin/FtpService.php
+#gitmeld 2025
+mkdir $HOME/.local/landlib
+mkdir $HOME/.local/landlib/apps/
+mkdir $HOME/.local/landlib/apps/gitmeld
+target=$HOME/.local/landlib/apps/gitmeld
+mkdir $target/cache
+mkdir $target/tmp
+mkdir $HOME/.local/share/applications
+cp $workdir/scripts/gitmeld/GitMeld.desktop $HOME/.local/share/applications -f
+cp $workdir/scripts/gitmeld/gitmeldnocommfromconsole.sh $target/gitmeldnocommfromconsole.sh -f
+cp $workdir/scripts/gitmeld/gitmeldnocommfromconsole.php $target/gitmeldnocommfromconsole.php -f
+cp $workdir/scripts/gitmeld/zenitynocommfromconsole.sh $target/zenitynocommfromconsole.sh -f
+cp $workdir/scripts/gitmeld/k3b.png $target/k3b.png -f
+cp $workdir/scripts/gitmeld/tool.lib.php $target/tool.lib.php -f
+cp $workdir/scripts/gitmeld/gitmeldnocomm.php $target/gitmeldnocomm.php -f
+#echo "Exec php $workdir/scripts/gitmeld/install.php";
+php $workdir/scripts/gitmeld/install.php $workdir/scripts/gitmeld $target $HOME/.local/share/applications//GitMeld.desktop
+
+
 
 
 #qdjs
@@ -134,7 +153,6 @@ cd $HOME/hdata/programs/my/qdjs/jaqFlash/app/i/icons
 #Copy .desktop files
 mkdir $HOME/.local/share/applications
 cp $HOME/hdata/programs/my/qdjs/moonPhase/moonPhase.desktop $HOME/.local/share/applications -f
-cp $HOME/hdata/soft/bash/gitmeld/QuickEdit.desktop $HOME/.local/share/applications -f
 cp $HOME/hdata/soft/bash/screenshooter/screnshooter.desktop $HOME/.local/share/applications -f
 cp $HOME/hdata/programs/my/qdjs/jaqFlash/jqflash.desktop $HOME/.local/share/applications -f
 cp $HOME/hdata/programs/my/qdjs/jaqVideoConverter/jaqF.desktop $HOME/.local/share/applications -f

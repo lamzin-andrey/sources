@@ -1,0 +1,2 @@
+#! /bin/bash
+zenity --forms --add-entry='Новый путь к корню текущего проекта' --add-list='Путь к корню текущего проекта' --list-values=$1 --add-entry='Путь к файлу из вывода git' --title='Compare' --text='Enter path'
