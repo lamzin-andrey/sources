@@ -48,6 +48,7 @@ class Array:
 class SetInterval:
   def __init__(self):
     self.timer = 0
+    self.ls = Array()
 SI = SetInterval()
 
 
@@ -59,7 +60,49 @@ def setInterval(func, sec):
   t.start()
   SI.timer = t
   return t
-        
+  
+def __setIntervalRun(func, sec):
+  def func_wrapper():
+    __setIntervalRun(func, sec)
+    func()
+  t = threading.Timer(sec, func_wrapper)
+  t.start()
+  SI.timer = t
+  
+def __setIntervalHandler():
+  i = 0
+  while (i < SI.ls.length):
+    fn = SI.ls[i]
+    f = fn[0]
+    lim = fn[1]
+    cnt = fn[2]
+    if (f != 0):
+      cnt = cnt + 1
+      if (cnt >= lim):
+        cnt = 0
+        fn[2] = cnt
+        SI.ls[i] = fn
+        f()
+      else:
+        fn[2] = cnt
+        SI.ls[i] = fn
+    i = i + 1
+  
+def setInterval2(func, sec):
+  fn = Array()
+  fn.push(func)
+  fn.push(sec) 
+  fn.push(0)
+  SI.ls.push(fn)
+  if(SI.timer == 0):
+    __setIntervalRun(__setIntervalHandler, 1)
+  return SI.ls.length - 1
+
+def clearInterval(i):
+  if (i >= SI.ls.length):
+    return
+  SI.ls[i][0] = 0
+
 # arr = Array()
 # arr.push("z8")
 # print(arr.length)
