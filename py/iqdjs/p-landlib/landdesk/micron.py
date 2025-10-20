@@ -25,12 +25,25 @@ def attr(_input, name, val=""):
 	r = ""
 	dis = "disabled"
 	try:
-		if strpos(_input.__class__, "<class 'gi.overrides.Gtk.Button'>") == 0 or strpos(_input.__class__, "<class 'gi.repository.Gtk.TextView'>") == 0:
+		if strpos(_input.__class__, "<class 'gi.overrides.Gtk.Button'>") == 0:
 			if name == dis and val == dis:
 				_input.set_sensitive(False)
 				r = dis
 			if name == dis and val != dis:
 				_input.set_sensitive(True)
+				r = ""
+			if name == dis and val == "":
+				v = _input.is_sensitive()
+				if v == True:
+					r = ""
+				else:
+					r = dis
+		if strpos(_input.__class__, "<class 'gi.repository.Gtk.TextView'>") == 0:
+			if name == dis and val == dis:
+				_input.set_editable(False)
+				r = dis
+			if name == dis and val != dis:
+				_input.set_editable(True)
 				r = ""
 			if name == dis and val == "":
 				v = _input.is_sensitive()

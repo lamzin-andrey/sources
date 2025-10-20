@@ -52,7 +52,7 @@ class SetInterval:
 SI = SetInterval()
 
 
-def setInterval(func, sec):
+def setInterval1(func, sec):
   def func_wrapper():
     setInterval(func, sec)
     func()
@@ -88,7 +88,7 @@ def __setIntervalHandler():
         SI.ls[i] = fn
     i = i + 1
   
-def setInterval2(func, sec):
+def setInterval(func, sec):
   fn = Array()
   fn.push(func)
   fn.push(sec) 

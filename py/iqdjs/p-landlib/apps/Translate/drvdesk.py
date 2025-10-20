@@ -154,22 +154,29 @@ class MyWindow(Gtk.Window):
     def onTick(self):
         if self.tickStop == 1:
             return;
+        logFile = App.dir() + f"/{self.subdir}/log.log"
         c = FS.readfile(App.dir() + f"/{self.subdir}/log.log");
+        
         if strpos(c, "HNLPResultOutput:") != -1:
             v(self.statusLabelObj, " ")
             self.tickStop = 1
+            clearInterval(self.ival)
             SI.timer.cancel()
+            SI.timer = 0
             iEnable(self.button)
             iEnable(self.bChangeTranslateDirect)
             iEnable(self.inputMemo)
             iEnable(self.outputMemo)
+            
             a = explode("HNLPResultOutput:", c)
+            
             if count(a) > 0:
                 a = explode("/HNLPResultOutput", a[1])
                 v(self.outputMemo, a[0])
+                
                 if count(a) > 0:
                     a = explode("system", a[1])
-                    if count(a) > 1:
+                    if count(a) > 0:
                         a = explode("elapsed", a[1])
                         v(self.statusLabelObj, a[0])
             else:
@@ -181,7 +188,7 @@ win.connect("destroy", Gtk.main_quit)
 MW.setWindow(win, __file__);
 MW.moveTo(100, 10);
 MW.resizeTo(600, 100);
-MW.setTitle("Prompt Family ;)");
+MW.setTitle("Like Prompt Family ;)");
 
 #MW.maximize();
 
