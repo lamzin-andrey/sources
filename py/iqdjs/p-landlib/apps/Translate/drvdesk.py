@@ -137,7 +137,7 @@ class MyWindow(Gtk.Window):
         iDisable(self.outputMemo)
         Env.dexec(command2);
         
-        
+        #test
     def onClickChangeDirect(self, widget):
         current = v(self.inputTextAreaLabelObj)
         if current == "Ru":
