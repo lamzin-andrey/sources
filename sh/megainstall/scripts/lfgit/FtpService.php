@@ -53,6 +53,10 @@ class FtpService
         $bat = "cd {$pathForDir}\n";
         $bat .= "put {$localPath}\n";
         $bat .= "get {$localName} {$localPath}.dwnl\n";
+        
+        if (!$md5) {
+			$md5 = md5_file($localPath);
+		}
 
         if ($targetName) {
             $shortName = pathinfo($localPath, PATHINFO_BASENAME);
@@ -66,16 +70,22 @@ class FtpService
         $this->executeFtpBat($bat, true);
 
         $checkFile = $localPath . '.dwnl';
+        echo "Search local check file '{$checkFile}'\n";
         if (file_exists($checkFile)) {
+			echo "Local check file '{$checkFile}' exists\n";
             $checkSum = md5_file($checkFile);
             $sum = $md5;
             if ($checkSum == $sum) {
                 unlink($checkFile);
-                unlink($localPath);
+                echo "CheckSum is equiv\n";
                 return true;
-            }
+            } else {
+				echo "CheckSum is NOT equiv ($checkSum != $sum) !\n";
+			}
             unlink($checkFile);
-        }
+        } else {
+			echo "Local check file '{$checkFile}' NOT exists!\n";
+		}
 
         return false;
     }

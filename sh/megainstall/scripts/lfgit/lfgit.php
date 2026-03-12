@@ -2,6 +2,9 @@
 <?php
 
 /**
+ * Этот файл создан главным образом потому, что хочется решить проблему долгих пушей.
+ * Косячина ниже не будет правится.
+ * 
  * Здесь есть косячина: при первом запуске надо следить, что возвращает сервер в качестве рабочей директории.
  * Хорошо, если сделаешь ненужный коммит первым и всё настроишь.
  * */
@@ -138,6 +141,12 @@ class LfGit
         $remotePath = $this->config['fpath'] . '/' . dirname($file);
         $remoteFile = $this->config['fpath'] . '/' . $file;
         
+        echo "Try short way\n";
+        if ($this->ftpService->ftpUpload($file, $remoteFile)) {
+			echo "Short upload ok!\n";
+			return;
+		}
+        
         echo "Uploading {$file}...\n";
         
         // Create remote directory if needed
@@ -161,7 +170,7 @@ class LfGit
 
 // Main execution
 if ($argc < 2 || $argv[1] !== 'commit') {
-    die("Usage: lfgit commit\n");
+    die("Usage: lfgit2 commit\n");
 }
 
 try {
