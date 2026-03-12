@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>En help - update root certificate mkcert</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../css/h.css"/>
+</head>
+
+<body>
+<div class="text">
+<p>You typically see this help when FastXAMPPSsl failed to automatically update the root certificate.
+After reading this help, you will be able to understand:
+</p>
+<ul>
+<li>
+<a href="#whyRCA">Do you need to update it at all?</a>
+</li>
+<li>
+<a href="#howUpdateManualy">How to update a certificate from the console</a>
+</li>
+<li>
+<a href="#howFixPhpIni">How to edit your php.ini so that certificate updates occur automatically in the future.</a>
+</li>
+</ul>
+<h1 id="whyRCA">Why update the root certificate at all?</h1>
+<p>If you have mkcert installed and you added a site to localhost using FastXfmppSSL, the browser should open the site using the <span class="green">https://</span> protocol, and the browser should consider the site's SSL certificate valid. This does NOT require updating the root certificate.
+See screenshots of the site displayed on localhost (Firefox browser).
+</p>
+<p class="tc">
+<img src="./i/cert1-en.jpg">
+</p>
+<p class="tc">
+<i>Displaying the mkcert certificate in Firefox 146.0</i>
+</p>
+<p class="tc">
+<img src="./i/cert2-en.jpg">
+</p>
+<p class="tc">
+<i>Example certificate data</i>
+</p>
+<p>Updating the root certificate becomes necessary during development,
+when you develop multiple sites on localhost and one of your sites makes a request to another on the backend,
+that is, a PHP script from one site accesses the second site, for example, using PHP curl.</p>
+<p>A real-life example (this is the reason the FastXamppSSL utility was created):</p>
+<p>1 I'm working on a real project on localhost as part of a rather small Teams.</p>
+<p>2 They cut off all internet service except for mobile 2G. And not for just one day.</p>
+<p>3 It turns out that the local copy of the site accesses more than one external resource via curl (which terribly slows down local development) and these URLs aren't included in the config files. No one noticed this because no one had any internet issues up until now.</p>
+<p>4 MRs with hostnames included in the config file are being blocked because everyone's busy with other tasks, and it's better to focus on the current one and not waste colleagues' time on reviewing it, because it's Q4 and everyone's incredibly busy. And it's not customary to roll out without a review in the company.</p>
+<p>5 I quickly create a bunch of local namesakes of the services the project accesses on the local server, but it turns out this isn't enough, because curl refuses to accept the certificates created by mkcert.</p>
+<p>Updating the root certificate turned out to be the solution.</p>
+
+<h1 id="howUpdateManualy">How to update a certificate from the console</h1>
+<p>1 Open <code>`/opt/lampp/etc/php.ini`</code> and find the setting <code>`<span class="sname">openssl.cafile</span>`</code></p>
+<p>Sometimes there may be multiple lines; it's important to find the one for which the file specified in this
+setting exists.</p>
+<p>
+For XAMPP 7.4.28, it's equal to <code>`/opt/lampp/share/curl/curl-ca-bundle.crt`</code>, but there is no guarantee
+that it will not change in new versions of XAMPP.
+</p>
+<p>FastXAMPPSsl may create a setting in php.ini:
+<div class="innerList">
+<code class="papper"><span class="ln">1930</span><span class="sname">openssl.cafile</span>=<span class="greeb">/etc/ssl/certs/combined-ca-bundle.crt</span></code>
+</div>
+, but the file
+may not exist (otherwise, you would hardly have seen the prompt to open this help file).
+However, in this case, there will definitely be a commented-out line above with the path to the default file. You can also look at the path in
+`<code>/opt/lampp/etc/__php.ini</code>` - this is a backup php.ini file created when installing the FastXAMPPSsl utility.
+</p>
+<p>So, you should find the original certificate file and ensure it exists. After that, you run the following command in the console:</p>
+<p>
+<code class="sh">
+sudo mkdir /etc/ssl<br>
+sudo mkdir /etc/ssl/certs<br>
+sudo rm /etc/ssl/certs/combined-ca-bundle.crt<br>
+sudo cp /opt/lampp/share/curl/curl-ca-bundle.crt /etc/ssl/certs/combined-ca-bundle.crt
+</code>
+</p>
+<p>
+Here, instead of `/opt/lampp/share/curl/curl-ca-bundle.crt`, you need to use the path to the certificate file you found. </p>
+<p>Next, make sure the file <code>/home/username/.local/share/mkcert/rootCA.pem</code></p>
+<p>Here <code>username</code> is, of course, your Linux username.</p>
+<p>
+In December 2025, mkcert v1.4.4 stored its root certificate there.
+But things evolve, things change, and perhaps you're reading this help page because mkcert stores its certificate in a different location today.
+</p>
+<p>So, having found your mkcert rootCA, execute</p>
+<p>
+<code class="sh">
+cat /home/username/.local/share/mkcert/rootCA.pem | sudo tee -a /etc/ssl/certs/combined-ca-bundle.crt
+</code>
+</p>
+<p>Here, replace <code>/home/username/.local/share/mkcert/rootCA.pem</code> with the path to your file.</p>
+<p>All you have to do is edit php.ini, leaving the line there:
+
+<div class="innerList">
+<code class="papper"><span class="ln">1930</span><span class="sname">openssl.cafile</span>=<span class="greeb">/etc/ssl/certs/combined-ca-bundle.crt</span></code>
+</div>
+
+uncommented and run:
+
+</p>
+<p>
+<code class="sh">
+sudo /opt/lampp/lampp restart
+</code>
+</p>
+
+<h1 id="howFixPhpIni">How to edit your php.ini so that certificate updates occur automatically in the future.</h1>
+<p>When using FastXamppSsl, root certificate updates should occur automatically. But if you're reading this, that's not happening.</p>
+<p>This could be due to unexpected php.ini content for FastXamppSSL and the absence of the file <code>/home/username/.local/share/mkcert/rootCA.pem</code></p>
+<p>You need to edit php.ini so that the settings
+<div class="innerList">
+<code class="papper"><span class="ln">1930</span><span class="sname">openssl.cafile</span>=<span class="greeb">...</span></code>
+</div>
+
+There are no more than two in the file, including the commented ones. </p> 
+<p>In other words, write the lines in your file:</p> 
+<p> 
+<div class="innerList"> 
+<code class="papper"> 
+<span class="ln">1928</span><span class="green">#original</span><br> 
+<span class="ln">1929</span><span class="green">#openssl.cafile=/opt/lampp/share/curl/curl-ca-bundle.crt</span><br> 
+<span class="ln">1930</span><span class="sname">openssl.cafile</span>=<span class="greeb">/etc/ssl/certs/combined-ca-bundle.crt</span>
+</code>
+</div>
+</p>
+<p>and delete all other lines that include the substring <code>`<span class="sname">openssl.cafile</span>=`</code></p>
+<p>In this case, the value <code>/opt/lampp/share/curl/curl-ca-bundle.crt</code> should be replaced with the path to your original certificate file.</p>
+<p>Also, if the new version of mkcert stores its certificate in a location other than <code>/home/username/.local/share/mkcert/rootCA.pem</code>, create a copy of its certificate there.</p>
+<p></p>
+</div>
+</body>
+
+</html>

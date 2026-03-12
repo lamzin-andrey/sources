@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Type=Application
+Name=FastXamppSSL
+Comment=autorun FastXAMPPSsl Tray Tool
+Exec=/opt/p-landlib/apps/xamppSsl/xamppSsl.sh
+Path=/opt/p-landlib/apps/xamppSsl
+# TODO
+Icon=/opt/p-landlib/apps/xamppSsl/i/sxampp.png
+Categories=GTK;Development;
+Terminal=false

@@ -1,0 +1,97 @@
+
+
+setup (5).py - идельаная верстка, но логики добавления и удаления нет.
+
+setup (6).py - по сути отличный клон C++/Qt приложения, но ssl нет.
+
+Текущий setup.py - всё сломалось, но я думаю использовать фрагменты из него при правке (6)
+
+===
+Мы продублировали ранее существовавшее приложение, оно теперь не зависит от qt библиотек а использует только python3, который есть в xubuntu "из коробки"!
+Но теперь надо добавить новые функции.
+Надо первым делом выполнять `mkcert {SITE_NAME}` чтобы создать локальный сертификат в /tmp.
+Если не удалось (например, mkcert не установлен), то выдавать сообщение "mkcert не установлен. Инструкцию по его установке вы можете найти в каталоге приложения в файлеmkcert.install.txt. Сайт добавится без поддержки ssl!". В этом случае логика добавления сайта работает без изменений.
+
+Если же сертификаты сгенерились, придётся усложнить логику.
+
+1 Сертификаты копируются в каталог /opt/lampp/htdocs/{SITE_NAME}/{WWW_DIR_NAME}/ssl		*
+
+2 в v-hosts добавляется такой конфиг (пример):											*
+```httpd
+<VirtualHost *:443>
+	ServerAdmin webmaster@service.moneta.ru
+	ServerName service.moneta.ru
+	DocumentRoot "/opt/lampp/htdocs/service.moneta.ru/www"
+	ScriptAlias /cgi/ /opt/lampp/htdocs/service.moneta.ru/cgi/
+	ErrorLog /opt/lampp/htdocs/service.moneta.ru/error.log
+	CustomLog /opt/lampp/htdocs/service.moneta.ru/access.log common
+	
+	SSLEngine on
+	SSLCertificateFile "/opt/lampp/htdocs/service.moneta.ru/www/ssl/service.moneta.ru.pem"
+	SSLCertificateKeyFile "/opt/lampp/htdocs/service.moneta.ru/www/ssl/service.moneta.ru-key.pem"
+</VirtualHost>
+```
+
+Очевидно, что в примере  SITE_NAME = 'service.moneta.ru', а WWW_DIR_NAME = 'www', туда надо подставить наши значения из инпутов.
+
+3 Парсим /opt/lampp/etc/php.ini. Находим настройку `openssl.cafile` и получаем её значение. *
+
+
+```bash
+# копируем оригинальный сертификат lampp
+		 cp /opt/lampp/share/curl/curl-ca-bundle.crt /etc/ssl/certs/combined-ca-bundle.crt
+		 # объединяем с ним серт mkcert
+		 cat /home/username/.local/share/mkcert/rootCA.pem | sudo tee -a /etc/ssl/certs/combined-ca-bundle.crt
+```
+В этом примере `/opt/lampp/share/curl/curl-ca-bundle.crt` - это значение настройки openssl.cafile из php.ini которое мы получили ранее, а username надо заменить на системную $USER. Важно, скрипт p/u.sh будет запускаться из под root (с помощью pkexec), но $USER в скрипте p/rt.sh при этом должен быть текущий.
+
+В p/u.sh пишем запуск `pkexec p/u.sh` (путь лучше вычислить абсолютный) и запускаем p/u.sh
+
+В php.ini производим замену: комментируем оригинальную `openssl.cafile`
+и добавляем под ней
+openssl.cafile=/etc/ssl/certs/combined-ca-bundle.crt
+
+Это должно обеспечить поддержку ssl при работе на локалхост.
+===
+
+
+4. Добиваемся показа уведомлений										*
+   Попробовать вынести в отдельную прилу.								*
+
+5. Локализовать сообщения при показе уведомлений (это в xamppSsl.py).	*
+
+6. ПОискать ещё TODO (mkcert help)										*
+
+7. Написать сами хелпы.													*
+
+8. Перейти к About диалогу												*
+	
+9. Перейти к установщику.												(...)
+
+Что делаем.
+
+1 Дорабатываем установщик до состояния, в котором у него есть шкала прогресса и радиокнопки. *
+
+2 Понимаем, что нужно прихватить из установщика FX 7.4.28				(...)
+
+Надо доработать собственно процесс установки.
+ 
+ 
+Ещё остро необходимо проверять наличие каталога lampp и писать сообщение если его нет.
+
+А также добавить в инсталлятор p-landlib потому что оказывается я юзаю это в трее.
+Сделав это отправляемся на виртуалку live cd.
+и тестим.
+
+
+4 Если хватит сил и пороху, придумываем красивое изображение для устанощика.
+ Идея: градиент сверху вниз зелены - белый *=-1
+       Сверху фишка в виде зеленого значка XAMPP
+
+Баги:
+1 Явно есть проблема с локализацией тултипа.				*
+2 И About диалога *
+2 Если mkcert не работает, показывается сообщение Will run mkcert help и всё.	*
+   Кажется проблема была в правах на запись, её уже пофиксил.
+
+

@@ -1,0 +1,6 @@
+Не поддерживается больше.
+Two different extensions are available that provide access to Memcached from within your PHP scripts. One is named memcache and the other is named memcached. This extension (the one named memcache with no d on the end) is no longer maintained. 
+
+Источник
+https://serverpilot.io/docs/how-to-install-the-php-memcache-extension
+(Last updated April 17, 2019 )

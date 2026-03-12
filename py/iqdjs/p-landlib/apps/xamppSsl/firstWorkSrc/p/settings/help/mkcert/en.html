@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>En help - install mkcert</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../css/h.css"/>
+</head>
+
+<body>
+<div class="text">
+<p>You typically see this help when FastXAMPPSsl failed to automatically add an SSL certificate to a site hosted on your localhost.
+This describes installation on Linux Xubuntu 22.04.
+</p> 
+<h1 id="whyRCA">Installation</h1> 
+<p> 
+<code class="sh"> 
+<span class="c">#1 # Installing mkcert</span><br> 
+sudo apt install libnss3-tools<br> 
+curl -s https://api.github.com/repos/FiloSottile/mkcert/releases/latest \<br> 
+| grep browser_download_url.*linux-amd64 \<br> 
+| cut -d '"' -f 4 \<br>
+| wget -qi -<br>
+mv mkcert-v*-linux-amd64 mkcert<br>
+chmod +x mkcert<br>
+sudo mv mkcert /usr/local/bin/<br>
+
+<span class="c"># Create a local CA</span><br>
+mkcert -install<br>
+
+<span class="c"># Create certificates for websites</span><br>
+<span class="c">#mkcert localhost</span><br>
+<span class="c">#mkcert "localhost" "*.localhost" "site1.local" "site2.local"</span><br>
+<span class="c">#mkcert site1.local</span><br>
+<span class="c">#mkcert site2.local</span><br>
+
+<span class="c"># And even like this:</span><br>
+mkcert hello.com<br>
+
+<span class="c"># Certificates automatically trusted in the system and browsers</span><br>
+</code>
+</p>
+<p>
+If the files <code>hello.com.pem</code> and <code>hello.com-key.pem</code> were created in the directory where you launched the terminal, then everything is fine, and FastXamppSsl will be able to automatically add SSL certificates to subsequent localhost site creations,
+by adding them to <code>/opt/lampp/etc/extra/httpd-vhosts.conf</code>.
+</p>
+<p>Firefox 146.0 and Google Chrome in Xubuntu 22.04 have no issues with this certificate at all.</p>
+<p class="tc">
+<img src="../rootCert/i/cert1.png">
+</p>
+<p class="tc">
+<i>Displaying the mkcert certificate in Firefox 146.0</i>
+</p>
+<p class="tc">
+<img src="../rootCert/i/cert2.jpg">
+</p>
+<p class="tc">
+<i>Example certificate data</i>
+</p>
+<p>Chromium is more demanding, but you can still download Google Chrome.</p>
+<p></p>
+</div>
+</body>
+
+</html>

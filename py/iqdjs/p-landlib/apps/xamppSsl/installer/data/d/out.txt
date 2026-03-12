@@ -1,0 +1,43 @@
+mkdir: cannot create directory ‘/opt/p-landlib’: File exists
+mkdir: cannot create directory ‘/opt/p-landlib/apps’: File exists
+mkdir: cannot create directory ‘/opt/p-landlib/apps/xamppSsl’: File exists
+mkdir: cannot create directory ‘/usr/local/fastxampp’: File exists
+mkdir: cannot create directory ‘/home/andrey/Документы/xamppSsl’: File exists
+/home/andrey/hdata/programs/my/sources/py/iqdjs/p-landlib/apps/xamppSsl/installer/data/d/unpack.sh: line 23: /etc/init.d/apache: No such file or directory
+/home/andrey/hdata/programs/my/sources/py/iqdjs/p-landlib/apps/xamppSsl/installer/data/d/unpack.sh: line 24: /etc/init.d/apache22: No such file or directory
+/home/andrey/hdata/programs/my/sources/py/iqdjs/p-landlib/apps/xamppSsl/installer/data/d/unpack.sh: line 25: /etc/init.d/apache24: No such file or directory
+Stopping XAMPP for Linux 7.4.28-1...
+XAMPP: Stopping Apache...not running.
+XAMPP: Stopping MySQL...not running.
+XAMPP: Stopping ProFTPD...not running.
+mkdir: cannot create directory ‘/usr/local/fastxampp’: File exists
+Копирование файлов
+Распаковка архива, пожалуйста ждите
+The system user `mysql' already exists. Exiting.
+Распаковка завершена
+Конфигурация multihosts
+mkdir: cannot create directory ‘/opt/lampp/htdocs/localhost’: File exists
+mkdir: cannot create directory ‘/opt/lampp/htdocs/localhost/www’: File exists
+cp: cannot stat '/opt/lampp/htdocs/dashboard': No such file or directory
+rm: cannot remove '/opt/lampp/htdocs/dashboard': No such file or directory
+cp: cannot stat '/opt/lampp/htdocs/img': No such file or directory
+rm: cannot remove '/opt/lampp/htdocs/img': No such file or directory
+cp: cannot stat '/opt/lampp/htdocs/webalizer': No such file or directory
+rm: cannot remove '/opt/lampp/htdocs/webalizer': No such file or directory
+cp: cannot stat '/opt/lampp/htdocs/applications.html': No such file or directory
+rm: cannot remove '/opt/lampp/htdocs/applications.html': No such file or directory
+cp: cannot stat '/opt/lampp/htdocs/bitnami.css': No such file or directorchmod: cannot access '/home/andrey/.config/fastxampp/.out': No such file or directory
+not stat '/opt/lampp/htdocs/favicon.ico': No such file or directory
+rm: cannot remove '/opt/lampp/htdocs/favicon.ico': No such file or directory
+cp: cannot stat '/opt/lampp/htdocs/index.php': No such file or directory
+rm: cannot remove '/opt/lampp/htdocs/index.php': No such file or directory
+cp: cannot stat '/home/andrey/hdata/programs/my/sources/py/iqdjs/p-landlib/apps/xamppSsl/installer/data/x/exts/libMagickWand-6.Q16.so.6': No such file or directory
+cp: cannot stat '/home/andrey/hdata/programs/my/sources/py/iqdjs/p-landlib/apps/xamppSsl/installer/data/x/exts/libMagickCore-6.Q16.so.6': No such file or directory
+cp: cannot stat '/home/andrey/hdata/programs/my/sources/py/iqdjs/p-landlib/apps/xamppSsl/installer/data/x/exts/liblqr-1.so.0': No such file or directory
+rm: cannot remove '/opt/xampp.tar.gz': No such file or directory
+Конфигурация multihosts завершена
+Создание каталога fastxampp
+mkdir: cannot create directory ‘/usr/local/fastxampp’: File exists
+Создание файловой системы в оперативной памяти
+Создание файловой системы в оперативной памяти
+Запуск демона fastxamppd

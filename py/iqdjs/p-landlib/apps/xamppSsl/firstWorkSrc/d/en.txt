@@ -1,0 +1,6 @@
+Stop XAMPP
+(Re)start XAMPP
+Settings
+About
+----------
+Exit

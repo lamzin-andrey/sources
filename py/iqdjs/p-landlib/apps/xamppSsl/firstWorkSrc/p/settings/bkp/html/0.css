@@ -1,0 +1,72 @@
+/*.workwrapper {
+	margin-top: 32px;
+}
+body{
+  background-image: url('000shab.png');
+  background-repeat: no-repeat;
+  background-position-x: 8px;
+  background-position-y: 4px;
+}*/
+
+.dlg {
+	font-family: Arial;
+	font-size: 12px;
+	padding: 10px;
+	/*! background: #EFE9D6; */
+	background: #EFEBE7;
+	width: 366px;
+	max-width: 366px;
+	height: 416px;
+}
+
+.dlg fieldset label {
+	margin-left: 6px;
+	/*! padding-top: 64px; */
+	vertical-align: bottom;
+	line-height: 26px;
+}
+.dlg fieldset input[type=text] {
+	border: 1px solid #548CAF;
+  border-radius: 2px;
+  float: right;
+  margin-right: 6px;
+  margin-top: 2px;
+  width: 198px;
+
+}
+
+.dLabel {
+    margin-bottom:6px;
+    margin-left: 7px;
+    margin-top: 3px;
+}
+
+.iblock {
+	margin-bottom:4px;
+}
+
+.qtb {
+  margin-right: 5px;
+  width: 82px;
+  background: linear-gradient(to bottom,#fcfcfd, #DEE5E8);
+  border: 1px solid #548CAF;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.dlg fieldset {
+	border-color: #E0DCD9;
+	background: #ECE8E4;
+}
+
+#iFilter {
+	width:268px;
+}
+
+.dlg select {
+	width:97%;
+	height:100%;
+	margin-left: 5px;
+	min-height: 196px;
+}
