@@ -72,3 +72,24 @@ span label span {
 input[type=text].long {
 	width:500px;
 }
+
+/** table */
+table {
+	width:100%;
+	border: 1px solid black;
+	border-collapse: collapse;  /* заменяет cellspacing="0" */
+	border-spacing: 0;    
+}
+td,.th{
+	 padding: 0;                 /* заменяет cellpadding="0" */
+	 border: 1px solid black;
+}
+
+td{
+	 padding-left: 10px;
+}
+
+th {
+	padding: 6px;
+	background:#FFFBDB;
+}

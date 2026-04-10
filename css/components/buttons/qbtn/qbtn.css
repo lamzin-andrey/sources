@@ -7,9 +7,10 @@ input[type=button] {
   font-size: 12px;
   font-family: Arial;
   line-height: 20px;
+  height: 28px;
+  color:#000;
 }
 
 input[type=button]:active{
-	background: linear-gradient(to top, #0064ff, white,white,white,white,white, #0064ff);
+	background: linear-gradient(to top, #72a0f0, white,white,white,white,white, #72a0f0);
 }
-

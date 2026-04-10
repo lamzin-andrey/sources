@@ -122,8 +122,13 @@ cp $workdir/scripts/gitmeld/gitmeldnocomm.php $target/gitmeldnocomm.php -f
 #echo "Exec php $workdir/scripts/gitmeld/install.php";
 php $workdir/scripts/gitmeld/install.php $workdir/scripts/gitmeld $target $HOME/.local/share/applications//GitMeld.desktop
 
-
-
+#lwgit 2026
+cd $workdir/scripts/lwgit
+tar -xvzf aws.tar.gz
+sudo cp -rf $workdir/scripts/lwgit/aws /usr/local/bin/aws
+sudo cp -f $workdir/scripts/lwgit/laws.php /usr/local/bin/laws.php
+sudo cp -f $workdir/scripts/lwgit/lwgit.php /usr/local/bin/lwgit
+rm -rf $workdir/scripts/lwgit/aws
 
 #qdjs
 sudo ln -s $HOME/hdata/soft/desktop-js/run.sh /usr/local/bin/qdjs
