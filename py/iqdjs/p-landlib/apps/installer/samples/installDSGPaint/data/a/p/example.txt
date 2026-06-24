@@ -1,0 +1,2 @@
+# С указанием выходного файла
+./convert_images.py input.jpg output.png

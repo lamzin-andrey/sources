@@ -1,0 +1,18 @@
+[Desktop Entry]
+
+Name=DSGImagEditor
+GenericName=Image Editor Lite
+Comment=Small simple image editing programm
+
+Icon=/home/andrey/hdata/vdis/bridge/isya/xp-wall/dsgPaint/my.jpg
+
+Type=Application
+Exec=wine /home/andrey/hdata/vdis/bridge/isya/xp-wall/dsgPaint/bmp_editor.exe %u
+#X-DocPath=kolourpaint/index.html
+
+MimeType=image/bmp;image/gif;image/jpeg;image/png;
+
+Categories=Graphics;2DGraphics;RasterGraphics;
+Terminal=false
+
+#Run! update-desktop-database ~/.local/share/applications/

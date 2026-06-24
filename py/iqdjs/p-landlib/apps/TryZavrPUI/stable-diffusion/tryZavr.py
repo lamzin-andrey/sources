@@ -28,11 +28,11 @@ enText = translate_phrase(App.getArgs()[1])
 model_id = "dreamlike-art/dreamlike-diffusion-1.0" # Была про динозавров, но кажется вообще крутая
 #model_id = "sd-legacy/stable-diffusion-v1-5" # использовалась по умолчанию в WebUI
 #model_id = "prompthero/openjourney" # Как миджорни
-#model_id = "hakurei/waifu-diffusion" # "под вайфы" WTF?
-
-# Не установленные
 #model_id = "darkstorm2150/Protogen_v2.2_Official_Release" #Если нужна модель, заточенная под портреты
 
+# Не установленные
+#model_id = "hakurei/waifu-diffusion" # "под вайфы" типа для японских комиксов. 
+# Удалил, но возможно попытаюсь использовать для рисования в мультяшном стиле
 
 #pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16) # cuda
 pipe = StableDiffusionPipeline.from_pretrained(model_id)
@@ -59,6 +59,7 @@ images = pipe(
     guidance_scale = 7.0,
     num_images_per_prompt = 1
 ).images
+
 
 #print("Array of Images done, try save \n ")
 

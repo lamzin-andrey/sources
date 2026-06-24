@@ -1,0 +1,23 @@
+#2 # Установка mkcert
+sudo apt install libnss3-tools
+curl -s https://api.github.com/repos/FiloSottile/mkcert/releases/latest \
+  | grep browser_download_url.*linux-amd64 \
+  | cut -d '"' -f 4 \
+  | wget -qi -
+mv mkcert-v*-linux-amd64 mkcert
+chmod +x mkcert
+sudo mv mkcert /usr/local/bin/
+
+# Создаем локальный CA
+mkcert -install
+
+# Создаем сертификаты для сайтов
+#mkcert localhost
+#mkcert "localhost" "*.localhost" "site1.local" "site2.local"
+#mkcert site1.local
+#mkcert site2.local
+
+# И даже так:
+mkcert service.ru
+
+# Сертификаты автоматически доверенные в системе и браузерах

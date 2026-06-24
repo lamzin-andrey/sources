@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ru help - установка mkcert</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="../css/h.css"/>
+</head>
+
+<body>
+	<div class="text">
+		<p>Обычно вы видите эту справку в тех случаях, когда FastXAMPPSsl не удалось автоматически добавить SSL сертификат на сайт, расположенный на вашем localhost.
+		   Здесь описана установка в Linux Xubuntu 22.04.
+		</p>
+		<h1 id="whyRCA">Установка</h1>
+		<p>
+			<code class="sh">
+				<span class="c">#1 # Установка mkcert</span><br>
+				sudo apt install libnss3-tools<br>
+				curl -s https://api.github.com/repos/FiloSottile/mkcert/releases/latest \<br>
+				  | grep browser_download_url.*linux-amd64 \<br>
+				  | cut -d '"' -f 4 \<br>
+				  | wget -qi -<br>
+				mv mkcert-v*-linux-amd64 mkcert<br>
+				chmod +x mkcert<br>
+				sudo mv mkcert /usr/local/bin/<br>
+
+				<span class="c"># Создаем локальный CA</span><br>
+				mkcert -install<br>
+
+				<span class="c"># Создаем сертификаты для сайтов</span><br>
+				<span class="c">#mkcert localhost</span><br>
+				<span class="c">#mkcert "localhost" "*.localhost" "site1.local" "site2.local"</span><br>
+				<span class="c">#mkcert site1.local</span><br>
+				<span class="c">#mkcert site2.local</span><br>
+
+				<span class="c"># И даже так:</span><br>
+				mkcert hello.ru<br>
+
+				<span class="c"># Сертификаты автоматически доверенные в системе и браузерах</span><br>
+			</code>
+		</p>
+		<p>
+			Если в каталоге, в котором вы запустили терминал создались файлы
+			<code>hello.ru.pem</code> и <code>hello.ru-key.pem</code>, значит всё нормально, и FastXamppSsl при последующих созданиях сайтов на localhost сможет добавлять им ssl сертификаты автоматически,
+			прописывая их в <code>/opt/lampp/etc/extra/httpd-vhosts.conf</code>.
+		</p>
+		<p>У Firefox 146.0 и Google Chrome в Xubuntu 22.04 вообще никаких претензий к такому сертификату не возникает.</p>
+		<p class="tc">
+			<img src="../rootCert/i/cert1.png">
+		</p>
+		<p class="tc">
+			<i>Отображение сертификата mkcert в Firefox 146.0</i>
+		</p>
+		<p class="tc">
+			<img src="../rootCert/i/cert2.jpg">
+		</p>
+		<p class="tc">
+			<i>Пример данных сертификата</i>
+		</p>
+		<p>Chromium более требователен, но вам ничто не мешает скачать Google Chrome.</p>
+		<p></p>
+	</div>
+</body>
+
+</html>

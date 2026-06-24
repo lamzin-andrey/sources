@@ -1,0 +1,23 @@
+Мне это не помогло, но я научился запускать xammpp с ssl
+
+Здесь рабочие конфиги 7.4.28.
+В httpd-ssl.conf скорее всего ничего не менял. Но оставлю на всякий случай.
+В httpd.conf раскомментировал включение httpd-ssl.conf
+
+Все файлы предварительно были изменены установкой fx
+
+
+Если хотим не просроченный сертификат, то
+openssl req -nodes -newkey rsa:2048 -keyout /home/andrey/fastxampp.key -out /home/andrey/fastxampp.csr
+
+openssl x509 -in /home/andrey/fastxampp.csr -out /home/andrey/fastxampp.crt -req -signkey /home/andrey/fastxampp.key -days 3650
+
+
+------
+А затевалось это всё ради того, чтобы не писать
+
+tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-ru-en", force_download=False, local_files_only= True)
+
+model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-ru-en", force_download=False, local_files_only= True)
+
+в скрипте перевода. 

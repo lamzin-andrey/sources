@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Управление сайтами на localhost</title>
+<link rel="stylesheet" href="./0.css" type="text/css">
+</head>
+<body>
+
+<!--div class="workwrapper" style="border: solid 1px #225593; max-width:388px;"-->
+	<div class="dlg" >
+		<div id="appendSiteLabel" class="dLabel">Добавить сайт</div>
+		<fieldset>
+			<div class="iblock">
+				<label class="fl" style="" for="siteName">Имя сайта</label>
+				<input class="fl" type="text" id="siteName" name="siteName" style="border: 1px solid #548CAF; border-radius:2px;">
+				<div class="cf"></div>
+			</div>
+			
+			<div class="iblock">
+				<label class="fl" style="" for="siteName">Корневая директория</label>
+				<input class="fl" type="text" id="rootDir" value="www" name="rootDir" style="border: 1px solid #548CAF; border-radius:2px;">
+				<div class="cf"></div>
+			</div>
+			
+			<div class="iblock" style="text-align:right;">
+				<input type="button" id="bAppend" name="bAppend" value="Добавить" class="qtb">
+			</div>
+			
+		</fieldset>
+		
+		<div id="sitelistLabel" class="dLabel">Список сайтов на localhost</div>
+		<fieldset>
+			<div class="iblock">
+				<label class="fl" style="" for="iFilter">Фильтр</label>
+				<input class="fl" type="text" id="iFilter" name="iFilter" style="border: 1px solid #548CAF; border-radius:2px;">
+				<div class="cf"></div>
+			</div>
+			<select multiple>
+				<option>localhost</option>
+				<option>mh.loc</option>
+				<option>test.loc</option>
+				<option>kasko.local.loc</option>
+				<option>kasko.local.loc</option>
+				<option>kasko.local.loc</option>
+				<option>kasko.local.loc</option>
+				<option>kasko.local.loc</option>
+				<option>kasko.local.loc</option>
+			</select>
+		</fieldset>
+	</div>
+<!--/div-->
+</body>
+
+</html>
+

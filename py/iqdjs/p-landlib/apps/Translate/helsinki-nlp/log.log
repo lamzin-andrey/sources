@@ -1,0 +1,8 @@
+/opt/p-landlib/landdesk/cenv.py:5: PyGIWarning: Gdk was imported without specifying a version first. Use gi.require_version('Gdk', '3.0') before import to ensure that the right version gets loaded.
+  from gi.repository import Gdk
+/home/andrey/.local/lib/python3.10/site-packages/transformers/tokenization_utils_base.py:1617: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be deprecated in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+get text: Здесь можно добавить ссылку на свой приватный канал в мессенджере Max
+HNLPResultOutput: Here you can add a link to your private channel in Max Massage./HNLPResultOutput
+7.84user 0.55system 0:05.67elapsed 148%CPU (0avgtext+0avgdata 664504maxresident)k
+0inputs+24outputs (0major+150643minor)pagefaults 0swaps

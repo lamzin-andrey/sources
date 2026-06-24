@@ -24,7 +24,7 @@ Gtk.StyleContext.add_provider_for_screen(
 )
 
 
-class MyWindow(Gtk.Window):
+class LandlibSDUIWindow(Gtk.Window):
     def __init__(self):
         super().__init__(title="Hello World")
         self.set_default_size(800, 600)
@@ -186,12 +186,12 @@ class MyWindow(Gtk.Window):
         
 
 
-win = MyWindow()
+win = LandlibSDUIWindow()
 win.connect("destroy", Gtk.main_quit)
 MW.setWindow(win, __file__);
 MW.moveTo(100, 10);
 MW.resizeTo(600, 100);
-MW.setTitle("Stable Diffusion UI - WC Group");
+MW.setTitle("Stable Diffusion UI - Work Copy");
 
 #MW.maximize();
 

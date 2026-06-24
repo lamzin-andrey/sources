@@ -1,0 +1,16 @@
+/home/andrey/.local/lib/python3.10/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Couldn't connect to the Hub: (MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /api/models/dreamlike-art/dreamlike-diffusion-1.0 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x74bb36db03a0>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))"), '(Request ID: af9fb5d4-ad12-403f-98eb-75dd4aeb8c38)').
+Will try to load from local cache.
+Loading pipeline components...:   0%|          | 0/5 [00:00<?, ?it/s]Loading pipeline components...:  40%|████      | 2/5 [00:00<00:00,  6.97it/s]Loading pipeline components...:  60%|██████    | 3/5 [00:00<00:00,  3.02it/s]Loading pipeline components...: 100%|██████████| 5/5 [00:02<00:00,  1.46it/s]Loading pipeline components...: 100%|██████████| 5/5 [00:02<00:00,  1.76it/s]
+Супер — модель выбрали, загрузили в пайплайн. 
+
+Try USE CPU... 
+
+Arg: Green sports car
+
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:22<07:13, 22.82s/it] 10%|█         | 2/20 [00:48<07:17, 24.31s/it] 15%|█▌        | 3/20 [01:16<07:24, 26.14s/it] 20%|██        | 4/20 [01:40<06:46, 25.41s/it] 25%|██▌       | 5/20 [02:03<06:07, 24.47s/it] 30%|███       | 6/20 [02:26<05:34, 23.92s/it] 35%|███▌      | 7/20 [02:51<05:14, 24.15s/it] 40%|████      | 8/20 [03:13<04:44, 23.71s/it] 45%|████▌     | 9/20 [03:36<04:17, 23.39s/it] 50%|█████     | 10/20 [03:59<03:51, 23.15s/it] 55%|█████▌    | 11/20 [04:21<03:26, 22.95s/it] 60%|██████    | 12/20 [04:44<03:02, 22.81s/it] 65%|██████▌   | 13/20 [05:06<02:39, 22.78s/it] 70%|███████   | 14/20 [05:30<02:18, 23.11s/it] 75%|███████▌  | 15/20 [05:51<01:51, 22.39s/it] 80%|████████  | 16/20 [06:05<01:19, 19.87s/it] 85%|████████▌ | 17/20 [06:20<00:55, 18.46s/it] 90%|█████████ | 18/20 [06:33<00:33, 16.89s/it] 95%|█████████▌| 19/20 [06:48<00:16, 16.25s/it]100%|██████████| 20/20 [07:09<00:00, 17.68s/it]100%|██████████| 20/20 [07:09<00:00, 21.48s/it]
+Done! 
+ 
+865.10user 44.90system 7:50.22elapsed 193%CPU (0avgtext+0avgdata 6727920maxresident)k
+16inputs+248outputs (0major+20504570minor)pagefaults 0swaps
