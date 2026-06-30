@@ -130,6 +130,15 @@ sudo cp -f $workdir/scripts/lwgit/laws.php /usr/local/bin/laws.php
 sudo cp -f $workdir/scripts/lwgit/lwgit.php /usr/local/bin/lwgit
 rm -rf $workdir/scripts/lwgit/aws
 
+#lpinger 2026
+crontab -l > $workdir/scripts/pinger/cron.tpl.txt
+python3 $workdir/scripts/pinger/install.py
+crontab $workdir/scripts/pinger/cron.txt
+
+#lcreatemap 2026
+sudo cp -f $workdir/scripts/createmap/lcreatemap.py /usr/local/bin/lcreatemap
+sudo chmod +x $workdir/scripts/createmap/lcreatemap
+
 #qdjs
 sudo ln -s $HOME/hdata/soft/desktop-js/run.sh /usr/local/bin/qdjs
 

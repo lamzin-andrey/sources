@@ -1,0 +1,1 @@
+0 * * * * php /home/andrey/hdata/programs/my/sources/sh/megainstall/scripts/pinger/lpinger.php

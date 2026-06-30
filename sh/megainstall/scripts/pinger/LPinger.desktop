@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=LPinger
+Comment=получаем ip важных доменов
+Exec=/home/andrey/hdata/programs/my/sources/sh/megainstall/scripts/pinger/run.sh
+Icon=0565_uninstall.0
+Path=
+Terminal=false
+StartupNotify=false
