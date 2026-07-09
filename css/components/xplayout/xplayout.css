@@ -24,6 +24,9 @@ div select, div select option {
 	background-color: #FFF;
 	height: 25px;
 }
+div select {
+	padding-left:10px;
+}
 
 div input[type=button] {
 	display:inline-block;
