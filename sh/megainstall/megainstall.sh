@@ -152,6 +152,7 @@ cp /home/$USER/hdata/programs/my/qdjs/capslockstate/yuic.desktop /home/$USER/.co
 #screenshoter
 #mkdir $HOME/screenshots
 #sudo cp /usr/bin/xfce4-screenshooter /usr/bin/xfce4-screenshooter.native
+sudo cp /usr/bin/xfce4-screenshooter /usr/bin/xfce4-screenshooter.native.ironcopy
 $HOME/hdata/soft/bash/screenshooter/screenshooter-installer.sh
 
 #ssmtpconfig
