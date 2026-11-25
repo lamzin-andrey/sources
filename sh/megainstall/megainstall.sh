@@ -1,9 +1,20 @@
 #! /bin/bash
 
-#2025-05-13
+#2026-11-24 x26.04
 
 
 #сначала установи lampp, распакуй, скопируй hdata, flipcat.lan copyif NEED!
+
+# Для XamppSsl делать надо такой фикс: во всех файлах вверх выносишь
+
+
+#import gi
+
+#gi.require_version('Gtk', '3.0')
+#gi.require_version('Gdk', '3.0')
+
+# Для qdjs
+# ln -s /usr/lib/x86_64-linux-gnu/libxml2.so.16.1.2 ./libxml2.so.2
 
 # Запрос параметров для настройки ssmtp (сама нстройка вызывается ниже, а скрипты в hdata_soft_bash)
 
@@ -15,51 +26,72 @@
 
 workdir=`pwd`
 
-ssmptuser=`zenity --entry --text="Введите email с которого планируете спамить в Интернеты"`
+# отменено, так как smtp в общедоступных известных почтовых сервисах практически всё.
+#ssmptuser=`zenity --entry --text="Введите email с которого планируете спамить в Интернеты"`
+#ssmptpassword=`zenity --entry --text="Введите пароль от email с которого планируете сапамить в Интернеты" --hide-text`
 
+# Но оставлены фейковые меёл и пароль, чтобы просто не забыть конфигурацию
+ssmptuser=punk@mail.ru
+ssmptpassword=forbidden123456
 
-ssmptpassword=`zenity --entry --text="Введите пароль от email с которого планируете сапамить в Интернеты" --hide-text`
+# Отменено, так как на ноябрь 2026 поддержки не предвидится. Ниже две команды, которые работают в xubuntu 26.04
+# Что приятно - из коробки. 
+# Как только установлю всё что смогу, напишу форму для этоих команд.
 
 #Добавляем всё что есть нестандартного
 ##it old for 14.04 sudo apt-add-repository ppa:osmoma/audio-recorder
-sudo add-apt-repository ppa:audio-recorder/ppa
+#sudo add-apt-repository ppa:audio-recorder/ppa
 
-#Обновляемся
+# sudo add-apt-repository ppa:ubuntuhandbook1/audio-recorder
+
+# две команды, которые работают в xubuntu 26.04
+# line input
+# pw-record -P '{ "stream.capture.sink": true }' ~/system-audio.wav
+
+# mic
+# pw-record --output ~/recording.wav # notest!
+
+# Обновляемся
 sudo apt-get update
-
+#
 #Ставим нестандартное
-sudo apt-get install audio-recorder
+#sudo apt-get install audio-recorder
 
+# echo "Мы постарались установить аудио рекордер. Что получилось, мы не знаем."
+
+# exit
 
 #Ставим стандартное
+# wireshark
+sudo apt-get install filezilla  mtools mc git putty meld geany synaptic g++ virtualbox oxygen-icon-theme kate kolourpaint gimp qgit 7zip 7zip-full 7zip-rar graphicsmagick gparted nodejs npm mplayer fontforge ssmtp  curl vim  tor kazam nestopia ktorrent  sshpass vlc libx11-dev ghex brasero cpufrequtils hardinfo  net-tools webp gthumb chromium-browser -y
+
+echo "Смотри, что теперь нельзя установиьт через sudo apt-get install";
+# telegram-desktop
 #chromium-browser wireshark
-sudo apt-get install filezilla  mtools mc git putty meld geany synaptic g++ virtualbox oxygen-icon-theme kate kolourpaint gimp qgit p7zip p7zip-full p7zip-rar gparted nodejs npm mplayer fontforge ssmtp telegram-desktop curl vim  tor kazam nestopia ktorrent  sshpass vlc libx11-dev ghex brasero cpufrequtils hardinfo  net-tools graphicsmagick-imagemagick-compat webp gthumb -y
+# exit;
 
-
-
-#exit;
-
-#Ставим nodejs && gulp
+#Ставим nodejs && gulp - пока почти неактуально
 ##gulp
-cd /opt/lampp/htdocs/flipcat.lan
-rm -rf node_modules
-sudo npm install -g npm@6.5.0
+#cd /opt/lampp/htdocs/flipcat.lan
+#rm -rf node_modules
+#sudo npm install -g npm@6.5.0
 sudo npm install -g gulp@3.9.1
 sudo npm i -g gulp-cli
 #точно помню что на i386 пришлось также npm install gulp без sudo  и -g иначе не работало, но на amd64 пошло
-npm install laravel-elixir
-sudo chown andrey:andrey -R $HOME/.npm
-sudo chmod 777 -R $HOME/.npm
+#npm install laravel-elixir
+#sudo chown andrey:andrey -R $HOME/.npm
+#sudo chmod 777 -R $HOME/.npm
 
-npm install gulp
-npm install laravel-elixir
+#npm install gulp
+#npm install laravel-elixir
 
 cd /home/$USER/hdata/soft/bash/merge
 sudo ln -s $HOME/hdata/soft/bash/publicmy/public /usr/bin/public
 sudo ln -s /opt/lampp/bin/php /usr/bin/php
 
-sudo ln -s /usr/lib/i386-linux-gnu/libMagickWand-6.Q16.so.3 /usr/lib/i386-linux-gnu/libMagickWand.so.5
-sudo ln -s /usr/lib/i386-linux-gnu/libMagickCore-6.Q16.so.3 /usr/lib/i386-linux-gnu/libMagickCore.so.5
+# TODO чекнуть версии - не удалось найти ничего похожего
+# sudo ln -s /usr/lib/i386-linux-gnu/libMagickWand-6.Q16.so.3 /usr/lib/i386-linux-gnu/libMagickWand.so.5
+# sudo ln -s /usr/lib/i386-linux-gnu/libMagickCore-6.Q16.so.3 /usr/lib/i386-linux-gnu/libMagickCore.so.5
 
 public $HOME/hdata/soft/bash/merge/create_migration.sh
 public $HOME/hdata/soft/bash/merge/drop_last_mig.sh
@@ -152,8 +184,8 @@ cp /home/$USER/hdata/programs/my/qdjs/capslockstate/yuic.desktop /home/$USER/.co
 #screenshoter
 #mkdir $HOME/screenshots
 #sudo cp /usr/bin/xfce4-screenshooter /usr/bin/xfce4-screenshooter.native
-sudo cp /usr/bin/xfce4-screenshooter /usr/bin/xfce4-screenshooter.native.ironcopy
-$HOME/hdata/soft/bash/screenshooter/screenshooter-installer.sh
+#sudo cp /usr/bin/xfce4-screenshooter /usr/bin/xfce4-screenshooter.native.ironcopy
+#$HOME/hdata/soft/bash/screenshooter/screenshooter-installer.sh
 
 #ssmtpconfig
 
@@ -177,6 +209,8 @@ cp $HOME/hdata/soft/bash/merge/g-s-t-custom.desktop $HOME/.local/share/applicati
 # set scrollbars
 mkdir $HOME/.config/gtk-3.0
 
+# TODO здесь иметь ввиду, что появился каталог gtk-4
+
 echo '
 .scrollbar.vertical slider, 
 	scrollbar.vertical slider {
@@ -199,3 +233,11 @@ echo '
 # Patch lock/unlock layer icon for Inkscape with oxygen
 sudo cp -f /usr/share/icons/oxygen/base/16x16/actions/document-decrypt.png /usr/share/icons/oxygen/base/16x16/actions/document-decrypt-origin.png
 sudo cp -f /usr/share/icons/oxygen/base/16x16/actions/document-edit.png /usr/share/icons/oxygen/base/16x16/actions/document-decrypt.png
+
+# 2026-11-24 path geany
+killall geany
+cp -f $workdir/cnf/geany.tar.gz $HOME/.config/geany.tar.gz
+mv $HOME/.config/geany $HOME/.config/geany--
+cd $HOME/.config
+tar -xvzf geany.tar.gz
+
