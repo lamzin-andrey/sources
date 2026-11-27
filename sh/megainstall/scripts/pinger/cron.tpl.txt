@@ -1,1 +1,2 @@
-0 * * * * php /home/andrey/hdata/programs/my/sources/sh/megainstall/scripts/pinger/lpinger.php
+*/5 * * * * php /opt/lampp/htdocs/qdpm.lan/www/p/wrk/dlclient.php > /opt/lampp/htdocs/qdpm.lan/www/p/wrk/log.txt 2>&1
+#* * * * * php /opt/lampp/htdocs/qdpm.lan/www/p/wrk/dlclient.php > /opt/lampp/htdocs/qdpm.lan/www/p/wrk/log.txt 2>&1

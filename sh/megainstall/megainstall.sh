@@ -135,6 +135,7 @@ public $HOME/hdata/soft/bash/merge/clear_rosfin_cache/qb2/qb2.sh
 sudo cp -f $workdir/scripts/dcint.php /usr/local/bin/pcint
 sudo cp -f $workdir/scripts/dspub.py /usr/local/bin/dspub
 sudo cp -f $workdir/scripts/lfgit/lfgit.php /usr/local/bin/lfgit
+sudo chmod 755  /usr/local/bin/lfgit
 sudo cp -f $workdir/scripts/lfgit/FtpService.php /usr/local/bin/FtpService.php
 #gitmeld 2025
 mkdir $HOME/.local/landlib
